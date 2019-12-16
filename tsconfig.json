@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"lib": [
+			"es6",
+			"dom"
+		]
+	},
+	"include": [
+		"*.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"client"
+	]
+}

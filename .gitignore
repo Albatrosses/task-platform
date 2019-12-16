@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+npm-debug.log
+nbproject
+client/node_modules
+build/
+views/
+*.log
+.vscode
+config/*.js
+server/**/*.js
+/*.js

@@ -1,16 +1,19 @@
+# Prophet Frontend(React)
+This is Frontend for Hybrid Crawler system.
+
 # Environment
 node > 6.0<br/>
 npm > 6.0<br/>
 yarn > 1.2.0
 
 # Technologies
-1. Express.js
-2. Puppeteer
+1. React
+2. Typescript
 3. Graphql(Apollo)
-4. Request.js
-5. Cheerio
-6. Mongodb
-7. Typescript
+4. Antd
+5. Sass
+6. styled-components
+7. Jest
 
 # Init project
 ```bash
@@ -22,7 +25,7 @@ yarn install
 yarn dev
 ```
 
-# Run project on production
+# Build project
 ```bash
-yarn server
+yarn build
 ```
