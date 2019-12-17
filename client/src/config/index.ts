@@ -1,7 +1,7 @@
 interface IGlobalConfig {
-  defaultLocale: string
+  defaultLocale: string;
 }
 
 export const globalConfig: IGlobalConfig = {
   defaultLocale: "zh-CN"
-}
+};

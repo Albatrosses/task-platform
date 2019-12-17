@@ -6,4 +6,5 @@ const client = new ApolloClient({
 
 export const toQuery = async (query: any) => await client.query({ query });
 
-export const toMutation = async (mutation: any) => await client.mutate({ mutation });
+export const toMutation = async (mutation: any) =>
+  await client.mutate({ mutation });
