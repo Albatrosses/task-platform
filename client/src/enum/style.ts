@@ -1,3 +1,5 @@
-export enum Color {
-  Dark = "#001529"
+export enum COLOR {
+  MAIN_BACKGROUND = "#F1F4F7",
+  ITEM_BACKGROUND = "#FFFFFF",
+  ITEM_SHADOW = "#FAFAFC"
 }

@@ -47,6 +47,7 @@ const Wrapper = styled.div`
 
 const MainWrapper = styled.div`
   flex: auto;
+  box-sizing: border-box;
 `;
 
 export default App;
