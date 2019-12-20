@@ -8,16 +8,21 @@ html, body, #root {
   margin: 0;
   padding: 0;
   font-family: "MuseoSans", sans-serif;
-      src:
+    src:
       url("../fonts/museo-sans/MuseoSans_700-webfont.woff") format("woff"),
       url("../fonts/museo-sans/MuseoSans_700-webfont.ttf") format("truetype"),
       url("../fonts/museo-sans/MuseoSans_700-webfont.svg") format("svg");
-      font-weight: 700;
-      font-style: normal;
+  font-weight: 400;
+  font-style: normal;
+  color: #284B75;
 }
 
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
 }
