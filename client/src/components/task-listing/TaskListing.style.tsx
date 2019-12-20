@@ -11,6 +11,12 @@ export const TaskListingWrapper = styled.div`
   overflow-x: hidden;
 `;
 
+export const HeroWrapper = styled.div`
+  flex: 0 0 190px;
+  height: 190px;
+  width: 100%;
+`;
+
 export const FilterWrapper = styled.div`
   flex: 0 0 30px;
   height: 30px;

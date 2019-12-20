@@ -5,7 +5,7 @@ export const generateThirdPartyFilter = () => {
   const thirdPartyFilterList = thirdPartyFilter.slice(0);
 
   thirdPartyFilterList.unshift({
-    id: generateHashCode(),
+    key: generateHashCode(),
     name: "全部"
   });
 

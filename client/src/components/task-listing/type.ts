@@ -1,7 +1,7 @@
 import { TASK_STATUS_CODE } from "src/enum/task";
 
 export type TTask = {
-  id: number;
+  key: string;
   name: string;
   image: string;
   tag: string[];
@@ -11,7 +11,7 @@ export type TTask = {
 };
 
 export type TThirdPartyFilter = {
-  id: number;
+  key: string;
   name: string;
   status?: TASK_STATUS_CODE;
 };
