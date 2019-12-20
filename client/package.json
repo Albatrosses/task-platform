@@ -5,7 +5,7 @@
   "author": "Albatrosses <capitalism_4418@163.com>",
   "private": true,
   "scripts": {
-    "dev": "node scripts/start.js PORT=18081",
+    "start": "node scripts/start.js PORT=18081",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "lint:fix": "tslint -p . --fix && stylelint '**/*.ts' '**/*.tsx' --fix"
