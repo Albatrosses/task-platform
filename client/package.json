@@ -11,6 +11,8 @@
     "lint:fix": "tslint -p . --fix && stylelint '**/*.ts' '**/*.tsx' --fix"
   },
   "dependencies": {
+    "@types/antd": "^1.0.0",
+    "antd": "^3.26.3",
     "antd-mobile": "^2.3.1",
     "apollo-boost": "^0.4.3",
     "autoprefixer": "7.1.6",
@@ -122,7 +124,8 @@
   },
   "babel": {
     "presets": [
-      "react-app"
+      "react-app",
+      "stage-0"
     ]
   }
 }

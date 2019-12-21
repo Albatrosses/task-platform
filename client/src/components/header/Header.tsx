@@ -15,7 +15,7 @@ export const Header: React.FC<any> = () => {
           <Icon key="1" type="ellipsis" />
         ]}
       >
-        任务酒馆
+        有赞吧
       </NavBar>
     </HeaderWrapper>
   );

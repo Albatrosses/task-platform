@@ -1,5 +1,5 @@
 import { generateHashCode } from "src/helper/common";
-import { thirdPartyFilter } from "./dataSource";
+import { thirdPartyFilter } from "../data/data";
 
 export const generateThirdPartyFilter = () => {
   const thirdPartyFilterList = thirdPartyFilter.slice(0);

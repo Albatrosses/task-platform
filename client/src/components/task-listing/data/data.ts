@@ -1,6 +1,6 @@
 import { TASK_STATUS_CODE, TASK_STATUS_NAME } from "src/enum/task";
 import { generateHashCode } from "src/helper/common";
-import { TTask, TThirdPartyFilter } from "./type";
+import { TTask, TThirdPartyFilter } from "../type/type";
 
 export const taskListing: TTask[] = [
   {
@@ -10,7 +10,9 @@ export const taskListing: TTask[] = [
     tag: ["抖音"],
     total: 500,
     reward: 500,
-    status: TASK_STATUS_CODE.ASSIGNED
+    status: TASK_STATUS_CODE.ASSIGNED,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
   },
   {
     key: generateHashCode(),
@@ -19,7 +21,9 @@ export const taskListing: TTask[] = [
     tag: ["快手"],
     total: 500,
     reward: 500,
-    status: TASK_STATUS_CODE.ASSIGNED
+    status: TASK_STATUS_CODE.ASSIGNED,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
   },
   {
     key: generateHashCode(),
@@ -28,7 +32,9 @@ export const taskListing: TTask[] = [
     tag: ["微博"],
     total: 500,
     reward: 500,
-    status: TASK_STATUS_CODE.UNASSIGNED
+    status: TASK_STATUS_CODE.UNASSIGNED,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
   },
   {
     key: generateHashCode(),
@@ -37,7 +43,9 @@ export const taskListing: TTask[] = [
     tag: ["抖音"],
     total: 500,
     reward: 500,
-    status: TASK_STATUS_CODE.REVIEWING
+    status: TASK_STATUS_CODE.REVIEWING,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
   },
   {
     key: generateHashCode(),
@@ -46,7 +54,9 @@ export const taskListing: TTask[] = [
     tag: ["抖音", "快手", "微博"],
     total: 500,
     reward: 500,
-    status: TASK_STATUS_CODE.COMPLETED
+    status: TASK_STATUS_CODE.COMPLETED,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
   }
 ];
 

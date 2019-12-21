@@ -11,3 +11,10 @@ export enum TASK_STATUS_NAME {
   REVIEWING = "审核中",
   COMPLETED = "已完成"
 }
+
+export enum TASK_TAG {
+  DOUYIN = "抖音",
+  KUAISHOU = "快手",
+  WEIBO = "微博",
+  WEISHI = "微视"
+}

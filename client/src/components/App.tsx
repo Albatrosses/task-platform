@@ -1,53 +1,24 @@
 import { createBrowserHistory } from "history";
+import { map } from "lodash";
 import * as React from "react";
 import { Route, Router, Switch } from "react-router";
-import styled from "styled-components";
-import { Entry } from "./entry/Entry";
-import { Footer } from "./footer/Footer";
-import { Header } from "./header/Header";
-import { TaskDetail } from "./task-detail/TaskDetail";
-import { TaskListing } from "./task-listing/TaskListing";
+import { routesConfig } from "src/config/route";
+import { AppWrapper } from "./App.style";
 
 const history = createBrowserHistory();
 
-class App extends React.Component {
-  public render() {
-    return (
-      <Wrapper>
-        <Header />
-        <MainWrapper>
-          <Router history={history}>
-            <Switch>
-              <Route exact={true} path="/" component={Entry} />
-              <Route
-                exact={true}
-                path="/task-listing"
-                component={TaskListing}
-              />
-              <Route
-                exact={true}
-                path="/task-listing/detail"
-                component={TaskDetail}
-              />
-            </Switch>
-          </Router>
-        </MainWrapper>
-        <Footer />
-      </Wrapper>
-    );
-  }
-}
-
-const Wrapper = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const MainWrapper = styled.div`
-  flex: auto;
-  box-sizing: border-box;
-`;
+const App = () => {
+  return (
+    <AppWrapper>
+      <Router history={history}>
+        <Switch>
+          {map(routesConfig, ({ exact, path, component }) => (
+            <Route key={path} exact={exact} path={path} component={component} />
+          ))}
+        </Switch>
+      </Router>
+    </AppWrapper>
+  );
+};
 
 export default App;
