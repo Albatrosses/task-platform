@@ -1,7 +1,15 @@
+# import TaskListingSchema from './taskListingSchema.graphql';
+# import TaskDetailSchema from './taskDetailSchema.graphql';
+
 type Query {
-  test: String
+  taskListing(page: Int): [TaskListing]
+}
+
+type Mutation {
+  taskDetail(id: Int): TaskDetail
 }
 
 schema {
   query: Query
+  mutation: Mutation
 }

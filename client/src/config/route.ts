@@ -18,7 +18,7 @@ export const routesConfig = [
     showFooter: false
   },
   {
-    path: "/task-listing/detail",
+    path: "/task-listing/detail/:id",
     component: TaskDetail,
     exact: true,
     showHeader: false,

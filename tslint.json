@@ -1,0 +1,30 @@
+{
+  "defaultSeverity": "warn",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**/*.{ts,tsx}",
+      "client"
+    ]
+  },
+  "rules": {
+    "prettier": true,
+    "one-variable-per-declaration": false,
+    "object-literal-key-quotes": false,
+    "max-line-length": false,
+    "no-unused-expression": [
+      true,
+      "allow-fast-null-checks"
+    ],
+    "trailing-comma": false,
+    "object-literal-sort-keys": false,
+    "interface-over-type-literal": false,
+    "arrow-parens": false,
+    "interface-name": false
+  }
+}

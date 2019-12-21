@@ -1,0 +1,15 @@
+type TaskDetail {
+  id: Int,
+  key: String,
+  name: String,
+  description: String,
+  criteria: String,
+  image: String,
+  link: String,
+  tag: [String],
+  total: Int,
+  reward: Int,
+  status: Int,
+  startDate: String,
+  endDate: String
+}

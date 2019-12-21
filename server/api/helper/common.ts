@@ -79,6 +79,3 @@ export const generateHashCode = (
   }
   return str;
 };
-
-export const parseCurrency = (reward: number) =>
-  "￥" + reward.toLocaleString("en-US");

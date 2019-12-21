@@ -1,0 +1,12 @@
+type TaskListing {
+  id: Int,
+  key: String,
+  name: String,
+  image: String,
+  tag: [String],
+  total: Int,
+  reward: Int,
+  status: Int,
+  startDate: String,
+  endDate: String
+}

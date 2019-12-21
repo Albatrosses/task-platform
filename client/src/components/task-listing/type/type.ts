@@ -1,6 +1,7 @@
 import { TASK_STATUS_CODE } from "src/enum/task";
 
 export type TTask = {
+  id: number;
   key: string;
   name: string;
   description?: string;

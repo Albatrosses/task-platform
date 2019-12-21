@@ -2,7 +2,7 @@ import { Tag } from "antd-mobile";
 import { filter, map } from "lodash";
 import * as React from "react";
 import { TASK_STATUS_CODE } from "src/enum/task";
-import { parseCurrency } from "src/helper/parse";
+import { parseCurrency } from "src/helper/common";
 import { TTask } from "../../type/type";
 import { ListingWrapper } from "./Listing.style";
 

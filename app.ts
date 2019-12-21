@@ -1,62 +1,62 @@
-import debugServer from 'debug';
-const debug = debugServer('demo:server');
-import * as http from 'http';
-import express from 'express';
-import * as path from 'path';
-import logger from 'morgan';
-import cookieParser from 'cookie-parser';
-import * as bodyParser from 'body-parser';
-import route from './server/route/';
-import ejs from 'ejs';
-import graphqlServer from './server/api/index';
+import debugServer from "debug";
+const debug = debugServer("demo:server");
+import * as bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import ejs from "ejs";
+import express from "express";
+import * as http from "http";
+import logger from "morgan";
+import * as path from "path";
+import graphqlServer from "./server/api/index";
+import route from "./server/route/";
 
 const app = express();
-app.set('views', path.join(__dirname, '../views/'));
-app.engine('.html', ejs.__express);
-app.set('view engine', 'html');
-app.use(logger('dev'));
+app.set("views", path.join(__dirname, "../views/"));
+app.engine(".html", ejs.__express);
+app.set("view engine", "html");
+app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../views/')));
-app.use('/', route);
+app.use(express.static(path.join(__dirname, "../views/")));
+app.use("/", route);
 graphqlServer(app);
 
 app.use(function(req, res, next) {
-  const err = new Error('Not Found');
+  const err = new Error("Not Found");
   // err.status = 404;
-  next(err)
+  next(err);
 });
 
-if (app.get('env') === 'development') {
+if (app.get("env") === "development") {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500)
-    res.render('error', {
+    res.status(err.status || 500);
+    res.render("error", {
       message: err.message,
       error: err
-    })
-  })
+    });
+  });
 }
 
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500)
-  res.render('error', {
+  res.status(err.status || 500);
+  res.render("error", {
     message: err.message,
     error: {}
-  })
+  });
 });
 
-var port = normalizePort(process.env.PORT || '8080');
-app.set('port', port);
+let port = normalizePort(process.env.PORT || "8080");
+app.set("port", port);
 
-var server = http.createServer(app);
+let server = http.createServer(app);
 
 server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  let port = parseInt(val, 10);
   if (isNaN(port)) {
     return val;
   }
@@ -67,21 +67,19 @@ function normalizePort(val) {
 }
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  let bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
       process.exit(1);
       break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
       process.exit(1);
       break;
     default:
@@ -90,10 +88,7 @@ function onError(error) {
 }
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  let addr = server.address();
+  let bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
 }
-
