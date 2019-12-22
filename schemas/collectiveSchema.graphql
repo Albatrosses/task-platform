@@ -2,11 +2,12 @@
 # import TaskDetailSchema from './taskDetailSchema.graphql';
 
 type Query {
-  taskListing(page: Int): [TaskListing]
+  getTaskListing(page: Int): [TaskListing]
+  getTaskDetail(id: Int): TaskDetail
 }
 
 type Mutation {
-  taskDetail(id: Int): TaskDetail
+  UpdateTaskDetail: TaskDetail
 }
 
 schema {

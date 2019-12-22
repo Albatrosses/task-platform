@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
-export const TASK_LISTING = gql`
-  {
-    getTaskListing {
+export const TASK_DETAIL = gql`
+  query queryTaskDetail($id: Int) {
+    getTaskDetail(id: $id) {
       id
       key
       name
@@ -13,6 +13,9 @@ export const TASK_LISTING = gql`
       status
       startDate
       endDate
+      link
+      criteria
+      description
     }
   }
 `;
