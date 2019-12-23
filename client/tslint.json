@@ -31,6 +31,7 @@
     "jsx-no-lambda": false,
     "jsx-boolean-value": false,
     "arrow-parens": false,
-    "interface-name": false
+    "interface-name": false,
+    "jsx-curly-spacing": false
   }
 }

@@ -1,0 +1,17 @@
+export enum TASK_STATUS_CODE {
+  UNASSIGNED = 1,
+  ASSIGNED = 2,
+  REVIEWING = 3,
+  COMPLETED = 4
+}
+
+export enum POLATFORM_CODE {
+  DEFAULT = 0,
+  DOUYIN,
+  KUAISHOU,
+  WEIBO,
+  WEISHI,
+  XIGUA,
+  TAOBAO,
+  FACEBOOK
+}

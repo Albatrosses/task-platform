@@ -1,5 +1,9 @@
-import { TTask } from "./types";
+import { find } from "lodash";
+import { taskListingData } from "./mock";
 
-export const UpdateTaskDetail = async (_, { task }): Promise<TTask> => {
-  return task;
+export const mutationTaskDetail = async (_, { input }): Promise<boolean> => {
+  const { id, status } = input;
+  const task = find(taskListingData, { id });
+  task.status = status;
+  return true;
 };

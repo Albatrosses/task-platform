@@ -1,13 +1,26 @@
-import { generateHashCode } from "../../helper/common";
-import { TASK_STATUS_CODE } from "./types";
+import { POLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
+import { TTask } from "./types";
 
-export const taskListingData = [
+export const taskListingData: TTask[] = [
   {
     id: 1,
-    key: generateHashCode(),
     name: "抖音任务",
-    image: "src/assets/img/douyin.jpg",
-    tag: ["抖音"],
+    simple: "这是一条抖音任务",
+    description: "这是一条抖音任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.DOUYIN,
+        link: "https://www.douyin.com/"
+      }
+    ],
     total: 500,
     reward: 500,
     status: TASK_STATUS_CODE.ASSIGNED,
@@ -16,10 +29,23 @@ export const taskListingData = [
   },
   {
     id: 2,
-    key: generateHashCode(),
     name: "快手任务",
-    image: "src/assets/img/kuaishou.jpeg",
-    tag: ["快手"],
+    simple: "这是一条快手任务",
+    description: "这是一条快手任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.KUAISHOU,
+        link: "https://www.kuaishou.com/"
+      }
+    ],
     total: 500,
     reward: 500,
     status: TASK_STATUS_CODE.ASSIGNED,
@@ -28,10 +54,23 @@ export const taskListingData = [
   },
   {
     id: 3,
-    key: generateHashCode(),
     name: "微博任务",
-    image: "src/assets/img/weibo.png",
-    tag: ["微博"],
+    simple: "这是一条微博任务",
+    description: "这是一条微博任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.WEIBO,
+        link: "https://weibo.com/"
+      }
+    ],
     total: 500,
     reward: 500,
     status: TASK_STATUS_CODE.UNASSIGNED,
@@ -40,10 +79,123 @@ export const taskListingData = [
   },
   {
     id: 4,
-    key: generateHashCode(),
-    name: "其他平台任务",
-    image: "src/assets/img/facebook.png",
-    tag: ["抖音"],
+    name: "微博任务",
+    simple: "这是一条微博任务",
+    description: "这是一条微博任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.WEIBO,
+        link: "https://weibo.com/"
+      }
+    ],
+    total: 500,
+    reward: 500,
+    status: TASK_STATUS_CODE.UNASSIGNED,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
+  },
+  {
+    id: 5,
+    name: "微视任务",
+    simple: "这是一条微视任务",
+    description: "这是一条微视任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.WEISHI,
+        link: "https://weishi.com/"
+      }
+    ],
+    total: 500,
+    reward: 500,
+    status: TASK_STATUS_CODE.UNASSIGNED,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
+  },
+  {
+    id: 6,
+    name: "西瓜视频任务",
+    simple: "这是一条西瓜视频任务",
+    description: "这是一条西瓜视频任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.XIGUA,
+        link: "https://www.ixigua.com/"
+      }
+    ],
+    total: 500,
+    reward: 500,
+    status: TASK_STATUS_CODE.UNASSIGNED,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
+  },
+  {
+    id: 7,
+    name: "脸书任务",
+    simple: "这是一条脸书任务",
+    description: "这是一条脸书任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.FACEBOOK,
+        link: "https://facebook.com/"
+      }
+    ],
+    total: 500,
+    reward: 500,
+    status: TASK_STATUS_CODE.UNASSIGNED,
+    startDate: "2019/12/12",
+    endDate: "2020/12/12"
+  },
+  {
+    id: 8,
+    name: "多平台任务",
+    simple: "这是一条多平台任务",
+    description: "这是一条多平台任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.DEFAULT,
+        link: "https://www.baidu.com/"
+      }
+    ],
     total: 500,
     reward: 500,
     status: TASK_STATUS_CODE.REVIEWING,
@@ -51,11 +203,24 @@ export const taskListingData = [
     endDate: "2020/12/12"
   },
   {
-    id: 5,
-    key: generateHashCode(),
-    name: "多组任务",
-    image: "src/assets/img/facebook.png",
-    tag: ["抖音", "快手", "微博"],
+    id: 9,
+    name: "其他平台任务",
+    simple: "这是一条其他平台任务",
+    description: "这是一条其他平台任务，我是任务的详细说明",
+    steps: [
+      "点击复制链接",
+      "打开对应应用",
+      "双击点赞关注",
+      "上传凭据",
+      "领取酬金"
+    ],
+    criteria: ["凭据清晰可见"],
+    polatforms: [
+      {
+        code: POLATFORM_CODE.DEFAULT,
+        link: "https://www.baidu.com/"
+      }
+    ],
     total: 500,
     reward: 500,
     status: TASK_STATUS_CODE.COMPLETED,

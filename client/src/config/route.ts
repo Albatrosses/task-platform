@@ -1,6 +1,6 @@
 import { Entry } from "src/components/entry/Entry";
-import TaskDetail from "src/components/task-detail/TaskDetail";
-import TaskListing from "src/components/task-listing/TaskListing";
+import TaskDetail from "src/components/task/components/task-detail/TaskDetail";
+import TaskListing from "src/components/task/components/task-listing/TaskListing";
 
 export const routesConfig = [
   {

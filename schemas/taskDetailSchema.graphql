@@ -1,15 +1,24 @@
 type TaskDetail {
   id: Int,
-  key: String,
   name: String,
+  simple: String,
   description: String,
-  criteria: String,
-  image: String,
-  link: String,
-  tag: [String],
+  criteria: [String],
+  polatforms: [Polatform],
+  steps: [String],
   total: Int,
-  reward: Int,
+  reward: Float,
   status: Int,
   startDate: String,
   endDate: String
+}
+
+type Polatform {
+  code: Int,
+  link: String
+}
+
+input TaskDetailInput {
+  id: Int,
+  status: Int
 }

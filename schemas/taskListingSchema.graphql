@@ -1,12 +1,16 @@
 type TaskListing {
   id: Int,
-  key: String,
   name: String,
-  image: String,
-  tag: [String],
+  simple: String,
+  polatforms: [Polatform],
   total: Int,
-  reward: Int,
+  reward: Float,
   status: Int,
   startDate: String,
   endDate: String
+}
+
+type Polatform {
+  code: Int,
+  link: String
 }

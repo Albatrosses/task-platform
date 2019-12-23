@@ -1,13 +1,13 @@
-import { UpdateTaskDetail } from "./task/mutation";
-import { getTaskDetail, getTaskListing } from "./task/query";
+import { mutationTaskDetail } from "./task/mutation";
+import { queryTaskDetail, queryTaskListing } from "./task/query";
 
 const Resolver = {
   Query: {
-    getTaskListing,
-    getTaskDetail
+    queryTaskListing,
+    queryTaskDetail
   },
   Mutation: {
-    UpdateTaskDetail
+    mutationTaskDetail
   }
 };
 

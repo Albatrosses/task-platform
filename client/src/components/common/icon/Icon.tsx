@@ -11,7 +11,10 @@ type TIconProps = {
 export const Icon: React.FC<TIconProps> = ({ className = "", ...props }) => {
   return (
     <IconWrapper>
-      <IconTemp className={classnames("icon", { className })} {...props} />
+      <IconTemp
+        className={classnames("icon", { [className]: className })}
+        {...props}
+      />
     </IconWrapper>
   );
 };
