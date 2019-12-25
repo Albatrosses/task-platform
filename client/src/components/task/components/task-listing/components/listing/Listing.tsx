@@ -67,7 +67,7 @@ export const Listing: React.FC<TListingProps> = ({
                   </div>
                   <div className="task-total">剩余数量：{total}</div>
                 </div>
-                <div className="task-result-wrapper">
+                <div className="task-reward-wrapper">
                   <div className="task-reward">{parseCurrency(reward)}</div>
                 </div>
               </li>

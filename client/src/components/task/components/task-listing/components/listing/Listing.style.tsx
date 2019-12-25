@@ -11,6 +11,7 @@ export const ListingWrapper = styled.div`
     box-sizing: border-box;
     .task-listing-item {
       cursor: pointer;
+      position: relative;
       width: 100%;
       height: 90px;
       margin: 20px 0;
@@ -64,8 +65,9 @@ export const ListingWrapper = styled.div`
           font-size: 10px;
         }
       }
-      .task-result-wrapper {
-        flex: 0 0 60px;
+      .task-reward-wrapper {
+        position: absolute;
+        right: 10px;
         .task-reward {
           font-size: 20px;
           font-weight: bolder;

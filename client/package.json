@@ -5,7 +5,7 @@
   "author": "Albatrosses <capitalism_4418@163.com>",
   "private": true,
   "scripts": {
-    "start": "node scripts/start.js PORT=18081",
+    "start": "set PORT=18081 && node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "lint:fix": "tslint -p . --fix && stylelint '**/*.ts' '**/*.tsx' --fix"
@@ -23,6 +23,7 @@
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
     "classnames": "^2.2.6",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",

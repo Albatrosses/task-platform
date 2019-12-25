@@ -12,7 +12,7 @@ const history = createBrowserHistory();
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <AppWrapper>
+      <AppWrapper className="app-wrapper">
         <Router history={history}>
           <Switch>
             {map(routesConfig, ({ exact, path, component }) => (

@@ -13,7 +13,7 @@ export const FilterWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     .task-filter-item {
-      padding: 6px 10px;
+      padding: 6px;
       border-radius: 6px;
       cursor: pointer;
       &.active {
