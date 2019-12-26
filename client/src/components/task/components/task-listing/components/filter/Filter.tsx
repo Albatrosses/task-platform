@@ -14,14 +14,14 @@ export const Filter: React.FC<TFilterProps> = ({
   filterStatus,
   setFilterStatus
 }) => {
-  return (
-    <FilterWrapper>
-      <div className="task-filter">
+  const renderStatusFilter = () => {
+    return (
+      <div className="status-filter">
         {map(statusConfig, ({ name }, key) => {
           return (
             <div
               key={key}
-              className={classnames("task-filter-item", {
+              className={classnames("status-filter-item", {
                 active: Number(key) === filterStatus
               })}
               onClick={() => setFilterStatus(Number(key))}
@@ -31,6 +31,8 @@ export const Filter: React.FC<TFilterProps> = ({
           );
         })}
       </div>
-    </FilterWrapper>
-  );
+    );
+  };
+
+  return <FilterWrapper>{renderStatusFilter()}</FilterWrapper>;
 };

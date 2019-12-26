@@ -170,7 +170,11 @@ export const Operating: React.FC<TConciseProps> = ({
           disabled={status === TASK_STATUS_CODE.REVIEWING}
         >
           {imageUrl ? (
-            <img src={imageUrl} alt="credentials" style={{ width: "100%" }} />
+            <img
+              className="credentials-uploaded-image"
+              src={imageUrl}
+              alt="credentials"
+            />
           ) : (
             uploadButton
           )}

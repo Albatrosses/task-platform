@@ -22,10 +22,16 @@ export const OperatingWrapper = styled.div`
     .credentials-uploader {
       height: 100%;
       width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
       .ant-upload {
         height: 100%;
         width: 100%;
         margin: 0;
+      }
+      .credentials-uploaded-image {
+        width: auto;
+        height: 100vw;
       }
     }
   }

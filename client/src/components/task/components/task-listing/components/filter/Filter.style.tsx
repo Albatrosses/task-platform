@@ -6,13 +6,13 @@ export const FilterWrapper = styled.div`
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
-  .task-filter {
+  .status-filter {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .task-filter-item {
+    .status-filter-item {
       padding: 6px;
       border-radius: 6px;
       cursor: pointer;
