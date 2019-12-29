@@ -1,11 +1,11 @@
-import { POLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
+import { PLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
 
 export type TTask = {
   id: number;
   name: string;
   simple?: string;
   description?: string;
-  polatforms: TPolatform[];
+  platforms: TPlatform[];
   total: number;
   reward: number;
   status: TASK_STATUS_CODE;
@@ -15,7 +15,7 @@ export type TTask = {
   criteria?: string[];
 };
 
-export type TPolatform = {
-  code: POLATFORM_CODE;
+export type TPlatform = {
+  code: PLATFORM_CODE;
   link: string;
 };

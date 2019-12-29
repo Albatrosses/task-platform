@@ -1,42 +1,50 @@
 import {
-  POLATFORM_CODE,
-  POLATFORM_NAME,
+  PLATFORM_CODE,
+  PLATFORM_NAME,
   TASK_STATUS_CODE,
   TASK_STATUS_NAME
 } from "./enum";
 
-export const imagesConfig = {
-  [POLATFORM_CODE.DEFAULT]: {
-    name: POLATFORM_NAME.DEFAULT,
-    image: require("src/assets/img/default.png")
+export const platformsConfig = {
+  [PLATFORM_CODE.DEFAULT]: {
+    name: PLATFORM_NAME.DEFAULT,
+    image: require("src/assets/img/default.png"),
+    checked: true
   },
-  [POLATFORM_CODE.DOUYIN]: {
-    name: POLATFORM_NAME.DOUYIN,
-    image: require("src/assets/img/douyin.jpg")
+  [PLATFORM_CODE.DOUYIN]: {
+    name: PLATFORM_NAME.DOUYIN,
+    image: require("src/assets/img/douyin.jpg"),
+    checked: true
   },
-  [POLATFORM_CODE.KUAISHOU]: {
-    name: POLATFORM_NAME.KUAISHOU,
-    image: require("src/assets/img/kuaishou.jpeg")
+  [PLATFORM_CODE.KUAISHOU]: {
+    name: PLATFORM_NAME.KUAISHOU,
+    image: require("src/assets/img/kuaishou.jpeg"),
+    checked: true
   },
-  [POLATFORM_CODE.WEIBO]: {
-    name: POLATFORM_NAME.WEIBO,
-    image: require("src/assets/img/weibo.jpg")
+  [PLATFORM_CODE.WEIBO]: {
+    name: PLATFORM_NAME.WEIBO,
+    image: require("src/assets/img/weibo.jpg"),
+    checked: true
   },
-  [POLATFORM_CODE.WEISHI]: {
-    name: POLATFORM_NAME.WEISHI,
-    image: require("src/assets/img/weishi.png")
+  [PLATFORM_CODE.WEISHI]: {
+    name: PLATFORM_NAME.WEISHI,
+    image: require("src/assets/img/weishi.png"),
+    checked: true
   },
-  [POLATFORM_CODE.XIGUA]: {
-    name: POLATFORM_NAME.XIGUA,
-    image: require("src/assets/img/xigua.jpg")
+  [PLATFORM_CODE.XIGUA]: {
+    name: PLATFORM_NAME.XIGUA,
+    image: require("src/assets/img/xigua.jpg"),
+    checked: true
   },
-  [POLATFORM_CODE.TAOBAO]: {
-    name: POLATFORM_NAME.TAOBAO,
-    image: require("src/assets/img/taobao.jpg")
+  [PLATFORM_CODE.TAOBAO]: {
+    name: PLATFORM_NAME.TAOBAO,
+    image: require("src/assets/img/taobao.jpg"),
+    checked: true
   },
-  [POLATFORM_CODE.FACEBOOK]: {
-    name: POLATFORM_NAME.FACEBOOK,
-    image: require("src/assets/img/facebook.png")
+  [PLATFORM_CODE.FACEBOOK]: {
+    name: PLATFORM_NAME.FACEBOOK,
+    image: require("src/assets/img/facebook.png"),
+    checked: true
   }
 };
 
@@ -57,3 +65,30 @@ export const statusConfig = {
     name: TASK_STATUS_NAME.COMPLETED
   }
 };
+
+export const rewardRangeConfig = [
+  {
+    label: "不限",
+    value: 0
+  },
+  {
+    label: "5",
+    value: 5
+  },
+  {
+    label: "10",
+    value: 10
+  },
+  {
+    label: "20",
+    value: 20
+  },
+  {
+    label: "50",
+    value: 50
+  },
+  {
+    label: "100",
+    value: 100
+  }
+];

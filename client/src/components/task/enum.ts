@@ -14,7 +14,7 @@ export enum TASK_STATUS_NAME {
   COMPLETED = "已完成"
 }
 
-export enum POLATFORM_NAME {
+export enum PLATFORM_NAME {
   DEFAULT = "",
   DOUYIN = "抖音",
   KUAISHOU = "快手",
@@ -25,7 +25,7 @@ export enum POLATFORM_NAME {
   FACEBOOK = "FaceBook"
 }
 
-export enum POLATFORM_CODE {
+export enum PLATFORM_CODE {
   DEFAULT = 0,
   DOUYIN,
   KUAISHOU,

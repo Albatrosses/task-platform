@@ -1,8 +1,8 @@
 import { Badge } from "antd-mobile";
 import { get } from "lodash";
 import * as React from "react";
-import { imagesConfig, statusConfig } from "src/components/task/config";
-import { POLATFORM_CODE, TASK_STATUS_CODE } from "src/components/task/enum";
+import { platformsConfig, statusConfig } from "src/components/task/config";
+import { PLATFORM_CODE, TASK_STATUS_CODE } from "src/components/task/enum";
 import { TTask } from "src/components/task/type";
 import { parseCurrency } from "src/helper/common";
 import { ConciseWrapper } from "./Concise.style";
@@ -12,12 +12,12 @@ type TConciseProps = {
 };
 
 export const Concise: React.FC<TConciseProps> = ({ taskDetail }) => {
-  const { name, status, polatforms, description, reward, steps } = taskDetail;
+  const { name, status, platforms, description, reward, steps } = taskDetail;
   let image;
-  if (polatforms.length === 1) {
-    image = get(imagesConfig, `${polatforms[0].code}.image`, "");
+  if (platforms.length === 1) {
+    image = get(platformsConfig, `${platforms[0].code}.image`, "");
   } else {
-    image = get(imagesConfig, `${POLATFORM_CODE.DEFAULT}.image`, "");
+    image = get(platformsConfig, `${PLATFORM_CODE.DEFAULT}.image`, "");
   }
   const statusText = get(statusConfig, `${status}.name`, "");
 

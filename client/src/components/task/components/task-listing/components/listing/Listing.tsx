@@ -2,8 +2,8 @@ import { Badge, Tag } from "antd-mobile";
 import { filter, get, map } from "lodash";
 import * as React from "react";
 import { withRouter } from "react-router";
-import { imagesConfig, statusConfig } from "src/components/task/config";
-import { POLATFORM_CODE, TASK_STATUS_CODE } from "src/components/task/enum";
+import { platformsConfig, statusConfig } from "src/components/task/config";
+import { PLATFORM_CODE, TASK_STATUS_CODE } from "src/components/task/enum";
 import { TTask } from "src/components/task/type";
 import { parseCurrency } from "src/helper/common";
 import { ListingWrapper } from "./Listing.style";
@@ -33,15 +33,19 @@ export const Listing: React.FC<TListingProps> = ({
             taskListing,
             ({ status }) => !filterStatus || status === filterStatus
           ),
-          ({ id, name, simple, polatforms, total, reward, status }, key) => {
-            const tags = map(polatforms, ({ code }) =>
-              get(imagesConfig, `${code}.name`, "")
+          ({ id, name, simple, platforms, total, reward, status }, key) => {
+            const tags = map(platforms, ({ code }) =>
+              get(platformsConfig, `${code}.name`, "")
             );
             let image;
-            if (polatforms.length === 1) {
-              image = get(imagesConfig, `${polatforms[0].code}.image`, "");
+            if (platforms.length === 1) {
+              image = get(platformsConfig, `${platforms[0].code}.image`, "");
             } else {
-              image = get(imagesConfig, `${POLATFORM_CODE.DEFAULT}.image`, "");
+              image = get(
+                platformsConfig,
+                `${PLATFORM_CODE.DEFAULT}.image`,
+                ""
+              );
             }
             const statusText = get(statusConfig, `${status}.name`, "");
             return (

@@ -2,7 +2,7 @@ type TaskListing {
   id: Int,
   name: String,
   simple: String,
-  polatforms: [Polatform],
+  platforms: [Platform],
   total: Int,
   reward: Float,
   status: Int,
@@ -10,7 +10,7 @@ type TaskListing {
   endDate: String
 }
 
-type Polatform {
+type Platform {
   code: Int,
   link: String
 }

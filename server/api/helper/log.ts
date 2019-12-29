@@ -11,8 +11,13 @@ export const timeLog = ({ status, message }: TMessage): void => {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
-  console.log(`${year}-${month}-${days} ${hours}:${minutes}:${seconds}`, `status: ${status}`, `message: ${message}`);
-}
+  // tslint:disable-next-line: no-console
+  console.log(
+    `${year}-${month}-${days} ${hours}:${minutes}:${seconds}`,
+    `status: ${status}`,
+    `message: ${message}`
+  );
+};
 
 export const timeErrorLog = (error: Error): void => {
   const date = new Date();
@@ -22,5 +27,9 @@ export const timeErrorLog = (error: Error): void => {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const seconds = date.getSeconds();
-  console.error(`${year}-${month}-${days} ${hours}:${minutes}:${seconds}`, error);
-}
+  // tslint:disable-next-line: no-console
+  console.error(
+    `${year}-${month}-${days} ${hours}:${minutes}:${seconds}`,
+    error
+  );
+};

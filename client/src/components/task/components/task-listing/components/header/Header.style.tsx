@@ -10,4 +10,25 @@ export const HeaderWrapper = styled.div`
   .header {
     background-color: ${COLOR.MAIN_BACKGROUND};
   }
+  .all-filter-wrapper {
+    & > div {
+      margin-bottom: 20px;
+      & > label {
+        margin-bottom: 16px;
+        display: block;
+      }
+      .platform-content > * {
+        margin-bottom: 10px;
+        border: 1px solid #1890ff;
+      }
+      .reward-content {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .reward-button {
+        margin-top: 20px;
+      }
+    }
+  }
 `;

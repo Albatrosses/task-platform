@@ -1,3 +1,5 @@
+import { indexOf, some } from "lodash";
+
 export const generateHashCode = (
   randomFlag: boolean = false,
   min: number = 10,
@@ -78,4 +80,42 @@ export const generateHashCode = (
     str += arr[pos];
   }
   return str;
+};
+
+export const compareStatus = (status, statusInput) => {
+  if (!statusInput) {
+    return true;
+  }
+  return status === statusInput;
+};
+
+export const comparePlatform = (platforms, platformInput) => {
+  return some(platforms, ({ code }) => indexOf(platformInput, code) > -1);
+};
+
+export const compareReward = (reward, rewardRange) => {
+  if (!rewardRange[1]) {
+    if (!rewardRange[0]) {
+      return true;
+    } else {
+      return reward >= rewardRange[0];
+    }
+  } else {
+    if (!rewardRange[0]) {
+      return reward <= rewardRange[1];
+    } else {
+      return reward >= rewardRange[0] && reward <= rewardRange[1];
+    }
+  }
+};
+
+export const compareDate = (date, dateRange) => {
+  const [startDate, endDate] = date.map(item => new Date(item).getTime());
+  const [startDateRange, endStartRange] = dateRange.map(item =>
+    new Date(item).getTime()
+  );
+  if (!startDateRange && !endStartRange) {
+    return true;
+  }
+  return endDate >= startDateRange || startDate <= endStartRange;
 };

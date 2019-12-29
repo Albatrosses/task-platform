@@ -1,4 +1,4 @@
-import { POLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
+import { PLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
 import { TTask } from "./types";
 
 export const taskListingData: TTask[] = [
@@ -15,9 +15,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.DOUYIN,
+        code: PLATFORM_CODE.DOUYIN,
         link: "https://www.douyin.com/"
       }
     ],
@@ -40,9 +40,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.KUAISHOU,
+        code: PLATFORM_CODE.KUAISHOU,
         link: "https://www.kuaishou.com/"
       }
     ],
@@ -65,9 +65,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.WEIBO,
+        code: PLATFORM_CODE.WEIBO,
         link: "https://weibo.com/"
       }
     ],
@@ -90,9 +90,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.WEIBO,
+        code: PLATFORM_CODE.WEIBO,
         link: "https://weibo.com/"
       }
     ],
@@ -115,9 +115,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.WEISHI,
+        code: PLATFORM_CODE.WEISHI,
         link: "https://weishi.com/"
       }
     ],
@@ -140,9 +140,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.XIGUA,
+        code: PLATFORM_CODE.XIGUA,
         link: "https://www.ixigua.com/"
       }
     ],
@@ -165,9 +165,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.FACEBOOK,
+        code: PLATFORM_CODE.FACEBOOK,
         link: "https://facebook.com/"
       }
     ],
@@ -190,9 +190,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.DEFAULT,
+        code: PLATFORM_CODE.DEFAULT,
         link: "https://www.baidu.com/"
       }
     ],
@@ -215,9 +215,9 @@ export const taskListingData: TTask[] = [
       "领取酬金"
     ],
     criteria: ["凭据清晰可见"],
-    polatforms: [
+    platforms: [
       {
-        code: POLATFORM_CODE.DEFAULT,
+        code: PLATFORM_CODE.DEFAULT,
         link: "https://www.baidu.com/"
       }
     ],

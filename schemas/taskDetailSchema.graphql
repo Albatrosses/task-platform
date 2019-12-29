@@ -4,7 +4,7 @@ type TaskDetail {
   simple: String,
   description: String,
   criteria: [String],
-  polatforms: [Polatform],
+  platforms: [Platform],
   steps: [String],
   total: Int,
   reward: Float,
@@ -13,7 +13,7 @@ type TaskDetail {
   endDate: String
 }
 
-type Polatform {
+type Platform {
   code: Int,
   link: String
 }

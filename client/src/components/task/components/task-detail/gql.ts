@@ -6,7 +6,7 @@ export const TASK_DETAIL = gql`
       id
       name
       simple
-      polatforms {
+      platforms {
         code
         link
       }

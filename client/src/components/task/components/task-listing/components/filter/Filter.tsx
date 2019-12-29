@@ -6,25 +6,22 @@ import { TASK_STATUS_CODE } from "src/components/task/enum";
 import { FilterWrapper } from "./Filter.style";
 
 type TFilterProps = {
-  filterStatus: TASK_STATUS_CODE;
-  setFilterStatus: (status?: TASK_STATUS_CODE) => void;
+  status: TASK_STATUS_CODE;
+  setFilters: (status: TASK_STATUS_CODE) => void;
 };
 
-export const Filter: React.FC<TFilterProps> = ({
-  filterStatus,
-  setFilterStatus
-}) => {
+export const Filter: React.FC<TFilterProps> = ({ status, setFilters }) => {
   const renderStatusFilter = () => {
     return (
       <div className="status-filter">
-        {map(statusConfig, ({ name }, key) => {
+        {map(statusConfig, ({ name }, statusCode) => {
           return (
             <div
-              key={key}
+              key={statusCode}
               className={classnames("status-filter-item", {
-                active: Number(key) === filterStatus
+                active: Number(statusCode) === status
               })}
-              onClick={() => setFilterStatus(Number(key))}
+              onClick={() => setFilters(Number(statusCode))}
             >
               {name}
             </div>

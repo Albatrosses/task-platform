@@ -82,3 +82,5 @@ export const generateHashCode = (
 
 export const parseCurrency = (reward: number) =>
   "￥" + reward.toLocaleString("en-US");
+
+export const getMirror = (object: any) => JSON.parse(JSON.stringify(object));

@@ -2,7 +2,7 @@
 # import TaskDetailSchema from './taskDetailSchema.graphql';
 
 type Query {
-  queryTaskListing(page: Int): [TaskListing]
+  queryTaskListing(page: Int, status: Int, platform: [Int], reward: [Int], date: [String]): [TaskListing]
   queryTaskDetail(id: Int): TaskDetail
 }
 
