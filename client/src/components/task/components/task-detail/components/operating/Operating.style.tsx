@@ -45,6 +45,9 @@ export const OperatingWrapper = styled.div`
       &:hover {
         color: ${COLOR.FONT_ACTIVE_COLOR};
       }
+      span {
+        font-size: 16px;
+      }
     }
   }
 `;

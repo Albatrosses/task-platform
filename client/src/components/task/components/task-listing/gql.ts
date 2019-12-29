@@ -30,3 +30,12 @@ export const TASK_LISTING = gql`
     }
   }
 `;
+
+export const HERO_IMAGE = gql`
+  {
+    queryHeroImage {
+      taskId
+      imageSrc
+    }
+  }
+`;

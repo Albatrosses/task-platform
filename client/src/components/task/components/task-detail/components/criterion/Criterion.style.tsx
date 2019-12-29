@@ -6,5 +6,8 @@ export const CriterionWrapper = styled.div`
   .criterion-wrapper {
     width: 100%;
     overflow-x: hidden;
+    .criterion-guide {
+      float: right;
+    }
   }
 `;

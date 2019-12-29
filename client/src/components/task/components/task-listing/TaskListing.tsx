@@ -8,7 +8,7 @@ import { platformsConfig } from "../../config";
 import { SORT_ORDER, SORT_TYPE, TASK_STATUS_CODE } from "../../enum";
 import { Filter } from "./components/filter/Filter";
 import Header from "./components/header/Header";
-import { Hero } from "./components/hero/Hero";
+import Hero from "./components/hero/Hero";
 import Listing from "./components/listing/Listing";
 import { TASK_LISTING } from "./gql";
 import { TaskListingWrapper } from "./TaskListing.style";

@@ -5,10 +5,14 @@ import {
   compareReward,
   compareStatus
 } from "../../helper/common";
-import { taskListingData } from "./mock";
+import { heroImageData, taskListingData } from "./mock";
 import { TTask } from "./types";
 
 const PAGE_TOTAL = 10;
+
+export const queryHeroImage = async () => {
+  return heroImageData;
+};
 
 export const queryTaskListing = async (
   _,

@@ -1,3 +1,8 @@
+type HeroImage {
+  taskId: Int
+  imageSrc: String
+}
+
 type TaskListing {
   id: Int,
   name: String,

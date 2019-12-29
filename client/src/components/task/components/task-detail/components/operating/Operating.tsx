@@ -1,5 +1,5 @@
 import { Icon, message, Upload } from "antd";
-import { Button } from "antd-mobile";
+import { Button, Toast } from "antd-mobile";
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { TASK_STATUS_CODE } from "src/components/task/enum";
@@ -59,13 +59,18 @@ export const Operating: React.FC<TConciseProps> = ({
         <>
           <Button
             type="primary"
-            onClick={() =>
+            onClick={() => {
+              if (!imageUrl) {
+                Toast.fail("请先添加凭据", 1);
+                return false;
+              }
               changeTaskDetail({
                 variables: {
-                  input: { id, status: TASK_STATUS_CODE.REVIEWING }
+                  input: { id, status: TASK_STATUS_CODE.REVIEWING, imageUrl }
                 }
-              })
-            }
+              });
+              return false;
+            }}
           >
             上传凭据
           </Button>
@@ -86,17 +91,8 @@ export const Operating: React.FC<TConciseProps> = ({
     }
     if (status === TASK_STATUS_CODE.REVIEWING) {
       return (
-        <Button
-          type="warning"
-          onClick={() =>
-            changeTaskDetail({
-              variables: {
-                input: { id, status: TASK_STATUS_CODE.UNASSIGNED }
-              }
-            })
-          }
-        >
-          放弃任务
+        <Button type="primary" disabled>
+          审核中
         </Button>
       );
     }

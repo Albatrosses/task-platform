@@ -209,13 +209,7 @@ export const Header: React.FC<THeaderProps> = ({
               style={{
                 background: Number(key) === sortType ? "#BBBBBB" : "initial"
               }}
-              icon={
-                sortOrder ? (
-                  <Icon type="sort-ascending" style={{ display: "flex" }} />
-                ) : (
-                  <Icon type="sort-descending" style={{ display: "flex" }} />
-                )
-              }
+              icon={<Icon type={icon} style={{ display: "flex" }} />}
             >
               {label}
             </Item>

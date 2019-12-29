@@ -1,5 +1,10 @@
 import { PLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
 
+export type THero = {
+  taskId: number;
+  imageSrc: string;
+};
+
 export type TTask = {
   id: number;
   name: string;

@@ -1,5 +1,5 @@
 import { PLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
-import { TTask } from "./types";
+import { THero, TTask } from "./types";
 
 export const taskListingData: TTask[] = [
   {
@@ -226,5 +226,28 @@ export const taskListingData: TTask[] = [
     status: TASK_STATUS_CODE.COMPLETED,
     startDate: "2019/12/19",
     endDate: "2020/12/23"
+  }
+];
+
+export const heroImageData: THero[] = [
+  {
+    taskId: 1,
+    imageSrc:
+      "https://media.st.dl.bscstorage.net/steam/apps/1147560/header.jpg?t=1576578161"
+  },
+  {
+    taskId: 2,
+    imageSrc:
+      "https://pic2.zhimg.com/v2-b3614e270785bce9e8fee41bb58cbb96_1200x500.jpg"
+  },
+  {
+    taskId: 3,
+    imageSrc:
+      "https://img.88tph.com/production/20180503/12517401-1.jpg!/watermark/url/L3BhdGgvbG9nby5wbmc/align/center"
+  },
+  {
+    taskId: 4,
+    imageSrc:
+      "http://5b0988e595225.cdn.sohucs.com/images/20190926/4715be231b2c43e4952beed67e37a029.jpeg"
   }
 ];

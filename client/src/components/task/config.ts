@@ -101,10 +101,10 @@ export const sortTypeConfig = {
   },
   [SORT_TYPE.REWARD]: {
     label: "按报酬排序",
-    icon: "ordered-list"
+    icon: "money-collect"
   },
   [SORT_TYPE.DATE]: {
     label: "按日期排序",
-    icon: "ordered-list"
+    icon: "calendar"
   }
 };

@@ -4,6 +4,7 @@
 type Query {
   queryTaskListing(page: Int, status: Int, platform: [Int], reward: [Int], date: [String]): [TaskListing]
   queryTaskDetail(id: Int): TaskDetail
+  queryHeroImage: [HeroImage]
 }
 
 type Mutation {
