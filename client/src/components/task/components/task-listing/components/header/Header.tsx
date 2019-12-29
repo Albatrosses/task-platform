@@ -78,6 +78,7 @@ export const Header: React.FC<THeaderProps> = ({
 
       const renderReward = () => {
         const [minReward, maxReward] = reward;
+
         return (
           <div className="reward-wrapper">
             <label className="reward-label">报酬</label>
@@ -85,6 +86,7 @@ export const Header: React.FC<THeaderProps> = ({
               <InputNumber
                 key={"min"}
                 defaultValue={minReward}
+                value={minReward}
                 formatter={value =>
                   `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }
@@ -94,6 +96,7 @@ export const Header: React.FC<THeaderProps> = ({
               <InputNumber
                 key={"max"}
                 defaultValue={maxReward}
+                value={maxReward}
                 formatter={value =>
                   `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }
@@ -104,7 +107,17 @@ export const Header: React.FC<THeaderProps> = ({
               data={[rewardRangeConfig, rewardRangeConfig]}
               title="选择报酬区间"
               cascade={false}
-              onOk={currentRewardRange => setReward(currentRewardRange.sort())}
+              onOk={currentRewardRange => {
+                const [
+                  minCurrentRewardRange,
+                  maxCurrentRewardRange
+                ] = currentRewardRange;
+                if (minCurrentRewardRange && maxCurrentRewardRange) {
+                  setReward(currentRewardRange.sort());
+                } else {
+                  setReward(currentRewardRange);
+                }
+              }}
             >
               <Button className="reward-button">选择报酬区间</Button>
             </Picker>
@@ -165,7 +178,9 @@ export const Header: React.FC<THeaderProps> = ({
           />
         }
         onLeftClick={() => history.goBack()}
-      />
+      >
+        有赞吧
+      </NavBar>
       {renderAllFilter()}
     </HeaderWrapper>
   );

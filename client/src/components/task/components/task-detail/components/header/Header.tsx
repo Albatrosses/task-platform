@@ -12,7 +12,9 @@ export const Header: React.FC<any> = ({ history }) => {
         mode="light"
         icon={<Icon key="left" type="left" />}
         onLeftClick={() => history.goBack()}
-      />
+      >
+        有赞吧
+      </NavBar>
     </HeaderWrapper>
   );
 };
