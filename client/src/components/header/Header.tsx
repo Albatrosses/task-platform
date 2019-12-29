@@ -1,19 +1,16 @@
-import { Icon, NavBar } from "antd-mobile";
+import { Avatar } from "antd";
+import { NavBar } from "antd-mobile";
 import * as React from "react";
-import styled from "styled-components";
+import { withRouter } from "react-router";
+import { HeaderWrapper } from "./Header.style";
 
-export const Header: React.FC<any> = () => {
+export const Header: React.FC<any> = ({ history }) => {
   return (
     <HeaderWrapper>
       <NavBar
-        mode="light"
-        icon={<Icon type="left" />}
-        // tslint:disable-next-line: no-console
-        onLeftClick={() => console.log("onLeftClick")}
-        rightContent={[
-          <Icon key="0" type="search" style={{ marginRight: "16px" }} />,
-          <Icon key="1" type="ellipsis" />
-        ]}
+        className="header"
+        mode="dark"
+        rightContent={<Avatar size="large" icon="user" />}
       >
         有赞吧
       </NavBar>
@@ -21,6 +18,4 @@ export const Header: React.FC<any> = () => {
   );
 };
 
-const HeaderWrapper = styled.div`
-  flex: 0 0 40px;
-`;
+export default withRouter(Header);

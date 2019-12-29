@@ -46,17 +46,17 @@ app.use(function(err, req, res, next) {
   });
 });
 
-let port = normalizePort(process.env.PORT || "8080");
+const port = normalizePort(process.env.PORT || "8080");
 app.set("port", port);
 
-let server = http.createServer(app);
+const server = http.createServer(app);
 
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
 function normalizePort(val) {
-  let port = parseInt(val, 10);
+  const port = parseInt(val, 10);
   if (isNaN(port)) {
     return val;
   }
@@ -71,7 +71,7 @@ function onError(error) {
     throw error;
   }
 
-  let bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
   switch (error.code) {
     case "EACCES":
@@ -88,7 +88,7 @@ function onError(error) {
 }
 
 function onListening() {
-  let addr = server.address();
-  let bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  const addr = server.address();
+  const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
 }
