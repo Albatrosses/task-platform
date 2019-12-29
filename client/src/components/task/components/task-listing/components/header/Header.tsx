@@ -1,12 +1,17 @@
-import { Button, Drawer, InputNumber, Tag } from "antd";
-import { DatePicker, NavBar, Picker } from "antd-mobile";
+import { Button, Drawer, Tag } from "antd";
+import { DatePicker, NavBar, Picker, Popover } from "antd-mobile";
+import Item from "antd-mobile/lib/popover/Item";
 import { indexOf, map } from "lodash";
 import * as React from "react";
 import { useState } from "react";
 import { withRouter } from "react-router";
 import { Icon } from "src/components/common/icon/Icon";
-import { platformsConfig, rewardRangeConfig } from "src/components/task/config";
-import { PLATFORM_CODE } from "src/components/task/enum";
+import {
+  platformsConfig,
+  rewardRangeConfig,
+  sortTypeConfig
+} from "src/components/task/config";
+import { PLATFORM_CODE, SORT_ORDER, SORT_TYPE } from "src/components/task/enum";
 import { HeaderWrapper } from "./Header.style";
 
 const { CheckableTag } = Tag;
@@ -15,9 +20,13 @@ type THeaderProps = {
   platform: PLATFORM_CODE[];
   reward: number | null[];
   date: string | null[];
+  sortType: SORT_TYPE;
+  sortOrder: SORT_ORDER;
   setPlatform: (platform: any) => void;
   setReward: (reward: any) => void;
   setDate: (date: any) => void;
+  setSortType: (date: any) => void;
+  setSortOrder: (date: any) => void;
 } & any;
 
 export const Header: React.FC<THeaderProps> = ({
@@ -25,9 +34,13 @@ export const Header: React.FC<THeaderProps> = ({
   platform,
   reward,
   date,
+  sortType,
+  sortOrder,
   setPlatform,
   setReward,
-  setDate
+  setDate,
+  setSortType,
+  setSortOrder
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -48,7 +61,7 @@ export const Header: React.FC<THeaderProps> = ({
               tempPlatform.splice(index, 1);
             } else {
               tempPlatform.push(proPlatformCode);
-              tempPlatform.sort();
+              tempPlatform.sort((a: any, b: any) => a - b);
             }
             setPlatform(tempPlatform);
           };
@@ -82,29 +95,9 @@ export const Header: React.FC<THeaderProps> = ({
         return (
           <div className="reward-wrapper">
             <label className="reward-label">报酬</label>
-            <div className="reward-content">
-              <InputNumber
-                key={"min"}
-                defaultValue={minReward}
-                value={minReward}
-                formatter={value =>
-                  `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                }
-                parser={(value: any) => value.replace(/\$\s?|(,*)/g, "")}
-              />
-              -
-              <InputNumber
-                key={"max"}
-                defaultValue={maxReward}
-                value={maxReward}
-                formatter={value =>
-                  `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                }
-                parser={(value: any) => value.replace(/\$\s?|(,*)/g, "")}
-              />
-            </div>
             <Picker
               data={[rewardRangeConfig, rewardRangeConfig]}
+              value={[minReward, maxReward]}
               title="选择报酬区间"
               cascade={false}
               onOk={currentRewardRange => {
@@ -113,28 +106,70 @@ export const Header: React.FC<THeaderProps> = ({
                   maxCurrentRewardRange
                 ] = currentRewardRange;
                 if (minCurrentRewardRange && maxCurrentRewardRange) {
-                  setReward(currentRewardRange.sort());
+                  setReward(currentRewardRange.sort((a: any, b: any) => a - b));
                 } else {
                   setReward(currentRewardRange);
                 }
               }}
             >
-              <Button className="reward-button">选择报酬区间</Button>
+              <div className="reward-content">
+                <Button key={"minReward"} className="reward-button">
+                  {minReward || "最小报酬"}
+                </Button>
+                -
+                <Button key={"maxReward"} className="reward-button">
+                  {maxReward || "最大报酬"}
+                </Button>
+              </div>
             </Picker>
           </div>
         );
       };
 
       const renderDate = () => {
+        const [startDate, endDate] = date;
+        const [switchHandler, setSwitchHandler] = useState(0);
+
+        const parseDate = (pickDate: any) => {
+          const resultDate = `${pickDate.getFullYear()}/${pickDate.getMonth() +
+            (1 % 12)}/${pickDate.getDate()}`;
+          const resultDateArray = date.slice(0);
+          resultDateArray[switchHandler] = resultDate;
+          if (resultDateArray[0] && resultDateArray[1]) {
+            setDate(resultDateArray.sort());
+          } else {
+            setDate(resultDateArray);
+          }
+          return false;
+        };
+
         return (
           <div className="date-wrapper">
+            <label className="date-label">日期</label>
             <DatePicker
               mode="date"
-              title="Select Date"
+              title="选择日期"
               extra="Optional"
               value={new Date(Date.now())}
+              onOk={parseDate}
             >
-              <Button className="date-button">选择日期区间</Button>
+              <div className="date-content">
+                <Button
+                  key={"startDate"}
+                  className="date-button"
+                  onClick={() => setSwitchHandler(0)}
+                >
+                  {startDate || "起始日期"}
+                </Button>
+                -
+                <Button
+                  key={"endDate"}
+                  className="date-button"
+                  onClick={() => setSwitchHandler(1)}
+                >
+                  {endDate || "截止日期"}
+                </Button>
+              </div>
             </DatePicker>
           </div>
         );
@@ -164,6 +199,44 @@ export const Header: React.FC<THeaderProps> = ({
     );
   };
 
+  const renderSort = () => {
+    return (
+      <Popover
+        overlay={map(sortTypeConfig, ({ label, icon }, key) => {
+          return (
+            <Item
+              key={key}
+              style={{
+                background: Number(key) === sortType ? "#BBBBBB" : "initial"
+              }}
+              icon={
+                sortOrder ? (
+                  <Icon type="sort-ascending" style={{ display: "flex" }} />
+                ) : (
+                  <Icon type="sort-descending" style={{ display: "flex" }} />
+                )
+              }
+            >
+              {label}
+            </Item>
+          );
+        })}
+        onSelect={(item: any) => {
+          if (Number(item.key) === sortType) {
+            setSortOrder(sortOrder === 0 ? 1 : 0);
+          }
+          setSortType(Number(item.key));
+        }}
+      >
+        {sortOrder ? (
+          <Icon type="sort-ascending" />
+        ) : (
+          <Icon type="sort-descending" />
+        )}
+      </Popover>
+    );
+  };
+
   return (
     <HeaderWrapper>
       <NavBar
@@ -171,11 +244,14 @@ export const Header: React.FC<THeaderProps> = ({
         mode="light"
         icon={<Icon key="left" type="left" />}
         rightContent={
-          <Icon
-            key="filter"
-            type="filter"
-            onClick={() => setVisible(!visible)}
-          />
+          <div className="header-right">
+            {renderSort()}
+            <Icon
+              key="filter"
+              type="filter"
+              onClick={() => setVisible(!visible)}
+            />
+          </div>
         }
         onLeftClick={() => history.goBack()}
       >

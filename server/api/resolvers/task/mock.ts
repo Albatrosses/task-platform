@@ -21,11 +21,11 @@ export const taskListingData: TTask[] = [
         link: "https://www.douyin.com/"
       }
     ],
-    total: 500,
-    reward: 500,
+    total: 768,
+    reward: 5,
     status: TASK_STATUS_CODE.ASSIGNED,
-    startDate: "2019/12/12",
-    endDate: "2020/12/12"
+    startDate: "2019/12/30",
+    endDate: "2020/12/31"
   },
   {
     id: 2,
@@ -46,11 +46,11 @@ export const taskListingData: TTask[] = [
         link: "https://www.kuaishou.com/"
       }
     ],
-    total: 500,
-    reward: 500,
+    total: 1189,
+    reward: 7,
     status: TASK_STATUS_CODE.ASSIGNED,
-    startDate: "2019/12/12",
-    endDate: "2020/12/12"
+    startDate: "2019/12/20",
+    endDate: "2020/12/21"
   },
   {
     id: 3,
@@ -71,11 +71,11 @@ export const taskListingData: TTask[] = [
         link: "https://weibo.com/"
       }
     ],
-    total: 500,
-    reward: 500,
+    total: 1270,
+    reward: 3.5,
     status: TASK_STATUS_CODE.UNASSIGNED,
-    startDate: "2019/12/12",
-    endDate: "2020/12/12"
+    startDate: "2019/12/26",
+    endDate: "2020/12/31"
   },
   {
     id: 4,
@@ -96,10 +96,10 @@ export const taskListingData: TTask[] = [
         link: "https://weibo.com/"
       }
     ],
-    total: 500,
-    reward: 500,
+    total: 1000,
+    reward: 4,
     status: TASK_STATUS_CODE.UNASSIGNED,
-    startDate: "2019/12/12",
+    startDate: "2019/12/11",
     endDate: "2020/12/12"
   },
   {
@@ -122,9 +122,9 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 500,
-    reward: 500,
+    reward: 9,
     status: TASK_STATUS_CODE.UNASSIGNED,
-    startDate: "2019/12/12",
+    startDate: "2019/12/04",
     endDate: "2020/12/12"
   },
   {
@@ -146,11 +146,11 @@ export const taskListingData: TTask[] = [
         link: "https://www.ixigua.com/"
       }
     ],
-    total: 500,
-    reward: 500,
+    total: 998,
+    reward: 4.5,
     status: TASK_STATUS_CODE.UNASSIGNED,
-    startDate: "2019/12/12",
-    endDate: "2020/12/12"
+    startDate: "2019/12/17",
+    endDate: "2020/12/18"
   },
   {
     id: 7,
@@ -171,11 +171,11 @@ export const taskListingData: TTask[] = [
         link: "https://facebook.com/"
       }
     ],
-    total: 500,
-    reward: 500,
+    total: 1570,
+    reward: 2,
     status: TASK_STATUS_CODE.UNASSIGNED,
-    startDate: "2019/12/12",
-    endDate: "2020/12/12"
+    startDate: "2019/12/28",
+    endDate: "2020/12/29"
   },
   {
     id: 8,
@@ -196,11 +196,11 @@ export const taskListingData: TTask[] = [
         link: "https://www.baidu.com/"
       }
     ],
-    total: 500,
-    reward: 500,
+    total: 764,
+    reward: 3.8,
     status: TASK_STATUS_CODE.REVIEWING,
-    startDate: "2019/12/12",
-    endDate: "2020/12/12"
+    startDate: "2019/12/04",
+    endDate: "2020/12/13"
   },
   {
     id: 9,
@@ -221,10 +221,10 @@ export const taskListingData: TTask[] = [
         link: "https://www.baidu.com/"
       }
     ],
-    total: 500,
-    reward: 500,
+    total: 856,
+    reward: 3,
     status: TASK_STATUS_CODE.COMPLETED,
-    startDate: "2019/12/12",
-    endDate: "2020/12/12"
+    startDate: "2019/12/19",
+    endDate: "2020/12/23"
   }
 ];

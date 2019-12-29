@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { withRouter } from "react-router";
 import { Loading } from "src/components/common/loading/Loading";
 import { platformsConfig } from "../../config";
-import { TASK_STATUS_CODE } from "../../enum";
+import { SORT_ORDER, SORT_TYPE, TASK_STATUS_CODE } from "../../enum";
 import { Filter } from "./components/filter/Filter";
 import Header from "./components/header/Header";
 import { Hero } from "./components/hero/Hero";
@@ -21,6 +21,8 @@ export const TaskListing: React.FC<any> = ({ location }) => {
     reward: [0, 0],
     date: ["", ""]
   });
+  const [sortType, setSortType] = useState(SORT_TYPE.DEFAULT);
+  const [sortOrder, setSortOrder] = useState(SORT_ORDER.DESC);
 
   const { status, page, platform, reward, date } = filters;
   const { data, loading, refetch } = useQuery(TASK_LISTING, {
@@ -38,6 +40,8 @@ export const TaskListing: React.FC<any> = ({ location }) => {
         platform={platform}
         reward={reward}
         date={date}
+        sortType={sortType}
+        sortOrder={sortOrder}
         setPlatform={(platformInput: any) =>
           setFilters({ ...filters, platform: platformInput })
         }
@@ -47,6 +51,8 @@ export const TaskListing: React.FC<any> = ({ location }) => {
         setDate={(dateInput: any) =>
           setFilters({ ...filters, date: dateInput })
         }
+        setSortType={setSortType}
+        setSortOrder={setSortOrder}
       />
       <Hero />
       <Filter
@@ -57,7 +63,14 @@ export const TaskListing: React.FC<any> = ({ location }) => {
       />
       <Loading
         loading={loading}
-        content={<Listing taskListing={taskListing} filterStatus={status} />}
+        content={
+          <Listing
+            taskListing={taskListing}
+            filterStatus={status}
+            sortType={sortType}
+            sortOrder={sortOrder}
+          />
+        }
       />
     </TaskListingWrapper>
   );

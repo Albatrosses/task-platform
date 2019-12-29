@@ -1,6 +1,7 @@
 import {
   PLATFORM_CODE,
   PLATFORM_NAME,
+  SORT_TYPE,
   TASK_STATUS_CODE,
   TASK_STATUS_NAME
 } from "./enum";
@@ -92,3 +93,18 @@ export const rewardRangeConfig = [
     value: 100
   }
 ];
+
+export const sortTypeConfig = {
+  [SORT_TYPE.DEFAULT]: {
+    label: "默认排序",
+    icon: "ordered-list"
+  },
+  [SORT_TYPE.REWARD]: {
+    label: "按报酬排序",
+    icon: "ordered-list"
+  },
+  [SORT_TYPE.DATE]: {
+    label: "按日期排序",
+    icon: "ordered-list"
+  }
+};

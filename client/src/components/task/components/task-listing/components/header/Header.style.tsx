@@ -9,6 +9,11 @@ export const HeaderWrapper = styled.div`
   justify-content: center;
   .header {
     background-color: ${COLOR.MAIN_BACKGROUND};
+    .header-right {
+      width: 60px;
+      display: flex;
+      justify-content: space-between;
+    }
   }
   .all-filter-wrapper {
     & > div {
@@ -21,13 +26,16 @@ export const HeaderWrapper = styled.div`
         margin-bottom: 10px;
         border: 1px solid #1890ff;
       }
-      .reward-content {
+      .reward-content,
+      .date-content {
         display: flex;
         justify-content: space-around;
         align-items: center;
-      }
-      .reward-button {
-        margin-top: 20px;
+        .reward-button,
+        .date-button {
+          min-width: 88px;
+          padding: 0 8px;
+        }
       }
     }
   }

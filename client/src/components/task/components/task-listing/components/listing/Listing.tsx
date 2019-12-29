@@ -3,7 +3,12 @@ import { filter, get, map } from "lodash";
 import * as React from "react";
 import { withRouter } from "react-router";
 import { platformsConfig, statusConfig } from "src/components/task/config";
-import { PLATFORM_CODE, TASK_STATUS_CODE } from "src/components/task/enum";
+import {
+  PLATFORM_CODE,
+  SORT_ORDER,
+  SORT_TYPE,
+  TASK_STATUS_CODE
+} from "src/components/task/enum";
 import { TTask } from "src/components/task/type";
 import { parseCurrency } from "src/helper/common";
 import { ListingWrapper } from "./Listing.style";
@@ -11,12 +16,16 @@ import { ListingWrapper } from "./Listing.style";
 type TListingProps = {
   taskListing: TTask[];
   filterStatus: TASK_STATUS_CODE;
+  sortType: SORT_TYPE;
+  sortOrder: SORT_ORDER;
 } & any;
 
 export const Listing: React.FC<TListingProps> = ({
+  history,
   taskListing,
   filterStatus,
-  history
+  sortType,
+  sortOrder
 }) => {
   const renderStatus = (status: number, statusText: string) => {
     if (status === TASK_STATUS_CODE.UNASSIGNED) {
@@ -25,12 +34,37 @@ export const Listing: React.FC<TListingProps> = ({
     return <Badge className={`task-status-${status}`} text={statusText} />;
   };
 
+  const taskListingMirror = taskListing.sort(
+    (proTask: TTask, nextTask: TTask) => {
+      switch (sortType) {
+        case SORT_TYPE.DEFAULT:
+          return sortOrder
+            ? proTask.id - nextTask.id
+            : nextTask.id - proTask.id;
+        case SORT_TYPE.REWARD:
+          return sortOrder
+            ? proTask.reward - nextTask.reward
+            : nextTask.reward - proTask.reward;
+        case SORT_TYPE.DATE:
+          return sortOrder
+            ? new Date(proTask.startDate).getTime() -
+                new Date(nextTask.startDate).getTime()
+            : new Date(nextTask.startDate).getTime() -
+                new Date(proTask.startDate).getTime();
+        default:
+          return sortOrder
+            ? proTask.id - nextTask.id
+            : nextTask.id - proTask.id;
+      }
+    }
+  );
+
   return (
     <ListingWrapper>
       <ul className="task-listing">
         {map(
           filter(
-            taskListing,
+            taskListingMirror,
             ({ status }) => !filterStatus || status === filterStatus
           ),
           ({ id, name, simple, platforms, total, reward, status }, key) => {
