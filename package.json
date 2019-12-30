@@ -1,19 +1,20 @@
 {
   "name": "task-platform",
   "version": "1.0.0",
-  "description": "Hybrid Crawler system",
+  "description": "task system backend",
   "author": "Albatrosses <capitalism_4418@163.com>",
   "private": true,
   "scripts": {
     "server": "node app.js",
     "build": "./node_modules/.bin/tsc",
-    "start": "set PORT=18080 && ./node_modules/.bin/nodemon -e ts --exec \"./node_modules/.bin/tsc && node app.js\"",
+    "start": "cross-env PORT=18080 ./node_modules/.bin/nodemon -e ts --exec \"./node_modules/.bin/tsc && node app.js\"",
     "lint:fix": "tslint -p . --fix"
   },
   "dependencies": {
     "apollo-server-express": "^2.4.8",
     "body-parser": "~1.19.0",
     "cookie-parser": "~1.4.4",
+    "cross-env": "^6.0.3",
     "debug": "~4.1.1",
     "ejs": "~2.6.1",
     "express": "~4.16.4",
