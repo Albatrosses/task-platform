@@ -10,7 +10,7 @@ import { HeroWrapper } from "./Hero.style";
 
 export const Hero: React.FC<any> = ({ location }) => {
   const { data, loading, refetch } = useQuery(HERO_IMAGE);
-  const heroImage = get(data, "queryHeroImage", []);
+  const heroImage = get(data, "heroImage", []);
 
   useEffect(() => {
     refetch();

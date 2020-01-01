@@ -9,7 +9,6 @@
   "linterOptions": {
     "exclude": [
       "node_modules/**/*.{ts,tsx}",
-      "client"
     ]
   },
   "rules": {

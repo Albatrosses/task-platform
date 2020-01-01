@@ -10,13 +10,18 @@
 		"lib": [
 			"es6",
 			"dom"
-		]
+		],
+		"baseUrl": ".",
+		"paths": {
+			"common/*":[
+				"../common/*"
+			]
+		}
 	},
 	"include": [
 		"*.ts"
 	],
 	"exclude": [
 		"node_modules",
-		"client"
 	]
 }

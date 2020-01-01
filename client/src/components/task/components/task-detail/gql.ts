@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
 export const TASK_DETAIL = gql`
-  query queryTaskDetail($id: Int) {
-    queryTaskDetail(id: $id) {
+  query getTaskDetail($id: Int) {
+    taskDetail(id: $id) {
       id
       name
       simple
@@ -23,7 +23,7 @@ export const TASK_DETAIL = gql`
 `;
 
 export const CHANGE_TASK_DETAIL = gql`
-  mutation mutationTaskDetail($input: TaskDetailInput!) {
-    mutationTaskDetail(input: $input)
+  mutation updateTaskDetail($input: TaskDetailInput!) {
+    updateTaskDetail(input: $input)
   }
 `;

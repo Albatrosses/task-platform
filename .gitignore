@@ -1,12 +1,8 @@
-.DS_Store
+.idea/
+.vscode/
 node_modules/
-npm-debug.log
-nbproject
-client/node_modules
 build/
-views/
-*.log
-.vscode
-config/*.js
+tmp/
+temp/
 server/**/*.js
-/*.js
+client/**/*.js

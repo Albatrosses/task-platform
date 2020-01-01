@@ -7,18 +7,18 @@ import express from "express";
 import * as http from "http";
 import logger from "morgan";
 import * as path from "path";
-import graphqlServer from "./server/api/index";
-import route from "./server/route/";
+import graphqlServer from "./api/index";
+import route from "./route";
 
 const app = express();
-app.set("views", path.join(__dirname, "../views/"));
+app.set("views", path.join(__dirname, "../client/build/"));
 app.engine(".html", ejs.__express);
 app.set("view engine", "html");
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "../views/")));
+app.use(express.static(path.join(__dirname, "../client/build/")));
 app.use("/", route);
 graphqlServer(app);
 

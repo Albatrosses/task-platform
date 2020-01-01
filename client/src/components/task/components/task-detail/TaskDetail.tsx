@@ -16,14 +16,14 @@ export const TaskDetail: React.FC<any> = ({ location }) => {
   const { data, loading, refetch } = useQuery(TASK_DETAIL, {
     variables: { id }
   });
-  const taskDetail = get(data, "queryTaskDetail", null);
+  const taskDetail = get(data, "taskDetail", null);
 
   const [changeTaskDetail, { data: dataUpdate }] = useMutation(
     CHANGE_TASK_DETAIL
   );
 
   useEffect(() => {
-    if (dataUpdate && dataUpdate.mutationTaskDetail) {
+    if (dataUpdate && dataUpdate.updateTaskDetail) {
       refetch();
     }
   }, [dataUpdate]);

@@ -1,4 +1,4 @@
-import { PLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
+import { PLATFORM_CODE, TASK_STATUS_CODE } from "../enum/task";
 
 export type THero = {
   taskId: number;

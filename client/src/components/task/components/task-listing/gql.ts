@@ -1,14 +1,14 @@
 import { gql } from "apollo-boost";
 
 export const TASK_LISTING = gql`
-  query queryTaskListing(
+  query getTaskListing(
     $page: Int
     $status: Int
     $platform: [Int]
     $reward: [Int]
     $date: [String]
   ) {
-    queryTaskListing(
+    taskListing(
       page: $page
       status: $status
       platform: $platform
@@ -33,7 +33,7 @@ export const TASK_LISTING = gql`
 
 export const HERO_IMAGE = gql`
   {
-    queryHeroImage {
+    heroImage {
       taskId
       imageSrc
     }

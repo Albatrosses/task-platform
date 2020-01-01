@@ -22,7 +22,7 @@ export const timeLog = ({ status, message }: TMessage): void => {
 export const timeErrorLog = (error: Error): void => {
   const date = new Date();
   const year = date.getFullYear();
-  const month = date.getMonth() + 1 % 12;
+  const month = date.getMonth() + (1 % 12);
   const days = date.getDate();
   const hours = date.getHours();
   const minutes = date.getMinutes();

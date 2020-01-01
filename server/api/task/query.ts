@@ -5,16 +5,16 @@ import {
   compareReward,
   compareStatus
 } from "../../helper/common";
-import { heroImageData, taskListingData } from "./mock";
-import { TTask } from "./types";
+import { heroImageData, taskListingData } from "./config/mock";
+import { TTask } from "./config/types";
 
 const PAGE_TOTAL = 10;
 
-export const queryHeroImage = async () => {
+export const heroImage = async () => {
   return heroImageData;
 };
 
-export const queryTaskListing = async (
+export const taskListing = async (
   _,
   {
     page = 1,
@@ -34,6 +34,6 @@ export const queryTaskListing = async (
         compareDate([startDate, endDate], dateInput)
     );
 
-export const queryTaskDetail = async (_, { id }): Promise<TTask> => {
+export const taskDetail = async (_, { id }): Promise<TTask> => {
   return find(taskListingData, { id });
 };

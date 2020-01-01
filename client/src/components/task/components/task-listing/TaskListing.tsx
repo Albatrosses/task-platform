@@ -28,7 +28,7 @@ export const TaskListing: React.FC<any> = ({ location }) => {
   const { data, loading, refetch } = useQuery(TASK_LISTING, {
     variables: { page, status, platform, reward, date }
   });
-  const taskListing = get(data, "queryTaskListing", []);
+  const taskListing = get(data, "taskListing", []);
 
   useEffect(() => {
     refetch();
