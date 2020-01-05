@@ -1,7 +1,7 @@
 import { ApolloServer } from "apollo-server-express";
 import { importSchema } from "graphql-import";
 import { generateLog } from "../helper/log";
-import { mutationCollect, queryCollect } from "./config";
+import { mutationCollect, queryCollect } from "./config/graphql";
 
 const collectiveSchema: any = importSchema(
   process.cwd() + "/schemas/main.graphql"

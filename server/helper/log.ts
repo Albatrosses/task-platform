@@ -1,4 +1,6 @@
-import { getNowString } from "./common";
+import { getNowString } from ".";
+import { TMessage } from "../../types/common/message";
+import { HTTP_CODE } from "../../types/common/message";
 
 export const generateLog = (message: string): void => {
   const timeTemp = getNowString();
@@ -10,17 +12,6 @@ export const generateErrorLog = (error: Error): void => {
   const timeTemp = getNowString();
   // tslint:disable-next-line: no-console
   console.log(timeTemp, `error: ${error}`);
-};
-
-enum HTTP_CODE {
-  SUCCESS = 200,
-  FAIL = 400
-}
-
-type TMessage = {
-  code: HTTP_CODE;
-  message: string;
-  success: boolean;
 };
 
 export const generateMessage = (

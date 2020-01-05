@@ -17,8 +17,9 @@ import { Tasks } from "./tasks";
 import { Users } from "./users";
 
 @Entity("transactions", { schema: "task_platform" })
-@Index("taskId", ["task"])
-@Index("userId", ["user"])
+@Index("reviewer", ["reviewer"])
+@Index("taskId", ["taskId"])
+@Index("userId", ["userId"])
 export class Transactions extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: "int",
@@ -33,7 +34,7 @@ export class Transactions extends BaseEntity {
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   @JoinColumn({ name: "taskId" })
-  public task: Tasks | null;
+  public taskId: Tasks | null;
 
   @ManyToOne(
     () => Users,
@@ -41,7 +42,7 @@ export class Transactions extends BaseEntity {
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   @JoinColumn({ name: "userId" })
-  public user: Users | null;
+  public userId: Users | null;
 
   @Column("double", {
     nullable: true,
@@ -73,4 +74,11 @@ export class Transactions extends BaseEntity {
     name: "resultDate"
   })
   public resultDate: Date | null;
+
+  @Column("int", {
+    nullable: true,
+    unsigned: true,
+    name: "reviewer"
+  })
+  public reviewer: number | null;
 }

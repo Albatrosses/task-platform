@@ -1,0 +1,40 @@
+input AmountInput {
+  min: Int
+  max: Int
+}
+
+input DateInput {
+  min: String
+  max: String
+  dateType: Int
+}
+
+input OrderInput {
+  orderStatus: Int
+  orderType: Int
+}
+
+type Platform {
+  code: Int
+  link: String
+}
+
+input PlatformInput {
+  code: Int
+  link: String
+}
+
+input Int {
+  code: Int
+  link: String
+}
+
+type PayWay {
+  code: Int
+  account: String
+}
+
+input PayWayInput {
+  code: Int
+  account: String
+}

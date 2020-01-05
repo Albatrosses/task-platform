@@ -41,7 +41,7 @@ export const Listing: React.FC<TListingProps> = ({
           return sortOrder
             ? proTask.id - nextTask.id
             : nextTask.id - proTask.id;
-        case SORT_TYPE.REWARD:
+        case SORT_TYPE.AMOUNT:
           return sortOrder
             ? proTask.amount - nextTask.amount
             : nextTask.amount - proTask.amount;

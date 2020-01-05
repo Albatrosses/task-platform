@@ -99,7 +99,7 @@ export const sortTypeConfig = {
     label: "默认排序",
     icon: "ordered-list"
   },
-  [SORT_TYPE.REWARD]: {
+  [SORT_TYPE.AMOUNT]: {
     label: "按报酬排序",
     icon: "money-collect"
   },

@@ -24,7 +24,7 @@ export const updateUser = async (_, { updateUserInput }): Promise<any> => {
     inviteCode,
     inviteId,
     status,
-    role,
+    role
   } = updateUserInput[0];
 
   return generateMessage(true, "更新用户成功");
@@ -36,8 +36,8 @@ export const signInUser = async (_, { signInUserInput }): Promise<any> => {
   return generateMessage(true, "注册成功");
 };
 
-export const signUpUser = async (_, { signUpUserInput }): Promise<any> => {
-  const { phone, password, verifyCode } = signUpUserInput;
+export const loginUser = async (_, { loginUserInput }): Promise<any> => {
+  const { phone, password, verifyCode } = loginUserInput;
 
   return generateMessage(true, "登录成功");
 };

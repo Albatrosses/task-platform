@@ -13,10 +13,12 @@ import {
   PrimaryGeneratedColumn,
   RelationId
 } from "typeorm";
+import { HeroImage } from "./hero_image";
 import { Transactions } from "./transactions";
 import { UserTasks } from "./user_tasks";
 
 @Entity("tasks", { schema: "task_platform" })
+@Index("reviewer", ["reviewer"])
 export class Tasks extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: "int",
@@ -60,9 +62,9 @@ export class Tasks extends BaseEntity {
 
   @Column("json", {
     nullable: true,
-    name: "platforms"
+    name: "platform"
   })
-  public platforms: object | null;
+  public platform: object | null;
 
   @Column("int", {
     nullable: true,
@@ -101,17 +103,31 @@ export class Tasks extends BaseEntity {
   })
   public updateDate: Date | null;
 
+  @Column("int", {
+    nullable: true,
+    unsigned: true,
+    name: "reviewer"
+  })
+  public reviewer: number | null;
+
   @OneToMany(
-    () => UserTasks,
-    (userTasks: UserTasks) => userTasks.task,
+    () => HeroImage,
+    (heroImage: HeroImage) => heroImage.taskId,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
-  public userTaskss: UserTasks[];
+  public heroImages: HeroImage[];
 
   @OneToMany(
     () => Transactions,
-    (transactions: Transactions) => transactions.task,
+    (transactions: Transactions) => transactions.taskId,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public transactionss: Transactions[];
+
+  @OneToMany(
+    () => UserTasks,
+    (userTasks: UserTasks) => userTasks.taskId,
+    { onDelete: "SET NULL", onUpdate: "CASCADE" }
+  )
+  public userTaskss: UserTasks[];
 }

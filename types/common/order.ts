@@ -1,0 +1,24 @@
+export enum ORDER_TYPE_CODE {
+  DEFAULT = 0,
+  AMOUNT,
+  START_DATE,
+  END_DATE,
+  SUBMIT_DATE,
+  RESULT_DATE,
+  SIGNIN_DATE,
+  LOGIN_DATE,
+  LOGOUT_DATE,
+  ASSIGN_DATE,
+  UPLOAD_DATE,
+  REVIEW_DATE
+}
+
+export enum ORDER_STATUS_CODE {
+  ASC = 0,
+  DESC
+}
+
+export type TOrder = {
+  orderStatus: ORDER_TYPE_CODE;
+  orderType: ORDER_STATUS_CODE;
+};

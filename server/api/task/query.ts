@@ -1,31 +1,26 @@
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import {
-  compareAmount,
-  compareDate,
-  comparePlatform,
-  compareStatus
-} from "./hepler";
+  generateAmountQuery,
+  generateAndWhereQuery,
+  generateDateQuery,
+  generateOrderByQuery,
+  generatePageQuery,
+  generatePlatformQuery,
+  generateStatusQuery
+} from "../../helper/sql";
 
 const PAGE_TOTAL = 10;
 
 export const task = async (_, { queryTaskInput }): Promise<any> => {
-  const {
-    id,
-    name,
-    simple,
-    description,
-    criteria,
-    platforms,
-    steps,
-    total,
-    amount,
-    status,
-    startDate,
-    endDate
-  } = queryTaskInput;
+  const { id } = queryTaskInput;
 
-  return null;
+  const result = await queryDB(async connection => {
+    const tasksRepository = connection.getRepository(Tasks);
+    return await tasksRepository.findOne({ id });
+  });
+
+  return result;
 };
 
 export const taskListing = async (
@@ -34,24 +29,30 @@ export const taskListing = async (
 ): Promise<any> => {
   const {
     page,
-    status: statusInput,
-    platform: platformInput,
-    amount: amountInput,
-    date: dateInput
+    status,
+    platformCodes,
+    amount,
+    date,
+    order
   } = queryTaskListingInput;
 
   const result = await queryDB(async connection => {
     const tasksRepository = connection.getRepository(Tasks);
-    return await tasksRepository.find();
+
+    const statusQuery = generateStatusQuery(status);
+    const platformQuery = generatePlatformQuery(platformCodes);
+    const amountQuery = generateAmountQuery(amount);
+    const dateQuery = generateDateQuery(date);
+
+    const query = `select * from tasks${generateAndWhereQuery([
+      statusQuery,
+      platformQuery,
+      amountQuery,
+      dateQuery
+    ])}${generateOrderByQuery(order)}${generatePageQuery(page, PAGE_TOTAL)}`;
+
+    return await tasksRepository.query(query);
   });
 
-  return result
-    .slice(page - 1 * PAGE_TOTAL, page * PAGE_TOTAL)
-    .filter(
-      ({ status, platforms, amount, startDate, endDate }) =>
-        compareStatus(status, statusInput) &&
-        comparePlatform(platforms, platformInput) &&
-        compareAmount(amount, amountInput) &&
-        compareDate([startDate, endDate], dateInput)
-  );
+  return result;
 };

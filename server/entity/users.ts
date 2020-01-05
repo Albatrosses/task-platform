@@ -18,6 +18,7 @@ import { Transactions } from "./transactions";
 import { UserTasks } from "./user_tasks";
 
 @Entity("users", { schema: "task_platform" })
+@Index("reviewer", ["reviewer"])
 export class Users extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: "int",
@@ -88,11 +89,10 @@ export class Users extends BaseEntity {
   public status: number;
 
   @Column("tinyint", {
-    nullable: false,
-    default: () => "'0'",
+    nullable: true,
     name: "role"
   })
-  public role: number;
+  public role: number | null;
 
   @Column("tinyint", {
     nullable: true,
@@ -118,23 +118,30 @@ export class Users extends BaseEntity {
   })
   public logoutDate: Date | null;
 
-  @OneToMany(
-    () => UserTasks,
-    (userTasks: UserTasks) => userTasks.user,
-    { onDelete: "SET NULL", onUpdate: "CASCADE" }
-  )
-  public userTaskss: UserTasks[];
+  @Column("int", {
+    nullable: true,
+    unsigned: true,
+    name: "reviewer"
+  })
+  public reviewer: number | null;
 
   @OneToMany(
     () => Transactions,
-    (transactions: Transactions) => transactions.user,
+    (transactions: Transactions) => transactions.userId,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public transactionss: Transactions[];
 
   @OneToMany(
+    () => UserTasks,
+    (userTasks: UserTasks) => userTasks.userId,
+    { onDelete: "SET NULL", onUpdate: "CASCADE" }
+  )
+  public userTaskss: UserTasks[];
+
+  @OneToMany(
     () => EventLog,
-    (eventLog: EventLog) => eventLog.user,
+    (eventLog: EventLog) => eventLog.userId,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public eventLogs: EventLog[];

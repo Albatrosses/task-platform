@@ -29,7 +29,7 @@ input SignInUserInput {
   inviteCode: String
 }
 
-input SignUpUserInput {
+input loginUserInput {
   phone: Int!
   password: String
   verifyCode: String
@@ -65,12 +65,13 @@ input QueryUserListingInput {
   inviteId: Int
   status: Int
   role: Int
-  balance: [Int]
-  date: [String]
+  amount: AmountInput
+  date: DateInput
+  order: OrderInput
 }
 
 type User {
-  id: Int!
+  id: Int
   name: String
   password: String
   phone: Int
@@ -81,17 +82,9 @@ type User {
   inviteId: Int
   status: Int
   role: Int
+  roleLevel: Int
   signInDate: String
   loginDate: String
   logoutDate: String
-}
-
-type PayWay {
-  code: Int
-  account: String
-}
-
-input PayWayInput {
-  code: Int
-  account: String
+  reviewer: Int
 }

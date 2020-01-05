@@ -1,9 +1,9 @@
 input AddTaskInput {
-  name: String!
+  name: String
   simple: String
   description: String
   criteria: [String]
-  platforms: [PlatformInput]
+  platform: PlatformInput
   steps: [String]
   total: Int
   amount: Float
@@ -21,10 +21,11 @@ input UpdateTaskInput {
   simple: String
   description: String
   criteria: [String]
-  platforms: [PlatformInput]
+  platform: PlatformInput
   steps: [String]
   total: Int
   amount: Float
+  status: Int
   startDate: String
   endDate: String
 }
@@ -36,32 +37,25 @@ input QueryTaskInput {
 input QueryTaskListingInput {
   page: Int
   status: Int
-  platform: [Int]
-  amount: [Int]
-  date: [String]
+  platformCodes: [Int]
+  amount: AmountInput
+  date: DateInput
+  order: OrderInput
 }
 
 type Task {
-  id: Int!
+  id: Int
   name: String
   simple: String
   description: String
   criteria: [String]
-  platforms: [Platform]
+  platform: Platform
   steps: [String]
   total: Int
   amount: Float
   status: Int
   startDate: String
   endDate: String
-}
-
-type Platform {
-  code: Int
-  link: String
-}
-
-input PlatformInput {
-  code: Int
-  link: String
+  updateDate: String
+  reviewer: Int
 }

@@ -38,7 +38,7 @@ export enum PLATFORM_CODE {
 
 export enum SORT_TYPE {
   DEFAULT = 0,
-  REWARD,
+  AMOUNT,
   DATE
 }
 

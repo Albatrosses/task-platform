@@ -14,13 +14,13 @@ import {
 import { transaction, transactionListing } from "../transactions/query";
 import {
   addUser,
+  loginUser,
   logoutUser,
   removeUser,
   signInUser,
-  signUpUser,
   updateUser,
   updateUserSelf,
-  verifyMessage,
+  verifyMessage
 } from "../user/mutation";
 import { user, userListing } from "../user/query";
 import {
@@ -65,7 +65,7 @@ export const mutationCollect = {
   removeUser,
   updateUser,
   signInUser,
-  signUpUser,
+  loginUser,
   logoutUser,
   updateUserSelf,
   verifyMessage,

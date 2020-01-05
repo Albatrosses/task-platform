@@ -7,8 +7,8 @@ import { useState } from "react";
 import { withRouter } from "react-router";
 import { Icon } from "src/components/common/icon/Icon";
 import {
-  platformsConfig,
   amountRangeConfig,
+  platformsConfig,
   sortTypeConfig
 } from "src/components/task/config";
 import { PLATFORM_CODE, SORT_ORDER, SORT_TYPE } from "src/components/task/enum";

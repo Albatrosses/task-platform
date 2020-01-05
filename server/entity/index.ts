@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { generateErrorLog } from "../helper/log";
+import { generateErrorLog, generateMessage } from "../helper/log";
 
 export const queryDB = async queryCallback => {
   try {
@@ -10,5 +10,6 @@ export const queryDB = async queryCallback => {
     return result;
   } catch (error) {
     generateErrorLog(error);
+    return generateMessage(false, "未知原因，请稍后再试");
   }
 };

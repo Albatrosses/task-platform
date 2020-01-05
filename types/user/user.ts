@@ -1,0 +1,21 @@
+export enum USER_ROLE_CODE {
+  CONSUMER = 0,
+  CONSUMER_VIP,
+  CUSTOMER,
+  CUSTOMER_ADMIN,
+  SUPER_ADMIN
+}
+
+export enum USER_ROLE_LEVEL_CODE {
+  VIP1 = 1,
+  VIP2,
+  VIP3,
+  VIP4,
+  VIP5
+}
+
+export enum USER_STATUS_CODE {
+  INACTIVE = 0,
+  LOGOUT,
+  ACTIVE
+}

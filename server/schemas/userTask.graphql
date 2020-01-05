@@ -4,7 +4,7 @@ input AcceptUserTaskInput {
 
 input SubmitUserTaskInput {
   id: Int!
-  imageUrl: String
+  credentials: [String]!
 }
 
 input QuitUserTaskInput {
@@ -18,22 +18,18 @@ input QueryUserTaskInput {
 input QueryUserTaskListingInput {
   page: Int
   status: Int
-  platform: [Int]
-  amount: [Int]
-  date: [String]
+  platformCodes: [Int]
+  amount: AmountInput
+  date: DateInput
+  order: OrderInput
 }
 
 type UserTask {
-  id: Int!
-  name: String
-  simple: String
-  description: String
-  criteria: [String]
-  platforms: [Platform]
-  steps: [String]
-  total: Int
-  amount: Float
+  id: Int
+  credentials: [String]
   status: Int
-  startDate: String
-  endDate: String
+  assignDate: String
+  uploadDate: String
+  reviewDate: String
+  reviewer: Int
 }
