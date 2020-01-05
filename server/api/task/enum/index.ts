@@ -1,0 +1,29 @@
+export enum TASK_STATUS_CODE {
+  ALL = 0,
+  UNASSIGNED,
+  ASSIGNED,
+  REVIEWING,
+  COMPLETED
+}
+
+export enum PLATFORM_CODE {
+  DEFAULT = 0,
+  DOUYIN,
+  KUAISHOU,
+  WEIBO,
+  WEISHI,
+  XIGUA,
+  TAOBAO,
+  FACEBOOK
+}
+
+export enum SORT_TYPE {
+  DEFAULT = 0,
+  REWARD,
+  DATE
+}
+
+export enum SORT_ORDER {
+  ASC = 0,
+  DESC
+}

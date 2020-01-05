@@ -1,0 +1,56 @@
+# import message from './message.graphql';
+# import heroImage from './heroImage.graphql';
+# import task from './task.graphql';
+# import transactions from './transactions.graphql';
+# import users from './users.graphql';
+# import userTask from './userTask.graphql';
+
+type Query {
+  # heroImage
+  heroImages: [HeroImage]
+  # task
+  task(queryTaskInput: QueryTaskInput!): Task
+  taskListing(queryTaskListingInput: QueryTaskListingInput!): [Task]
+  # transaction
+  transaction(queryTransactionInput: QueryTransactionInput!): Transaction
+  transactionListing(queryTransactionListingInput: QueryTransactionListingInput!): [Transaction]
+  # user
+  user(queryUserInput: QueryUserInput): User
+  userListing(queryUserListingInput: QueryUserListingInput): [User]
+  # userTask
+  userTask(queryUserTaskInput: QueryUserTaskInput!): UserTask
+  userTaskListing(queryUserTaskListingInput: QueryUserTaskListingInput!): [UserTask]
+}
+
+type Mutation {
+  # heroImage
+  addHeroImage(addHeroImageInput: [AddHeroImageInput]!): Message
+  removeHeroImage(removeHeroImageInput: [RemoveHeroImageInput]!): Message
+  updateHeroImage(updateHeroImageInput: [UpdateHeroImageInput]!): Message
+  # task
+  addTask(addTaskInput: [AddTaskInput]!): Message
+  removeTask(removeTaskInput: [RemoveTaskInput]!): Message
+  updateTask(updateTaskInput: [UpdateTaskInput]!): Message
+  # transaction
+  addTransaction(addTransactionInput: [AddTransactionInput]!): Message
+  removeTransaction(removeTransactionInput: [RemoveTransactionInput]!): Message
+  updateTransaction(updateTransactionInput: [UpdateTransactionInput]!): Message
+  # user
+  addUser(addUserInput: [AddUserInput]!): Message
+  removeUser(removeUserInput: [RemoveUserInput]!): Message
+  updateUser(updateUserInput: [UpdateUserInput]!): Message
+  signInUser(signInUserInput: SignInUserInput!): Message
+  signUpUser(signUpUserInput: SignUpUserInput!): Message
+  logoutUser(logoutUserInput: LogoutUserInput!): Message
+  updateUserSelf(updateUserSelfInput: UpdateUserSelfInput!): Message
+  verifyMessage(verifyMessageInput: VerifyMessageInput!): Message
+  # userTask
+  acceptUserTask(acceptUserTaskInput: [AcceptUserTaskInput]!): Message
+  submitUserTask(submitUserTaskInput: [SubmitUserTaskInput]!): Message
+  quitUserTask(quitUserTaskInput: [QuitUserTaskInput]!): Message
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

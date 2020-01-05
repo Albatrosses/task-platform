@@ -1,35 +1,36 @@
-export type TMessage = {
-  status: number;
+import { getNowString } from "./common";
+
+export const generateLog = (message: string): void => {
+  const timeTemp = getNowString();
+  // tslint:disable-next-line: no-console
+  console.log(timeTemp, `message: ${message}`);
+};
+
+export const generateErrorLog = (error: Error): void => {
+  const timeTemp = getNowString();
+  // tslint:disable-next-line: no-console
+  console.log(timeTemp, `error: ${error}`);
+};
+
+enum HTTP_CODE {
+  SUCCESS = 200,
+  FAIL = 400
+}
+
+type TMessage = {
+  code: HTTP_CODE;
   message: string;
+  success: boolean;
 };
 
-export const timeLog = ({ status, message }: TMessage): void => {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + (1 % 12);
-  const days = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  // tslint:disable-next-line: no-console
-  console.log(
-    `${year}-${month}-${days} ${hours}:${minutes}:${seconds}`,
-    `status: ${status}`,
-    `message: ${message}`
-  );
-};
-
-export const timeErrorLog = (error: Error): void => {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + (1 % 12);
-  const days = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  // tslint:disable-next-line: no-console
-  console.error(
-    `${year}-${month}-${days} ${hours}:${minutes}:${seconds}`,
-    error
-  );
+export const generateMessage = (
+  success: boolean,
+  message: string
+): TMessage => {
+  const code = success ? HTTP_CODE.SUCCESS : HTTP_CODE.FAIL;
+  return {
+    code,
+    message,
+    success
+  };
 };

@@ -12,7 +12,7 @@ type TConciseProps = {
 };
 
 export const Concise: React.FC<TConciseProps> = ({ taskDetail }) => {
-  const { name, status, platforms, description, reward, steps } = taskDetail;
+  const { name, status, platforms, description, amount, steps } = taskDetail;
   let image;
   if (platforms.length === 1) {
     image = get(platformsConfig, `${platforms[0].code}.image`, "");
@@ -36,7 +36,7 @@ export const Concise: React.FC<TConciseProps> = ({ taskDetail }) => {
         </div>
         <div className="concise-status-wrapper">{renderStatus()}</div>
         <div className="concise-name-wrapper">{name}</div>
-        <div className="concise-reward-wrapper">{parseCurrency(reward)}</div>
+        <div className="concise-amount-wrapper">{parseCurrency(amount)}</div>
         <div className="concise-description-wrapper">{description}</div>
         <div className="concise-steps-wrapper">{steps}</div>
       </div>

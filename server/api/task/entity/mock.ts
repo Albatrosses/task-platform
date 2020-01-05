@@ -1,5 +1,5 @@
-import { PLATFORM_CODE, TASK_STATUS_CODE } from "./enum";
-import { THero, TTask } from "./types";
+import { PLATFORM_CODE, TASK_STATUS_CODE } from "../enum";
+import { TTask } from "../types";
 
 export const taskListingData: TTask[] = [
   {
@@ -22,7 +22,7 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 768,
-    reward: 5,
+    amount: 5,
     status: TASK_STATUS_CODE.ASSIGNED,
     startDate: "2019/12/30",
     endDate: "2020/12/31"
@@ -47,7 +47,7 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 1189,
-    reward: 7,
+    amount: 7,
     status: TASK_STATUS_CODE.ASSIGNED,
     startDate: "2019/12/20",
     endDate: "2020/12/21"
@@ -72,7 +72,7 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 1270,
-    reward: 3.5,
+    amount: 3.5,
     status: TASK_STATUS_CODE.UNASSIGNED,
     startDate: "2019/12/26",
     endDate: "2020/12/31"
@@ -97,7 +97,7 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 1000,
-    reward: 4,
+    amount: 4,
     status: TASK_STATUS_CODE.UNASSIGNED,
     startDate: "2019/12/11",
     endDate: "2020/12/12"
@@ -122,7 +122,7 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 500,
-    reward: 9,
+    amount: 9,
     status: TASK_STATUS_CODE.UNASSIGNED,
     startDate: "2019/12/04",
     endDate: "2020/12/12"
@@ -147,7 +147,7 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 998,
-    reward: 4.5,
+    amount: 4.5,
     status: TASK_STATUS_CODE.UNASSIGNED,
     startDate: "2019/12/17",
     endDate: "2020/12/18"
@@ -172,7 +172,7 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 1570,
-    reward: 2,
+    amount: 2,
     status: TASK_STATUS_CODE.UNASSIGNED,
     startDate: "2019/12/28",
     endDate: "2020/12/29"
@@ -197,7 +197,7 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 764,
-    reward: 3.8,
+    amount: 3.8,
     status: TASK_STATUS_CODE.REVIEWING,
     startDate: "2019/12/04",
     endDate: "2020/12/13"
@@ -222,14 +222,14 @@ export const taskListingData: TTask[] = [
       }
     ],
     total: 856,
-    reward: 3,
+    amount: 3,
     status: TASK_STATUS_CODE.COMPLETED,
     startDate: "2019/12/19",
     endDate: "2020/12/23"
   }
 ];
 
-export const heroImageData: THero[] = [
+export const heroImageData: any[] = [
   {
     taskId: 1,
     imageSrc:

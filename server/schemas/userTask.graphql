@@ -1,0 +1,39 @@
+input AcceptUserTaskInput {
+  id: Int!
+}
+
+input SubmitUserTaskInput {
+  id: Int!
+  imageUrl: String
+}
+
+input QuitUserTaskInput {
+  id: Int!
+}
+
+input QueryUserTaskInput {
+  id: Int!
+}
+
+input QueryUserTaskListingInput {
+  page: Int
+  status: Int
+  platform: [Int]
+  amount: [Int]
+  date: [String]
+}
+
+type UserTask {
+  id: Int!
+  name: String
+  simple: String
+  description: String
+  criteria: [String]
+  platforms: [Platform]
+  steps: [String]
+  total: Int
+  amount: Float
+  status: Int
+  startDate: String
+  endDate: String
+}

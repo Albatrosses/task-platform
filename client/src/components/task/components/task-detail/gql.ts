@@ -11,7 +11,7 @@ export const TASK_DETAIL = gql`
         link
       }
       total
-      reward
+      amount
       status
       startDate
       endDate

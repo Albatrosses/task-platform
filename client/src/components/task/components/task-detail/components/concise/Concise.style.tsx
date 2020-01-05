@@ -43,7 +43,7 @@ export const ConciseWrapper = styled.div`
       font-size: 24px;
       font-weight: 700;
     }
-    .concise-reward-wrapper {
+    .concise-amount-wrapper {
       font-size: 30px;
       font-weight: 700;
     }

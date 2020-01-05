@@ -43,8 +43,8 @@ export const Listing: React.FC<TListingProps> = ({
             : nextTask.id - proTask.id;
         case SORT_TYPE.REWARD:
           return sortOrder
-            ? proTask.reward - nextTask.reward
-            : nextTask.reward - proTask.reward;
+            ? proTask.amount - nextTask.amount
+            : nextTask.amount - proTask.amount;
         case SORT_TYPE.DATE:
           return sortOrder
             ? new Date(proTask.startDate).getTime() -
@@ -67,7 +67,7 @@ export const Listing: React.FC<TListingProps> = ({
             taskListingMirror,
             ({ status }) => !filterStatus || status === filterStatus
           ),
-          ({ id, name, simple, platforms, total, reward, status }, key) => {
+          ({ id, name, simple, platforms, total, amount, status }, key) => {
             const tags = map(platforms, ({ code }) =>
               get(platformsConfig, `${code}.name`, "")
             );
@@ -105,8 +105,8 @@ export const Listing: React.FC<TListingProps> = ({
                   </div>
                   <div className="task-total">剩余数量：{total}</div>
                 </div>
-                <div className="task-reward-wrapper">
-                  <div className="task-reward">{parseCurrency(reward)}</div>
+                <div className="task-amount-wrapper">
+                  <div className="task-amount">{parseCurrency(amount)}</div>
                 </div>
               </li>
             );

@@ -1,0 +1,97 @@
+input AddUserInput {
+  password: String
+  phone: Int
+  role: Int
+}
+
+input RemoveUserInput {
+  id: Int!
+}
+
+input UpdateUserInput {
+  id: Int!
+  name: String
+  password: String
+  phone: Int
+  avatar: String
+  balance: Float
+  payWays: [PayWayInput]
+  inviteCode: String
+  inviteId: Int
+  status: Int
+  role: Int
+}
+
+input SignInUserInput {
+  phone: Int!
+  password: String
+  verifyCode: String
+  inviteCode: String
+}
+
+input SignUpUserInput {
+  phone: Int!
+  password: String
+  verifyCode: String
+}
+
+input LogoutUserInput {
+  id: Int!
+  password: String
+}
+
+input UpdateUserSelfInput {
+  id: Int!
+  name: String
+  password: String
+  phone: Int
+  avatar: String
+  payWays: [PayWayInput]
+  inviteCode: String
+}
+
+input VerifyMessageInput {
+  phone: Int
+}
+
+input QueryUserInput {
+  id: Int!
+}
+
+input QueryUserListingInput {
+  name: String
+  phone: Int
+  payWay: PayWayInput
+  inviteId: Int
+  status: Int
+  role: Int
+  balance: [Int]
+  date: [String]
+}
+
+type User {
+  id: Int!
+  name: String
+  password: String
+  phone: Int
+  avatar: String
+  balance: Float
+  payWays: [PayWay]
+  inviteCode: String
+  inviteId: Int
+  status: Int
+  role: Int
+  signInDate: String
+  loginDate: String
+  logoutDate: String
+}
+
+type PayWay {
+  code: Int
+  account: String
+}
+
+input PayWayInput {
+  code: Int
+  account: String
+}

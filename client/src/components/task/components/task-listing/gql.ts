@@ -5,14 +5,14 @@ export const TASK_LISTING = gql`
     $page: Int
     $status: Int
     $platform: [Int]
-    $reward: [Int]
+    $amount: [Int]
     $date: [String]
   ) {
     taskListing(
       page: $page
       status: $status
       platform: $platform
-      reward: $reward
+      amount: $amount
       date: $date
     ) {
       id
@@ -23,7 +23,7 @@ export const TASK_LISTING = gql`
         link
       }
       total
-      reward
+      amount
       status
       startDate
       endDate

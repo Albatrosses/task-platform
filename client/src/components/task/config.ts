@@ -67,7 +67,7 @@ export const statusConfig = {
   }
 };
 
-export const rewardRangeConfig = [
+export const amountRangeConfig = [
   {
     label: "不限",
     value: 0

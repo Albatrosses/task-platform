@@ -65,10 +65,10 @@ export const ListingWrapper = styled.div`
           font-size: 10px;
         }
       }
-      .task-reward-wrapper {
+      .task-amount-wrapper {
         position: absolute;
         right: 10px;
-        .task-reward {
+        .task-amount {
           font-size: 20px;
           font-weight: bolder;
         }

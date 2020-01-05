@@ -8,7 +8,7 @@ import { withRouter } from "react-router";
 import { Icon } from "src/components/common/icon/Icon";
 import {
   platformsConfig,
-  rewardRangeConfig,
+  amountRangeConfig,
   sortTypeConfig
 } from "src/components/task/config";
 import { PLATFORM_CODE, SORT_ORDER, SORT_TYPE } from "src/components/task/enum";
@@ -18,12 +18,12 @@ const { CheckableTag } = Tag;
 
 type THeaderProps = {
   platform: PLATFORM_CODE[];
-  reward: number | null[];
+  amount: number | null[];
   date: string | null[];
   sortType: SORT_TYPE;
   sortOrder: SORT_ORDER;
   setPlatform: (platform: any) => void;
-  setReward: (reward: any) => void;
+  setAmount: (amount: any) => void;
   setDate: (date: any) => void;
   setSortType: (date: any) => void;
   setSortOrder: (date: any) => void;
@@ -32,12 +32,12 @@ type THeaderProps = {
 export const Header: React.FC<THeaderProps> = ({
   history,
   platform,
-  reward,
+  amount,
   date,
   sortType,
   sortOrder,
   setPlatform,
-  setReward,
+  setAmount,
   setDate,
   setSortType,
   setSortOrder
@@ -89,36 +89,36 @@ export const Header: React.FC<THeaderProps> = ({
         );
       };
 
-      const renderReward = () => {
-        const [minReward, maxReward] = reward;
+      const renderAmount = () => {
+        const [minAmount, maxAmount] = amount;
 
         return (
-          <div className="reward-wrapper">
-            <label className="reward-label">报酬</label>
+          <div className="amount-wrapper">
+            <label className="amount-label">报酬</label>
             <Picker
-              data={[rewardRangeConfig, rewardRangeConfig]}
-              value={[minReward, maxReward]}
+              data={[amountRangeConfig, amountRangeConfig]}
+              value={[minAmount, maxAmount]}
               title="选择报酬区间"
               cascade={false}
-              onOk={currentRewardRange => {
+              onOk={currentAmountRange => {
                 const [
-                  minCurrentRewardRange,
-                  maxCurrentRewardRange
-                ] = currentRewardRange;
-                if (minCurrentRewardRange && maxCurrentRewardRange) {
-                  setReward(currentRewardRange.sort((a: any, b: any) => a - b));
+                  minCurrentAmountRange,
+                  maxCurrentAmountRange
+                ] = currentAmountRange;
+                if (minCurrentAmountRange && maxCurrentAmountRange) {
+                  setAmount(currentAmountRange.sort((a: any, b: any) => a - b));
                 } else {
-                  setReward(currentRewardRange);
+                  setAmount(currentAmountRange);
                 }
               }}
             >
-              <div className="reward-content">
-                <Button key={"minReward"} className="reward-button">
-                  {minReward || "最小报酬"}
+              <div className="amount-content">
+                <Button key={"minAmount"} className="amount-button">
+                  {minAmount || "最小报酬"}
                 </Button>
                 -
-                <Button key={"maxReward"} className="reward-button">
-                  {maxReward || "最大报酬"}
+                <Button key={"maxAmount"} className="amount-button">
+                  {maxAmount || "最大报酬"}
                 </Button>
               </div>
             </Picker>
@@ -178,7 +178,7 @@ export const Header: React.FC<THeaderProps> = ({
       return (
         <div className="all-filter-wrapper">
           {renderPlatform()}
-          {renderReward()}
+          {renderAmount()}
           {renderDate()}
         </div>
       );

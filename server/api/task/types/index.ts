@@ -1,9 +1,4 @@
-import { PLATFORM_CODE, TASK_STATUS_CODE } from "../enum/task";
-
-export type THero = {
-  taskId: number;
-  imageSrc: string;
-};
+import { PLATFORM_CODE, TASK_STATUS_CODE } from "../enum";
 
 export type TTask = {
   id: number;
@@ -12,7 +7,7 @@ export type TTask = {
   description?: string;
   platforms: TPlatform[];
   total: number;
-  reward: number;
+  amount: number;
   status: TASK_STATUS_CODE;
   startDate: string;
   endDate: string;

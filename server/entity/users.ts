@@ -1,116 +1,141 @@
-import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-import {UserTasks} from "./user_tasks";
-import {Transactions} from "./transactions";
-import {EventLog} from "./event_log";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  RelationId
+} from "typeorm";
+import { EventLog } from "./event_log";
+import { Transactions } from "./transactions";
+import { UserTasks } from "./user_tasks";
 
-
-@Entity("users" ,{schema:"task_platform" } )
+@Entity("users", { schema: "task_platform" })
 export class Users extends BaseEntity {
+  @PrimaryGeneratedColumn({
+    type: "int",
+    unsigned: true,
+    name: "id"
+  })
+  public id: number;
 
-    @PrimaryGeneratedColumn({
-        type:"int", 
-        unsigned: true,
-        name:"id"
-        })
-    id:number;
-        
+  @Column("varchar", {
+    nullable: true,
+    length: 20,
+    name: "name"
+  })
+  public name: string | null;
 
-    @Column("varchar",{ 
-        nullable:true,
-        length:20,
-        name:"name"
-        })
-    name:string | null;
-        
+  @Column("varchar", {
+    nullable: true,
+    length: 30,
+    name: "password"
+  })
+  public password: string | null;
 
-    @Column("varchar",{ 
-        nullable:true,
-        length:30,
-        name:"password"
-        })
-    password:string | null;
-        
+  @Column("int", {
+    nullable: true,
+    name: "phone"
+  })
+  public phone: number | null;
 
-    @Column("int",{ 
-        nullable:true,
-        name:"phone"
-        })
-    phone:number | null;
-        
+  @Column("varchar", {
+    nullable: true,
+    length: 1000,
+    name: "avatar"
+  })
+  public avatar: string | null;
 
-    @Column("varchar",{ 
-        nullable:true,
-        length:1000,
-        name:"avatar"
-        })
-    avatar:string | null;
-        
+  @Column("double", {
+    nullable: false,
+    default: () => "'0'",
+    precision: 22,
+    name: "balance"
+  })
+  public balance: number;
 
-    @Column("double",{ 
-        nullable:false,
-        default: () => "'0'",
-        precision:22,
-        name:"balance"
-        })
-    balance:number;
-        
+  @Column("json", {
+    nullable: true,
+    name: "payWays"
+  })
+  public payWays: object | null;
 
-    @Column("json",{ 
-        nullable:true,
-        name:"payWays"
-        })
-    payWays:object | null;
-        
+  @Column("varchar", {
+    nullable: true,
+    length: 10,
+    name: "inviteCode"
+  })
+  public inviteCode: string | null;
 
-    @Column("varchar",{ 
-        nullable:true,
-        length:10,
-        name:"inviteCode"
-        })
-    inviteCode:string | null;
-        
+  @Column("int", {
+    nullable: true,
+    name: "inviteId"
+  })
+  public inviteId: number | null;
 
-    @Column("int",{ 
-        nullable:true,
-        name:"inviteId"
-        })
-    inviteId:number | null;
-        
+  @Column("tinyint", {
+    nullable: false,
+    default: () => "'0'",
+    name: "status"
+  })
+  public status: number;
 
-    @Column("tinyint",{ 
-        nullable:false,
-        default: () => "'0'",
-        name:"status"
-        })
-    status:number;
-        
+  @Column("tinyint", {
+    nullable: false,
+    default: () => "'0'",
+    name: "role"
+  })
+  public role: number;
 
-    @Column("datetime",{ 
-        nullable:true,
-        name:"signInDate"
-        })
-    signInDate:Date | null;
-        
+  @Column("tinyint", {
+    nullable: true,
+    name: "roleLevel"
+  })
+  public roleLevel: number | null;
 
-    @Column("datetime",{ 
-        nullable:true,
-        name:"loginDate"
-        })
-    loginDate:Date | null;
-        
+  @Column("datetime", {
+    nullable: true,
+    name: "signInDate"
+  })
+  public signInDate: Date | null;
 
-   
-    @OneToMany(()=>UserTasks, (userTasks: UserTasks)=>userTasks.user,{ onDelete: 'SET NULL' ,onUpdate: 'CASCADE' })
-    userTaskss:UserTasks[];
-    
+  @Column("datetime", {
+    nullable: true,
+    name: "loginDate"
+  })
+  public loginDate: Date | null;
 
-   
-    @OneToMany(()=>Transactions, (transactions: Transactions)=>transactions.user,{ onDelete: 'SET NULL' ,onUpdate: 'CASCADE' })
-    transactionss:Transactions[];
-    
+  @Column("datetime", {
+    nullable: true,
+    name: "logoutDate"
+  })
+  public logoutDate: Date | null;
 
-   
-    @OneToMany(()=>EventLog, (eventLog: EventLog)=>eventLog.user,{ onDelete: 'SET NULL' ,onUpdate: 'CASCADE' })
-    eventLogs:EventLog[];
-    
+  @OneToMany(
+    () => UserTasks,
+    (userTasks: UserTasks) => userTasks.user,
+    { onDelete: "SET NULL", onUpdate: "CASCADE" }
+  )
+  public userTaskss: UserTasks[];
+
+  @OneToMany(
+    () => Transactions,
+    (transactions: Transactions) => transactions.user,
+    { onDelete: "SET NULL", onUpdate: "CASCADE" }
+  )
+  public transactionss: Transactions[];
+
+  @OneToMany(
+    () => EventLog,
+    (eventLog: EventLog) => eventLog.user,
+    { onDelete: "SET NULL", onUpdate: "CASCADE" }
+  )
+  public eventLogs: EventLog[];
 }

@@ -1,0 +1,20 @@
+input AddHeroImageInput {
+  taskId: Int!
+  imageSrc: String
+}
+
+input RemoveHeroImageInput {
+  id: Int!
+}
+
+input UpdateHeroImageInput {
+  id: Int!
+  taskId: Int!
+  imageSrc: String
+}
+
+type HeroImage {
+  id: Int!
+  taskId: Int!
+  imageSrc: String
+}

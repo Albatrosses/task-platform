@@ -26,12 +26,12 @@ export const HeaderWrapper = styled.div`
         margin-bottom: 10px;
         border: 1px solid #1890ff;
       }
-      .reward-content,
+      .amount-content,
       .date-content {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        .reward-button,
+        .amount-button,
         .date-button {
           min-width: 88px;
           padding: 0 8px;

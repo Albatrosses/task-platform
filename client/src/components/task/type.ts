@@ -7,7 +7,7 @@ export type TTask = {
   description?: string;
   platforms: TPlatform[];
   total: number;
-  reward: number;
+  amount: number;
   status: TASK_STATUS_CODE;
   startDate: string;
   endDate: string;

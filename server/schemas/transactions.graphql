@@ -1,0 +1,61 @@
+input AddTransactionInput {
+  taskId: Int
+  userId: Int
+  type: Int
+  amount: Float
+}
+
+input RemoveTransactionInput {
+  id: Int!
+}
+
+input UpdateTransactionInput {
+  id: Int!
+  taskId: Int
+  taskName: String
+  taskSimple: String
+  taskDescription: String
+  taskPlatforms: [PlatformInput]
+  userId: Int
+  userName: String
+  userPhone: String
+  payWay: PayWayInput
+  role: Int
+  amount: Float
+  type: Int
+  status: Int
+  submitDate: String
+  resultDate: String
+}
+
+input QueryTransactionInput {
+  id: Int!
+}
+
+input QueryTransactionListingInput {
+  page: Int
+  status: Int
+  taskId: Int
+  userId: Int
+  amount: [Int]
+  date: [String]
+}
+
+type Transaction {
+  id: Int!
+  taskId: Int
+  taskName: String
+  taskSimple: String
+  taskDescription: String
+  taskPlatforms: [Platform]
+  userId: Int
+  userName: String
+  userPhone: String
+  payWay: PayWay
+  role: Int
+  amount: Float
+  type: Int
+  status: Int
+  submitDate: String
+  resultDate: String
+}

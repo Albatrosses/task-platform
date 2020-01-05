@@ -18,15 +18,15 @@ export const TaskListing: React.FC<any> = ({ location }) => {
     page: 1,
     status: TASK_STATUS_CODE.ALL,
     platform: keys(platformsConfig).map(item => Number(item)),
-    reward: [0, 0],
+    amount: [0, 0],
     date: ["", ""]
   });
   const [sortType, setSortType] = useState(SORT_TYPE.DEFAULT);
   const [sortOrder, setSortOrder] = useState(SORT_ORDER.DESC);
 
-  const { status, page, platform, reward, date } = filters;
+  const { status, page, platform, amount, date } = filters;
   const { data, loading, refetch } = useQuery(TASK_LISTING, {
-    variables: { page, status, platform, reward, date }
+    variables: { page, status, platform, amount, date }
   });
   const taskListing = get(data, "taskListing", []);
 
@@ -38,15 +38,15 @@ export const TaskListing: React.FC<any> = ({ location }) => {
     <TaskListingWrapper>
       <Header
         platform={platform}
-        reward={reward}
+        amount={amount}
         date={date}
         sortType={sortType}
         sortOrder={sortOrder}
         setPlatform={(platformInput: any) =>
           setFilters({ ...filters, platform: platformInput })
         }
-        setReward={(rewardInput: any) =>
-          setFilters({ ...filters, reward: rewardInput })
+        setAmount={(amountInput: any) =>
+          setFilters({ ...filters, amount: amountInput })
         }
         setDate={(dateInput: any) =>
           setFilters({ ...filters, date: dateInput })

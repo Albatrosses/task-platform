@@ -1,0 +1,67 @@
+input AddTaskInput {
+  name: String!
+  simple: String
+  description: String
+  criteria: [String]
+  platforms: [PlatformInput]
+  steps: [String]
+  total: Int
+  amount: Float
+  startDate: String
+  endDate: String
+}
+
+input RemoveTaskInput {
+  id: Int!
+}
+
+input UpdateTaskInput {
+  id: Int!
+  name: String
+  simple: String
+  description: String
+  criteria: [String]
+  platforms: [PlatformInput]
+  steps: [String]
+  total: Int
+  amount: Float
+  startDate: String
+  endDate: String
+}
+
+input QueryTaskInput {
+  id: Int!
+}
+
+input QueryTaskListingInput {
+  page: Int
+  status: Int
+  platform: [Int]
+  amount: [Int]
+  date: [String]
+}
+
+type Task {
+  id: Int!
+  name: String
+  simple: String
+  description: String
+  criteria: [String]
+  platforms: [Platform]
+  steps: [String]
+  total: Int
+  amount: Float
+  status: Int
+  startDate: String
+  endDate: String
+}
+
+type Platform {
+  code: Int
+  link: String
+}
+
+input PlatformInput {
+  code: Int
+  link: String
+}
