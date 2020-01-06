@@ -1,22 +1,22 @@
 input AddTransactionInput {
-  taskId: Int
-  userId: Int
+  taskId: String
+  userId: String
   type: Int
   amount: Float
 }
 
 input RemoveTransactionInput {
-  id: Int!
+  id: String!
 }
 
 input UpdateTransactionInput {
-  id: Int!
-  taskId: Int
+  id: String!
+  taskId: String
   taskName: String
   taskSimple: String
   taskDescription: String
   taskPlatforms: [Int]
-  userId: Int
+  userId: String
   userName: String
   userPhone: String
   payWay: PayWayInput
@@ -29,26 +29,26 @@ input UpdateTransactionInput {
 }
 
 input QueryTransactionInput {
-  id: Int
+  id: String
 }
 
 input QueryTransactionListingInput {
   page: Int
   status: Int
-  taskId: Int
-  userId: Int
+  taskId: String
+  userId: String
   amount: AmountInput
   date: DateInput
   order: OrderInput
 }
 
 type Transaction {
-  id: Int
+  id: String
   payWay: PayWay
   balance: Float
   type: Int
   status: Int
   submitDate: String
   resultDate: String
-  reviewer: Int
+  reviewer: String
 }

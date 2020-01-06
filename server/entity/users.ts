@@ -36,16 +36,17 @@ export class Users extends BaseEntity {
 
   @Column("varchar", {
     nullable: true,
-    length: 30,
+    length: 1000,
     name: "password"
   })
   public password: string | null;
 
-  @Column("int", {
+  @Column("varchar", {
     nullable: true,
+    length: 20,
     name: "phone"
   })
-  public phone: number | null;
+  public phone: string | null;
 
   @Column("varchar", {
     nullable: true,

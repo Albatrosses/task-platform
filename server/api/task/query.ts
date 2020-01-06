@@ -1,3 +1,4 @@
+import { get } from "lodash";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import {
@@ -25,7 +26,7 @@ export const task = async (_, { queryTaskInput }): Promise<any> => {
 
 export const taskListing = async (
   _,
-  { queryTaskListingInput }
+  { queryTaskListingInput = {} }
 ): Promise<any> => {
   const {
     page,
@@ -34,7 +35,7 @@ export const taskListing = async (
     amount,
     date,
     order
-  } = queryTaskListingInput;
+  } = queryTaskListingInput as any;
 
   const result = await queryDB(async connection => {
     const tasksRepository = connection.getRepository(Tasks);

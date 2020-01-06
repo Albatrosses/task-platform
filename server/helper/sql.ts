@@ -4,6 +4,7 @@ import { TDate } from "../../types/common/date";
 import { TOrder } from "../../types/common/order";
 import { PLATFORM_CODE } from "../../types/common/platform";
 import { TASK_STATUS_CODE } from "../../types/task/task";
+import { USER_ROLE_CODE } from "../../types/user/user";
 import {
   dateTypeConfig,
   orderStatusConfig,
@@ -17,6 +18,13 @@ export const generateStatusQuery = (status?: TASK_STATUS_CODE) => {
   return `status = ${status}`;
 };
 
+export const generateRoleQuery = (role?: USER_ROLE_CODE) => {
+  if (!role) {
+    return "";
+  }
+  return `role = ${role}`;
+};
+
 export const generateNameQuery = (name?: string) => {
   if (!name) {
     return "";
@@ -28,14 +36,21 @@ export const generatePhoneQuery = (phone?: number) => {
   if (!phone) {
     return "";
   }
-  return `phone like %${phone}%`;
+  return `phone like '%${phone}%'`;
+};
+
+export const generateInviteQuery = (inviteId?: number) => {
+  if (!inviteId && inviteId !== 0) {
+    return "";
+  }
+  return `inviteId = '%${inviteId}%'`;
 };
 
 export const generatePayWayQuery = (payWayCodes?: PLATFORM_CODE[]) => {
   if (!payWayCodes || isEmpty(compact(payWayCodes))) {
     return "";
   }
-  return `json_extract(payWay, '$.code') in (${compact(payWayCodes).join(
+  return `json_extract(payWays, '$.code') in (${compact(payWayCodes).join(
     ","
   )})`;
 };
@@ -64,6 +79,23 @@ export const generateAmountQuery = (amount?: TAmount) => {
     return `amount <= ${max}`;
   }
   return `amount between ${min} and ${max}`;
+};
+
+export const generateBalanceQuery = (balance?: TAmount) => {
+  if (!balance) {
+    return "";
+  }
+  const { min, max } = balance;
+  if (!min && !max) {
+    return "";
+  }
+  if (min && !max) {
+    return `balance >= ${min}`;
+  }
+  if (!min && max) {
+    return `balance <= ${max}`;
+  }
+  return `balance between ${min} and ${max}`;
 };
 
 export const generateDateQuery = (date?: TDate) => {

@@ -1,20 +1,20 @@
 input AddHeroImageInput {
-  taskId: Int
+  taskId: String
   image: String
 }
 
 input RemoveHeroImageInput {
-  id: Int!
+  id: String!
 }
 
 input UpdateHeroImageInput {
-  id: Int!
-  taskId: Int
+  id: String!
+  taskId: String
   image: String
 }
 
 type HeroImage {
-  id: Int
-  taskId: Int
+  id: String
+  taskId: String
   imageSrc: String
 }

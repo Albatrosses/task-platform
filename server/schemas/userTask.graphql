@@ -1,18 +1,19 @@
 input AcceptUserTaskInput {
-  id: Int!
+  taskId: String!
+  userId: String!
 }
 
 input SubmitUserTaskInput {
-  id: Int!
+  id: String!
   credentials: [String]!
 }
 
 input QuitUserTaskInput {
-  id: Int!
+  id: String!
 }
 
 input QueryUserTaskInput {
-  id: Int!
+  id: String!
 }
 
 input QueryUserTaskListingInput {
@@ -25,11 +26,11 @@ input QueryUserTaskListingInput {
 }
 
 type UserTask {
-  id: Int
+  id: String
   credentials: [String]
   status: Int
   assignDate: String
   uploadDate: String
   reviewDate: String
-  reviewer: Int
+  reviewer: String
 }

@@ -1,90 +1,93 @@
 input AddUserInput {
-  password: String
-  phone: Int
-  role: Int
+  password: String!
+  phone: String!
+  role: Int!
+  reviewer: String!
 }
 
 input RemoveUserInput {
-  id: Int!
+  id: String!
 }
 
 input UpdateUserInput {
-  id: Int!
+  id: String!
   name: String
   password: String
-  phone: Int
+  phone: String
   avatar: String
   balance: Float
   payWays: [PayWayInput]
   inviteCode: String
-  inviteId: Int
+  inviteId: String
   status: Int
   role: Int
+  roleLevel: Int
+  reviewer: String!
 }
 
 input SignInUserInput {
-  phone: Int!
+  phone: String!
   password: String
   verifyCode: String
   inviteCode: String
 }
 
-input loginUserInput {
-  phone: Int!
+input LoginUserInput {
+  phone: String!
   password: String
   verifyCode: String
 }
 
 input LogoutUserInput {
-  id: Int!
+  id: String!
   password: String
 }
 
 input UpdateUserSelfInput {
-  id: Int!
+  id: String!
   name: String
   password: String
-  phone: Int
+  phone: String
   avatar: String
   payWays: [PayWayInput]
   inviteCode: String
 }
 
 input VerifyMessageInput {
-  phone: Int
+  phone: String!
 }
 
 input QueryUserInput {
-  id: Int!
+  id: String!
 }
 
 input QueryUserListingInput {
   name: String
-  phone: Int
-  payWay: PayWayInput
-  inviteId: Int
+  phone: String
+  payWayCodes: [Int]
+  inviteId: String
   status: Int
   role: Int
-  amount: AmountInput
+  balance: AmountInput
   date: DateInput
   order: OrderInput
 }
 
 type User {
-  id: Int
+  id: String
   name: String
   password: String
-  phone: Int
+  phone: String
   avatar: String
   balance: Float
   payWays: [PayWay]
   inviteCode: String
-  inviteId: Int
+  inviteId: String
   status: Int
   role: Int
   roleLevel: Int
   signInDate: String
   loginDate: String
   logoutDate: String
-  reviewer: Int
+  reviewer: String
 }

@@ -4,6 +4,8 @@ import * as bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import ejs from "ejs";
 import express from "express";
+import SessionStore from "express-mysql-session";
+import session from "express-session";
 import * as http from "http";
 import logger from "morgan";
 import * as path from "path";
@@ -17,19 +19,34 @@ app.set("view engine", "html");
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../client/build/")));
 app.use("/", route);
+app.use(cookieParser());
+app.use(
+  session({
+    secret: "session",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 },
+    store: new SessionStore({
+      host: "127.0.0.1",
+      port: 3306,
+      user: "root",
+      password: "Dollar00_pjh",
+      database: "task_platform"
+    })
+  })
+);
 graphqlServer(app);
 
-app.use(function(req, res, next) {
-  const err = new Error("Not Found");
-  // err.status = 404;
+app.use((req, res, next) => {
+  const err: any = new Error("Not Found");
+  err.status = 404;
   next(err);
 });
 
 if (app.get("env") === "development") {
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render("error", {
       message: err.message,
@@ -38,7 +55,7 @@ if (app.get("env") === "development") {
   });
 }
 
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render("error", {
     message: err.message,
@@ -75,10 +92,12 @@ function onError(error) {
 
   switch (error.code) {
     case "EACCES":
+      // tslint:disable-next-line: no-console
       console.error(bind + " requires elevated privileges");
       process.exit(1);
       break;
     case "EADDRINUSE":
+      // tslint:disable-next-line: no-console
       console.error(bind + " is already in use");
       process.exit(1);
       break;

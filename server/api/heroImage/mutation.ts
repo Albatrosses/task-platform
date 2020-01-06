@@ -1,8 +1,8 @@
 import { queryDB } from "../../entity";
 import { HeroImage } from "../../entity/hero_image";
 import { Tasks } from "../../entity/tasks";
-import { unlink, writeFile } from "../../helper/file";
-import { generateImageBuffer } from "../../helper/file";
+import { deleteImage, unlink, writeFile } from "../../helper/file";
+import { storeImage } from "../../helper/file";
 import { generateMessage } from "../../helper/log";
 
 const IMAGE_PATH = "heroImage/";
@@ -22,15 +22,11 @@ export const addHeroImage = async (_, { addHeroImageInput }): Promise<any> => {
     }
 
     const heroImagesRepository = connection.getRepository(HeroImage);
-    const { imageBuffer, imageFilePath, imageFileName } = generateImageBuffer(
+    const { imageFilePath, imageFileName } = await storeImage(
       image,
       IMAGE_PATH,
       IMAGE_NAME
     );
-    await writeFile({
-      path: `${process.cwd()}${imageFilePath}${imageFileName}`,
-      data: imageBuffer
-    });
 
     const heroImage = new HeroImage();
     heroImage.taskId = taskId;
@@ -53,7 +49,7 @@ export const removeHeroImage = async (
 
     const heroImage = await heroImagesRepository.findOne({ id });
     if (heroImage) {
-      await unlink(`${process.cwd()}${heroImage.imageSrc}`);
+      await deleteImage(`${process.cwd()}${heroImage.imageSrc}`);
       await heroImagesRepository.remove(heroImage);
       return generateMessage(true, "删除成功");
     } else {
@@ -75,15 +71,11 @@ export const updateHeroImage = async (
     if (heroImage) {
       await unlink(`${heroImage.imageSrc}`);
 
-      const { imageBuffer, imageFilePath, imageFileName } = generateImageBuffer(
+      const { imageFilePath, imageFileName } = await storeImage(
         image,
         IMAGE_PATH,
         IMAGE_NAME
       );
-      await writeFile({
-        path: `${process.cwd()}${imageFilePath}${imageFileName}`,
-        data: imageBuffer
-      });
       heroImage.taskId = taskId;
       heroImage.imageSrc = imageFilePath + imageFileName;
 

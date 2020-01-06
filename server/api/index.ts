@@ -22,8 +22,9 @@ const graphqlServer = app => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => ({
-      auth: req.headers.authentication
+    context: ({ req, res }) => ({
+      req,
+      res
     })
   });
 

@@ -41,7 +41,7 @@ type Mutation {
   removeUser(removeUserInput: RemoveUserInput!): Message
   updateUser(updateUserInput: UpdateUserInput!): Message
   signInUser(signInUserInput: SignInUserInput!): Message
-  loginUser(loginUserInput: loginUserInput!): Message
+  loginUser(loginUserInput: LoginUserInput!): Message
   logoutUser(logoutUserInput: LogoutUserInput!): Message
   updateUserSelf(updateUserSelfInput: UpdateUserSelfInput!): Message
   verifyMessage(verifyMessageInput: VerifyMessageInput!): Message

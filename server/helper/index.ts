@@ -1,11 +1,26 @@
 export const getNowString = () => {
   const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + (1 % 12);
-  const days = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+  const year = date
+    .getFullYear()
+    .toString()
+    .padStart(4, "0");
+  const month = (date.getMonth() + (1 % 12)).toString().padStart(2, "0");
+  const days = date
+    .getDate()
+    .toString()
+    .padStart(2, "0");
+  const hours = date
+    .getHours()
+    .toString()
+    .padStart(2, "0");
+  const minutes = date
+    .getMinutes()
+    .toString()
+    .padStart(2, "0");
+  const seconds = date
+    .getSeconds()
+    .toString()
+    .padStart(2, "0");
 
   return `${year}-${month}-${days} ${hours}:${minutes}:${seconds}`;
 };
@@ -15,12 +30,27 @@ export const getNow = () => {
 };
 
 export const parseDateTimeToString = (dateTime: Date) => {
-  const year = dateTime.getFullYear();
-  const month = dateTime.getMonth() + (1 % 12);
-  const days = dateTime.getDate();
-  const hours = dateTime.getHours();
-  const minutes = dateTime.getMinutes();
-  const seconds = dateTime.getSeconds();
+  const year = dateTime
+    .getFullYear()
+    .toString()
+    .padStart(4, "0");
+  const month = (dateTime.getMonth() + (1 % 12)).toString().padStart(2, "0");
+  const days = dateTime
+    .getDate()
+    .toString()
+    .padStart(2, "0");
+  const hours = dateTime
+    .getHours()
+    .toString()
+    .padStart(2, "0");
+  const minutes = dateTime
+    .getMinutes()
+    .toString()
+    .padStart(2, "0");
+  const seconds = dateTime
+    .getSeconds()
+    .toString()
+    .padStart(2, "0");
 
   return `${year}-${month}-${days} ${hours}:${minutes}:${seconds}`;
 };

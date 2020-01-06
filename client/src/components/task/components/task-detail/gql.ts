@@ -1,7 +1,7 @@
 import { gql } from "apollo-boost";
 
 export const TASK_DETAIL = gql`
-  query getTaskDetail($id: Int) {
+  query getTaskDetail($id: String) {
     taskDetail(id: $id) {
       id
       name
