@@ -37,3 +37,18 @@ export const dateTypeConfig = {
   [DATE_TYPE_CODE.UPLOAD_DATE]: DATE_TYPE_NAME.UPLOAD_DATE,
   [DATE_TYPE_CODE.REVIEW_DATE]: DATE_TYPE_NAME.REVIEW_DATE
 };
+
+export const networkConfig = {
+  domain: "localhost"
+};
+
+export const expiresConfig = {
+  message: 60 * 10,
+  session: 60 * 60 * 24,
+  cookie: 1000 * 60 * 60 * 24,
+  token: 60 * 60 * 24
+};
+
+export const imageSizeConfig = {
+  avatar: 1024 * 1024 * 0.2
+};

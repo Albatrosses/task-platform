@@ -40,17 +40,16 @@ input LoginUserInput {
 
 input LogoutUserInput {
   id: String!
-  password: String
 }
 
 input UpdateUserSelfInput {
   id: String!
   name: String
   password: String
+  oldPassword: String
   phone: String
   avatar: String
   payWays: [PayWayInput]
-  inviteCode: String
 }
 
 input VerifyMessageInput {

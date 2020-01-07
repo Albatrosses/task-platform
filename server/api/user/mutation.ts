@@ -6,13 +6,15 @@ import {
 } from "../../../types/user/user";
 import { queryDB } from "../../entity";
 import { Messages } from "../../entity/messages";
+import { Sessions } from "../../entity/sessions";
+import { Tokens } from "../../entity/tokens";
 import { Users } from "../../entity/users";
-import { generateHashCode, getNowString } from "../../helper";
-import { deleteImage, storeImage } from "../../helper/file";
+import { generateHashCode, getNow, getNowString } from "../../helper";
+import { compareImgByteSize, deleteImage, storeImage } from "../../helper/file";
 import { generateMessage } from "../../helper/log";
+import { delayDo } from "../../helper/sql";
 import { generateVerifyCode, verifyPhone } from "../../helper/verify";
-
-const DELETE_MESSAGE_TIME = 1000 * 60 * 10;
+import { expiresConfig, networkConfig } from "../config/common";
 
 export const addUser = async (_, { addUserInput }): Promise<any> => {
   const { reviewer, password, phone, role } = addUserInput;
@@ -39,7 +41,7 @@ export const addUser = async (_, { addUserInput }): Promise<any> => {
     if (role === USER_ROLE_CODE.CONSUMER_VIP) {
       user.roleLevel = USER_ROLE_LEVEL_CODE.VIP1;
     }
-    user.signInDate = new Date(getNowString());
+    user.signInDate = getNow();
     user.inviteCode = generateHashCode();
     user.reviewer = reviewer;
 
@@ -130,7 +132,7 @@ export const updateUser = async (_, { updateUserInput }): Promise<any> => {
 
     await userRepository.save(user);
 
-    return generateMessage(true, "更改用户成功");
+    return generateMessage(true, "修改成功");
   });
 };
 
@@ -164,7 +166,7 @@ export const signInUser = async (_, { signInUserInput }): Promise<any> => {
     user.balance = 0;
     user.role = USER_ROLE_CODE.CONSUMER;
     user.inviteCode = generateHashCode();
-    user.signInDate = new Date(getNowString());
+    user.signInDate = getNow();
 
     await userRepository.save(user);
 
@@ -202,20 +204,67 @@ export const loginUser = async (
       return generateMessage(false, "密码错误");
     }
 
-    const { req, res } = context;
-    req.session.user = md5(phone);
-    res.cookie("user", md5(phone));
+    const sessionsRepository = connection.getRepository(Sessions);
+    const session = new Sessions();
+    const sessionId = md5(user.id) + generateHashCode();
+    session.sessionId = sessionId;
+    session.userId = user.id;
+    const tokensRepository = connection.getRepository(Tokens);
+    const token = await tokensRepository.findOne({ role: user.role });
+    session.data = token.authToken;
+
+    await sessionsRepository.save(session);
+    await delayDo(
+      sessionsRepository,
+      expiresConfig.session,
+      `delete from sessions where session_id = '${sessionId}'`
+    );
+    await delayDo(
+      sessionsRepository,
+      expiresConfig.session,
+      `update users set status = ${
+        USER_STATUS_CODE.LOGOUT
+      }, logoutDate = '${getNowString()}' where id = ${user.id}`
+    );
+
+    const { res } = context;
+    res.cookie("auth", sessionId, {
+      maxAge: expiresConfig.cookie,
+      path: "/",
+      domain: networkConfig.domain,
+      httpOnly: true
+    });
 
     user.status = USER_STATUS_CODE.ACTIVE;
+    user.loginDate = getNow();
     await userRepository.save(user);
     return generateMessage(true, "登录成功");
   });
 };
 
 export const logoutUser = async (_, { logoutUserInput }): Promise<any> => {
-  const { password, phone, role } = logoutUserInput;
+  const { id } = logoutUserInput;
 
-  return generateMessage(true, "登出成功");
+  return await queryDB(async connection => {
+    const userRepository = connection.getRepository(Users);
+    const user = await userRepository.findOne({ id });
+    if (!user) {
+      return generateMessage(false, "用户不存在");
+    }
+
+    const sessionsRepository = connection.getRepository(Sessions);
+    const session = await sessionsRepository.findOne({ userId: user.id });
+    if (session) {
+      await sessionsRepository.remove(session);
+    }
+
+    user.status = USER_STATUS_CODE.LOGOUT;
+    user.logoutDate = getNow();
+
+    await userRepository.save(user);
+
+    return generateMessage(true, "登出成功");
+  });
 };
 
 export const updateUserSelf = async (
@@ -226,13 +275,55 @@ export const updateUserSelf = async (
     id,
     name,
     password,
+    oldPassword,
     phone,
     avatar,
-    payWays,
-    inviteCode
+    payWays
   } = updateUserSelfInput;
 
-  return generateMessage(true, "用户信息修改成功");
+  return await queryDB(async connection => {
+    const userRepository = connection.getRepository(Users);
+    const user = await userRepository.findOne({ id });
+    if (!user) {
+      return generateMessage(false, "用户不存在");
+    } else if (user.status !== USER_STATUS_CODE.ACTIVE) {
+      return generateMessage(false, "用户未登录");
+    }
+
+    user.name = name;
+    if (password) {
+      if (md5(oldPassword) !== user.password) {
+        return generateMessage(false, "原密码不正确");
+      }
+      user.password = password;
+    }
+    if (phone && !verifyPhone(phone)) {
+      return generateMessage(false, "手机号不合规");
+    }
+    user.phone = phone;
+    if (avatar) {
+      const isExceed = compareImgByteSize(avatar);
+      if (isExceed) {
+        return generateMessage(false, "头像大小不能超过200KB");
+      }
+      if (user.avatar) {
+        await deleteImage(user.avatar);
+      }
+      const imagePath = `avatar/${id}/`;
+      const imageName = `${id}`;
+      const { imageFilePath, imageFileName } = await storeImage(
+        avatar,
+        imagePath,
+        imageName
+      );
+      user.avatar = imageFilePath + imageFileName;
+    }
+    user.payWays = payWays;
+
+    await userRepository.save(user);
+
+    return generateMessage(true, "修改成功");
+  });
 };
 
 export const verifyMessage = async (
@@ -248,36 +339,22 @@ export const verifyMessage = async (
   return await queryDB(async connection => {
     const messagesRepository = connection.getRepository(Messages);
     const message = await messagesRepository.findOne({ phone });
-    // tslint:disable-next-line: no-shadowed-variable
     const verifyCode = generateVerifyCode();
     if (!message) {
-      // tslint:disable-next-line: no-shadowed-variable
       const message = new Messages();
       message.phone = phone;
       message.context = verifyCode;
 
       await messagesRepository.save(message);
-      setTimeout(async () => {
-        await queryDB(async connection => {
-          const messagesRepository = connection.getRepository(Messages);
-          const message = await messagesRepository.findOne({ phone });
-          if (message) {
-            await messagesRepository.remove(message);
-          }
-        });
-      }, DELETE_MESSAGE_TIME);
-      return generateMessage(true, `短信验证码已发送:${message.context}`);
-    } else {
-      setTimeout(async () => {
-        await queryDB(async connection => {
-          const messagesRepository = connection.getRepository(Messages);
-          const message = await messagesRepository.findOne({ phone });
-          if (message) {
-            await messagesRepository.remove(message);
-          }
-        });
-      }, DELETE_MESSAGE_TIME);
-      return generateMessage(true, `短信验证码已发送:${message.context}`);
+      await delayDo(
+        messagesRepository,
+        expiresConfig.message,
+        `delete from messages where phone = '${phone}'`
+      );
     }
+    return generateMessage(
+      true,
+      `短信验证码已发送:${message ? message.context : verifyCode}`
+    );
   });
 };

@@ -1,7 +1,7 @@
 import { TASK_STATUS_CODE } from "../../../types/task/task";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
-import { getNowString } from "../../helper";
+import { getNowString, getNow } from "../../helper";
 import { generateMessage } from "../../helper/log";
 
 export const addTask = async (_, { addTaskInput }): Promise<any> => {
@@ -32,7 +32,7 @@ export const addTask = async (_, { addTaskInput }): Promise<any> => {
     task.criteria = criteria;
     task.startDate = startDate;
     task.endDate = endDate;
-    task.updateDate = new Date(getNowString());
+    task.updateDate = getNow();
     task.reviewer = reviewer;
 
     const tasksRepository = connection.getRepository(Tasks);
@@ -92,7 +92,7 @@ export const updateTask = async (_, { updateTaskInput }): Promise<any> => {
       task.criteria = criteria;
       task.startDate = startDate;
       task.endDate = endDate;
-      task.updateDate = new Date(getNowString());
+      task.updateDate = getNow();
       task.reviewer = reviewer;
       await tasksRepository.save(task);
       return generateMessage(true, "更新成功");

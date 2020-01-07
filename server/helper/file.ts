@@ -1,5 +1,6 @@
 import fs from "fs";
 import { generateHashCode } from ".";
+import { imageSizeConfig } from "../api/config/common";
 
 export const mkdir = (path: string) => {
   return new Promise(resolve => {
@@ -113,4 +114,25 @@ export const deleteImage = async (path: string) => {
     await rmdir(`${process.cwd()}${currentPath}`);
   }
   return true;
+};
+
+export const compareImgByteSize = (
+  image: string,
+  compare: number = imageSizeConfig.avatar
+) => {
+  let size = 0;
+  if (image) {
+    const equalIndex = image.indexOf("=");
+    if (equalIndex > 0) {
+      const str = image.substring(0, equalIndex);
+      const strLength = str.length;
+      const fileLength = strLength - (strLength / 8) * 2;
+      size = Math.floor(fileLength);
+    } else {
+      const strLength = image.length;
+      const fileLength = strLength - (strLength / 8) * 2;
+      size = Math.floor(fileLength);
+    }
+  }
+  return size > compare;
 };

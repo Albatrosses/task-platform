@@ -4,8 +4,6 @@ import * as bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import ejs from "ejs";
 import express from "express";
-import SessionStore from "express-mysql-session";
-import session from "express-session";
 import * as http from "http";
 import logger from "morgan";
 import * as path from "path";
@@ -22,21 +20,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../client/build/")));
 app.use("/", route);
 app.use(cookieParser());
-app.use(
-  session({
-    secret: "session",
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 },
-    store: new SessionStore({
-      host: "127.0.0.1",
-      port: 3306,
-      user: "root",
-      password: "Dollar00_pjh",
-      database: "task_platform"
-    })
-  })
-);
 graphqlServer(app);
 
 app.use((req, res, next) => {

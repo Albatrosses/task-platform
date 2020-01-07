@@ -27,9 +27,9 @@ export class Sessions extends BaseEntity {
   @Column("int", {
     nullable: false,
     unsigned: true,
-    name: "expires"
+    name: "userId"
   })
-  public expires: number;
+  public userId: number | null;
 
   @Column("text", {
     nullable: true,

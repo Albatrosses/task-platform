@@ -10,6 +10,7 @@ import {
   orderStatusConfig,
   orderTypeConfig
 } from "../api/config/common";
+import { generateHashCode } from ".";
 
 export const generateStatusQuery = (status?: TASK_STATUS_CODE) => {
   if (!status) {
@@ -135,4 +136,14 @@ export const generateAndWhereQuery = (whereQuery?: string[]) => {
     return "";
   }
   return ` where ${compact(whereQuery).join(" and ")}`;
+};
+
+export const delayDo = async (
+  repository: any,
+  delay: number,
+  query: string
+) => {
+  return await repository.query(
+    `CREATE EVENT delay_do_${generateHashCode()} ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL ${delay} SECOND DO ${query}`
+  );
 };
