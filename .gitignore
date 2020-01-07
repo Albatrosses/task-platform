@@ -6,3 +6,4 @@ tmp/
 temp/
 server/**/*.js
 client/**/*.js
+client/build

@@ -29,10 +29,6 @@ const graphqlServer = app => {
   });
 
   server.applyMiddleware({ app });
-
-  app.listen({ port: 4000 }, () =>
-    generateLog(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-  );
 };
 
 export default graphqlServer;
