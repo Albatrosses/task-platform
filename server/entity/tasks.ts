@@ -112,21 +112,21 @@ export class Tasks extends BaseEntity {
 
   @OneToMany(
     () => HeroImage,
-    (heroImage: HeroImage) => heroImage.taskId,
+    (heroImage: HeroImage) => heroImage.task,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public heroImages: HeroImage[];
 
   @OneToMany(
     () => Transactions,
-    (transactions: Transactions) => transactions.taskId,
+    (transactions: Transactions) => transactions.task,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public transactionss: Transactions[];
 
   @OneToMany(
     () => UserTasks,
-    (userTasks: UserTasks) => userTasks.taskId,
+    (userTasks: UserTasks) => userTasks.task,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public userTaskss: UserTasks[];

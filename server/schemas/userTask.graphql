@@ -1,6 +1,5 @@
 input AcceptUserTaskInput {
   taskId: ID!
-  userId: ID!
 }
 
 type AcceptUserTaskOutput implements Message {
@@ -10,7 +9,7 @@ type AcceptUserTaskOutput implements Message {
 }
 
 input SubmitUserTaskInput {
-  id: ID!
+  taskId: ID!
   credentials: [String]!
 }
 
@@ -20,8 +19,18 @@ type SubmitUserTaskOutput implements Message {
   success: Boolean
 }
 
-input QuitUserTaskInput {
+input ReviewUserTaskInput {
   id: ID!
+}
+
+type ReviewUserTaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
+input QuitUserTaskInput {
+  taskId: ID!
 }
 
 type QuitUserTaskOutput implements Message {
@@ -31,7 +40,7 @@ type QuitUserTaskOutput implements Message {
 }
 
 input QueryUserTaskInput {
-  id: ID!
+  taskId: ID!
 }
 
 type UserTaskOutput implements Message {
@@ -42,7 +51,6 @@ type UserTaskOutput implements Message {
 }
 
 input QueryUserTaskListingInput {
-  userId: ID
   page: Int
   status: Int
   platformCodes: [Int]

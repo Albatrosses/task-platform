@@ -2,7 +2,9 @@ input AddUserInput {
   password: String!
   phone: String!
   role: Int!
+  roleLevel: Int
   reviewer: ID!
+  balance: Float
 }
 
 type AddUserOutput implements Message {
@@ -48,6 +50,7 @@ input SignInUserInput {
   password: String
   verifyCode: String
   inviteCode: String
+  role: Int!
 }
 
 type SignInUserOutput implements Message {
@@ -69,7 +72,7 @@ type LoginUserOutput implements Message {
 }
 
 input LogoutUserInput {
-  id: ID!
+  phone: String!
 }
 
 type LogoutUserOutput implements Message {
@@ -79,7 +82,6 @@ type LogoutUserOutput implements Message {
 }
 
 input UpdateUserSelfInput {
-  id: ID!
   name: String
   password: String
   oldPassword: String

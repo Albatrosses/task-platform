@@ -128,21 +128,21 @@ export class Users extends BaseEntity {
 
   @OneToMany(
     () => Transactions,
-    (transactions: Transactions) => transactions.userId,
+    (transactions: Transactions) => transactions.user,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public transactionss: Transactions[];
 
   @OneToMany(
     () => UserTasks,
-    (userTasks: UserTasks) => userTasks.userId,
+    (userTasks: UserTasks) => userTasks.user,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public userTaskss: UserTasks[];
 
   @OneToMany(
     () => EventLog,
-    (eventLog: EventLog) => eventLog.userId,
+    (eventLog: EventLog) => eventLog.user,
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   public eventLogs: EventLog[];

@@ -3,8 +3,8 @@ import {
   ORDER_STATUS_CODE,
   ORDER_TYPE_CODE
 } from "../../../types/common/order";
-import { DATE_TYPE_NAME, ORDER_STATUS_NAME, ORDER_TYPE_NAME } from "../enum";
 import { USER_ROLE_CODE, USER_ROLE_LEVEL_CODE } from "../../../types/user/user";
+import { DATE_TYPE_NAME, ORDER_STATUS_NAME, ORDER_TYPE_NAME } from "../enum";
 
 export const orderTypeConfig = {
   [ORDER_TYPE_CODE.DEFAULT]: ORDER_TYPE_NAME.DEFAULT,

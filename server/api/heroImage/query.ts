@@ -1,13 +1,13 @@
 import { queryDB } from "../../entity";
 import { HeroImage } from "../../entity/hero_image";
 import { generateResolver } from "../../helper/log";
-import { verifyAuth } from "../../helper/verify";
+import { generateAuth, verifyAuth } from "../../helper/verify";
 import { MESSAGE_WORD } from "../enum";
 
 export const heroImageListing = async (_, __, context): Promise<any> => {
   return await queryDB(async connection => {
-    const isAuth = await verifyAuth(context, connection);
-    if (!isAuth) {
+    const currentUser = await generateAuth(context, connection);
+    if (!verifyAuth(currentUser)) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
     const heroImagesRepository = connection.getRepository(HeroImage);

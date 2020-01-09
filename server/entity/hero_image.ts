@@ -16,7 +16,7 @@ import {
 import { Tasks } from "./tasks";
 
 @Entity("hero_image", { schema: "task_platform" })
-@Index("taskId", ["taskId"])
+@Index("taskId", ["task"])
 export class HeroImage extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: "int",
@@ -30,7 +30,7 @@ export class HeroImage extends BaseEntity {
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   @JoinColumn({ name: "taskId" })
-  public taskId: Tasks | null;
+  public task: Tasks | null;
 
   @Column("varchar", {
     nullable: true,

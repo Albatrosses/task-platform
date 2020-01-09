@@ -18,8 +18,8 @@ import { Users } from "./users";
 
 @Entity("user_tasks", { schema: "task_platform" })
 @Index("reviewer", ["reviewer"])
-@Index("taskId", ["taskId"])
-@Index("userId", ["userId"])
+@Index("taskId", ["task"])
+@Index("userId", ["user"])
 export class UserTasks extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: "int",
@@ -34,7 +34,7 @@ export class UserTasks extends BaseEntity {
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   @JoinColumn({ name: "taskId" })
-  public taskId: Tasks | null;
+  public task: Tasks | null;
 
   @ManyToOne(
     () => Users,
@@ -42,7 +42,7 @@ export class UserTasks extends BaseEntity {
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   @JoinColumn({ name: "userId" })
-  public userId: Users | null;
+  public user: Users | null;
 
   @Column("json", {
     nullable: true,

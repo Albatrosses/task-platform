@@ -1,8 +1,8 @@
 import { get, includes, isEmpty } from "lodash";
 import { USER_ROLE_CODE, USER_ROLE_LEVEL_CODE } from "../../types/user/user";
 import { Sessions } from "../entity/sessions";
-import { Tokens } from "../entity/tokens";
 import { Users } from "../entity/users";
+import { roleConfig } from "../api/config/common";
 
 export const verifyBase64Image = (image: string): boolean => {
   const reg = /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*?)\s*$/i;
@@ -35,38 +35,38 @@ export const verifyPhone = (phone: string) => {
   return true;
 };
 
-export const verifyAuth = async (
-  context: any = {},
-  connection,
-  role?: USER_ROLE_CODE[],
-  roleLevel?: USER_ROLE_LEVEL_CODE[]
-): Promise<boolean> => {
-  const { req } = context;
-  const auth = get(req, "cookies.auth", "");
+export const generateAuth = async (
+  context: any,
+  connection: any
+): Promise<Users> => {
+  if (!context || !context) {
+    return null;
+  }
+  const auth = get(context, "req.cookies.auth", "");
   if (!auth) {
-    return false;
+    return null;
   }
 
   const sessionsRepository = connection.getRepository(Sessions);
   const session = await sessionsRepository.findOne({ session_id: auth });
   if (!session) {
-    return false;
+    return null;
   }
 
   const usersRepository = connection.getRepository(Users);
   const user = await usersRepository.findOne({ id: session.userId });
   if (!user) {
+    return null;
+  }
+  return user;
+};
+
+export const verifyAuth = (user: Users, roleGroup?: string) => {
+  if (!user) {
     return false;
   }
-  if (role && !isEmpty(role) && !includes(role, user.role)) {
-    return false;
+  if (!roleGroup) {
+    return true;
   }
-  if (
-    roleLevel &&
-    !isEmpty(roleLevel) &&
-    !includes(roleLevel, user.roleLevel)
-  ) {
-    return false;
-  }
-  return true;
+  return includes(get(roleConfig, roleGroup, []), user.role);
 };

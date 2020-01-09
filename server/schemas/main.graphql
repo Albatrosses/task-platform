@@ -48,6 +48,7 @@ type Mutation {
   acceptUserTask(acceptUserTaskInput: AcceptUserTaskInput!): AcceptUserTaskOutput
   submitUserTask(submitUserTaskInput: SubmitUserTaskInput!): SubmitUserTaskOutput
   quitUserTask(quitUserTaskInput: QuitUserTaskInput!): QuitUserTaskOutput
+  reviewUserTask(reviewUserTaskInput: ReviewUserTaskInput!): ReviewUserTaskOutput
 }
 
 schema {

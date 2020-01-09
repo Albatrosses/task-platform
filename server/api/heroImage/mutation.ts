@@ -1,9 +1,10 @@
 import { queryDB } from "../../entity";
 import { HeroImage } from "../../entity/hero_image";
 import { Tasks } from "../../entity/tasks";
+import { wait } from "../../helper";
 import { deleteImage, storeImage } from "../../helper/file";
 import { generateResolver } from "../../helper/log";
-import { verifyAuth, verifyBase64Image } from "../../helper/verify";
+import { generateAuth, verifyBase64Image, verifyAuth } from "../../helper/verify";
 import { roleConfig } from "../config/common";
 import { MESSAGE_WORD } from "../enum";
 
@@ -22,17 +23,15 @@ export const addHeroImage = async (
   }
 
   return await queryDB(async connection => {
-    const isAuth = await verifyAuth(context, connection, roleConfig.customer);
-    if (!isAuth) {
+    const currentUser = await generateAuth(context, connection);
+    if (!verifyAuth(currentUser, "customer")) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
-    if (taskId) {
-      const taskRepository = connection.getRepository(Tasks);
-      const task = await taskRepository.findOne({ id: taskId });
 
-      if (!task) {
-        return generateResolver(false, MESSAGE_WORD.TASK_NOT_FOUND);
-      }
+    const taskRepository = connection.getRepository(Tasks);
+    const task = await taskRepository.findOne({ id: taskId });
+    if (taskId && !task) {
+      return generateResolver(false, MESSAGE_WORD.TASK_NOT_FOUND);
     }
 
     const heroImagesRepository = connection.getRepository(HeroImage);
@@ -43,7 +42,7 @@ export const addHeroImage = async (
     );
 
     const heroImage = new HeroImage();
-    heroImage.taskId = taskId;
+    heroImage.task = task;
     heroImage.imageSrc = imageFilePath + imageFileName;
 
     await heroImagesRepository.save(heroImage);
@@ -60,8 +59,8 @@ export const removeHeroImage = async (
   const { id } = removeHeroImageInput;
 
   return await queryDB(async connection => {
-    const isAuth = await verifyAuth(context, connection, roleConfig.customer);
-    if (!isAuth) {
+    const currentUser = await generateAuth(context, connection);
+    if (!verifyAuth(currentUser, "customer")) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
 
@@ -90,8 +89,8 @@ export const updateHeroImage = async (
   }
 
   return await queryDB(async connection => {
-    const isAuth = await verifyAuth(context, connection, roleConfig.customer);
-    if (!isAuth) {
+    const currentUser = await generateAuth(context, connection);
+    if (!verifyAuth(currentUser, "customer")) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
 
@@ -99,14 +98,19 @@ export const updateHeroImage = async (
 
     const heroImage = await heroImagesRepository.findOne({ id });
     if (heroImage) {
+      const taskRepository = connection.getRepository(Tasks);
+      const task = await taskRepository.findOne({ id: taskId });
+      if (taskId && !task) {
+        return generateResolver(false, MESSAGE_WORD.TASK_NOT_FOUND);
+      }
+      heroImage.task = task;
       await deleteImage(heroImage.imageSrc, false);
-
+      await wait(1000);
       const { imageFilePath, imageFileName } = await storeImage(
         image,
         IMAGE_PATH,
         IMAGE_NAME
       );
-      heroImage.taskId = taskId;
       heroImage.imageSrc = imageFilePath + imageFileName;
 
       await heroImagesRepository.save(heroImage);

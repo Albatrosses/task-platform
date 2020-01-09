@@ -1,20 +1,18 @@
+import { includes } from "lodash";
 import md5 from "md5";
-import {
-  USER_ROLE_CODE,
-  USER_ROLE_LEVEL_CODE,
-  USER_STATUS_CODE
-} from "../../../types/user/user";
+import { USER_ROLE_CODE, USER_STATUS_CODE } from "../../../types/user/user";
 import { queryDB } from "../../entity";
 import { Messages } from "../../entity/messages";
 import { Sessions } from "../../entity/sessions";
 import { Tokens } from "../../entity/tokens";
 import { Users } from "../../entity/users";
-import { generateHashCode, getNow, getNowString } from "../../helper";
+import { generateHashCode, getNow, getNowString, wait } from "../../helper";
 import { compareImgByteSize, deleteImage, storeImage } from "../../helper/file";
-import { generateResolver } from "../../helper/log";
+import { generateLog, generateResolver } from "../../helper/log";
 import { delayDo } from "../../helper/sql";
-import { verifyPhone } from "../../helper/verify";
-import { expiresConfig, networkConfig } from "../config/common";
+import { generateAuth, verifyPhone, verifyAuth } from "../../helper/verify";
+import { expiresConfig, networkConfig, roleConfig } from "../config/common";
+import { MESSAGE_WORD } from "../enum";
 
 const generateVerifyCode = () => {
   // tslint:disable-next-line: radix
@@ -26,30 +24,32 @@ const generateVerifyCode = () => {
   )}`;
 };
 
-export const addUser = async (_, { addUserInput }): Promise<any> => {
-  const { reviewer, password, phone, role } = addUserInput;
+export const addUser = async (_, { addUserInput }, context): Promise<any> => {
+  const { reviewer, password, phone, role, roleLevel, balance } = addUserInput;
 
   if (!verifyPhone(phone)) {
-    return generateResolver(false, "手机号不合规");
+    return generateResolver(false, MESSAGE_WORD.PHONE_NO_RULE);
   }
 
   return await queryDB(async connection => {
+    const currentUser = await generateAuth(context, connection);
+    if (!verifyAuth(currentUser, "customer") || currentUser.role <= role) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
+    }
     const userRepository = connection.getRepository(Users);
-
     const existUser = await userRepository.findOne({ phone });
-
     if (existUser) {
-      return generateResolver(false, "该手机号已存在");
+      return generateResolver(false, MESSAGE_WORD.PHONE_EXIST);
     }
 
     const user = new Users();
     user.password = md5(password);
     user.phone = phone;
-    user.balance = 0;
-    user.status = USER_STATUS_CODE.INACTIVE;
+    user.balance = balance || 0;
+    user.status = USER_STATUS_CODE.LOGOUT;
     user.role = role;
     if (role === USER_ROLE_CODE.CONSUMER_VIP) {
-      user.roleLevel = USER_ROLE_LEVEL_CODE.VIP1;
+      user.roleLevel = roleLevel;
     }
     user.signInDate = getNow();
     user.inviteCode = generateHashCode();
@@ -57,20 +57,31 @@ export const addUser = async (_, { addUserInput }): Promise<any> => {
 
     await userRepository.save(user);
 
-    return generateResolver(true, "添加用户成功");
+    return generateResolver(true, MESSAGE_WORD.ADD_SUCCESS);
   });
 };
 
-export const removeUser = async (_, { removeUserInput }): Promise<any> => {
+export const removeUser = async (
+  _,
+  { removeUserInput },
+  context
+): Promise<any> => {
   const { id } = removeUserInput;
 
   return await queryDB(async connection => {
+    const currentUser = await generateAuth(context, connection);
+    if (!verifyAuth(currentUser, "customer")) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
+    }
     const userRepository = connection.getRepository(Users);
-
     const user = await userRepository.findOne({ id });
 
     if (!user) {
-      return generateResolver(false, "用户不存在");
+      return generateResolver(false, MESSAGE_WORD.USER_NOT_FOUND);
+    }
+
+    if (currentUser.role <= user.role) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
 
     if (user.avatar) {
@@ -78,11 +89,15 @@ export const removeUser = async (_, { removeUserInput }): Promise<any> => {
     }
 
     await userRepository.remove(user);
-    return generateResolver(true, "删除用户成功");
+    return generateResolver(true, MESSAGE_WORD.DELETE_SUCCESS);
   });
 };
 
-export const updateUser = async (_, { updateUserInput }): Promise<any> => {
+export const updateUser = async (
+  _,
+  { updateUserInput },
+  context
+): Promise<any> => {
   const {
     id,
     name,
@@ -100,10 +115,14 @@ export const updateUser = async (_, { updateUserInput }): Promise<any> => {
   } = updateUserInput;
 
   if (phone && !verifyPhone(phone)) {
-    return generateResolver(false, "手机号不合规");
+    return generateResolver(false, MESSAGE_WORD.PHONE_NO_RULE);
   }
 
   return await queryDB(async connection => {
+    const currentUser = await generateAuth(context, connection);
+    if (!verifyAuth(currentUser, "customer") || currentUser.role <= role) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
+    }
     const userRepository = connection.getRepository(Users);
     const user = await userRepository.findOne({ id });
 
@@ -120,6 +139,7 @@ export const updateUser = async (_, { updateUserInput }): Promise<any> => {
     if (avatar) {
       if (user.avatar) {
         await deleteImage(user.avatar);
+        await wait(1000);
       }
       const imagePath = `avatar/${id}/`;
       const imageName = `${id}`;
@@ -147,23 +167,27 @@ export const updateUser = async (_, { updateUserInput }): Promise<any> => {
 };
 
 export const signInUser = async (_, { signInUserInput }): Promise<any> => {
-  const { phone, password, verifyCode, inviteCode } = signInUserInput;
+  const { phone, password, verifyCode, inviteCode, role } = signInUserInput;
+
+  if (!includes([USER_ROLE_CODE.CONSUMER, USER_ROLE_CODE.CUSTOMER], role)) {
+    return generateResolver(false, MESSAGE_WORD.UNAUTH);
+  }
 
   if (!verifyPhone(phone)) {
-    return generateResolver(false, "手机号不合规");
+    return generateResolver(false, MESSAGE_WORD.PHONE_NO_RULE);
   }
 
   return await queryDB(async connection => {
     const userRepository = connection.getRepository(Users);
     const existUser = await userRepository.findOne({ phone });
     if (existUser) {
-      return generateResolver(false, "该手机号已存在");
+      return generateResolver(false, MESSAGE_WORD.PHONE_EXIST);
     }
 
     const messagesRepository = connection.getRepository(Messages);
     const message = await messagesRepository.findOne({ phone });
     if (!verifyCode || !message || message.context !== verifyCode) {
-      return generateResolver(false, "验证码有误");
+      return generateResolver(false, MESSAGE_WORD.VERIFY_CODE_ERROR);
     }
 
     const user = new Users();
@@ -172,15 +196,15 @@ export const signInUser = async (_, { signInUserInput }): Promise<any> => {
       user.password = md5(password);
     }
     user.inviteCode = inviteCode;
-    user.status = USER_STATUS_CODE.INACTIVE;
+    user.status = USER_STATUS_CODE.LOGOUT;
     user.balance = 0;
-    user.role = USER_ROLE_CODE.CONSUMER;
+    user.role = role;
     user.inviteCode = generateHashCode();
     user.signInDate = getNow();
 
     await userRepository.save(user);
 
-    return generateResolver(true, "注册成功");
+    return generateResolver(true, MESSAGE_WORD.SIGN_IN_SUCCESS);
   });
 };
 
@@ -192,29 +216,33 @@ export const loginUser = async (
   const { phone, password, verifyCode } = loginUserInput;
 
   if (!verifyPhone(phone)) {
-    return generateResolver(false, "手机号不合规");
+    return generateResolver(false, MESSAGE_WORD.PHONE_NO_RULE);
   }
 
   return await queryDB(async connection => {
     const userRepository = connection.getRepository(Users);
     const user = await userRepository.findOne({ phone });
     if (!user) {
-      return generateResolver(false, "用户不存在");
-    } else if (user.status === USER_STATUS_CODE.ACTIVE) {
-      return generateResolver(false, "用户已登录");
+      return generateResolver(false, MESSAGE_WORD.USER_NOT_FOUND);
+    } else if (user.status === USER_STATUS_CODE.INACTIVE) {
+      return generateResolver(false, MESSAGE_WORD.USER_INACTIVE);
     }
 
     if (verifyCode) {
       const messagesRepository = connection.getRepository(Messages);
       const message = await messagesRepository.findOne({ phone });
       if (!verifyCode || !message || message.context !== verifyCode) {
-        return generateResolver(false, "验证码有误");
+        return generateResolver(false, MESSAGE_WORD.VERIFY_CODE_ERROR);
       }
     } else if (!password || user.password !== md5(password)) {
-      return generateResolver(false, "密码错误");
+      return generateResolver(false, MESSAGE_WORD.PASSWORD_ERROR);
     }
 
     const sessionsRepository = connection.getRepository(Sessions);
+    const sessionExist = await sessionsRepository.findOne({ userId: user.id });
+    if (user.status === USER_STATUS_CODE.ACTIVE && sessionExist) {
+      await sessionsRepository.remove(sessionExist);
+    }
     const session = new Sessions();
     const sessionId = md5(user.id) + generateHashCode();
     session.sessionId = sessionId;
@@ -248,18 +276,18 @@ export const loginUser = async (
     user.status = USER_STATUS_CODE.ACTIVE;
     user.loginDate = getNow();
     await userRepository.save(user);
-    return generateResolver(true, "登录成功");
+    return generateResolver(true, MESSAGE_WORD.LOGIN_SUCCESS);
   });
 };
 
 export const logoutUser = async (_, { logoutUserInput }): Promise<any> => {
-  const { id } = logoutUserInput;
+  const { phone } = logoutUserInput;
 
   return await queryDB(async connection => {
     const userRepository = connection.getRepository(Users);
-    const user = await userRepository.findOne({ id });
+    const user = await userRepository.findOne({ phone });
     if (!user) {
-      return generateResolver(false, "用户不存在");
+      return generateResolver(false, MESSAGE_WORD.USER_NOT_FOUND);
     }
 
     const sessionsRepository = connection.getRepository(Sessions);
@@ -273,16 +301,16 @@ export const logoutUser = async (_, { logoutUserInput }): Promise<any> => {
 
     await userRepository.save(user);
 
-    return generateResolver(true, "登出成功");
+    return generateResolver(true, MESSAGE_WORD.LOGOUT_SUCCESS);
   });
 };
 
 export const updateUserSelf = async (
   _,
-  { updateUserSelfInput }
+  { updateUserSelfInput },
+  context
 ): Promise<any> => {
   const {
-    id,
     name,
     password,
     oldPassword,
@@ -292,47 +320,46 @@ export const updateUserSelf = async (
   } = updateUserSelfInput;
 
   return await queryDB(async connection => {
-    const userRepository = connection.getRepository(Users);
-    const user = await userRepository.findOne({ id });
-    if (!user) {
-      return generateResolver(false, "用户不存在");
-    } else if (user.status !== USER_STATUS_CODE.ACTIVE) {
-      return generateResolver(false, "用户未登录");
+    const currentUser = await generateAuth(context, connection);
+    if (!currentUser) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
+    const userRepository = connection.getRepository(Users);
 
-    user.name = name;
+    currentUser.name = name;
     if (password) {
-      if (md5(oldPassword) !== user.password) {
-        return generateResolver(false, "原密码不正确");
+      if (md5(oldPassword) !== currentUser.password) {
+        return generateResolver(false, MESSAGE_WORD.PASSWORD_OLD_ERROR);
       }
-      user.password = password;
+      currentUser.password = password;
     }
     if (phone && !verifyPhone(phone)) {
-      return generateResolver(false, "手机号不合规");
+      return generateResolver(false, MESSAGE_WORD.PHONE_NO_RULE);
     }
-    user.phone = phone;
+    currentUser.phone = phone;
     if (avatar) {
       const isExceed = compareImgByteSize(avatar);
       if (isExceed) {
-        return generateResolver(false, "头像大小不能超过200KB");
+        return generateResolver(false, MESSAGE_WORD.AVATAR_SIZE_EXCEED);
       }
-      if (user.avatar) {
-        await deleteImage(user.avatar);
+      if (currentUser.avatar) {
+        await deleteImage(currentUser.avatar);
+        await wait(1000);
       }
-      const imagePath = `avatar/${id}/`;
-      const imageName = `${id}`;
+      const imagePath = `avatar/${currentUser.id}/`;
+      const imageName = `${currentUser.id}`;
       const { imageFilePath, imageFileName } = await storeImage(
         avatar,
         imagePath,
         imageName
       );
-      user.avatar = imageFilePath + imageFileName;
+      currentUser.avatar = imageFilePath + imageFileName;
     }
-    user.payWays = payWays;
+    currentUser.payWays = payWays;
 
-    await userRepository.save(user);
+    await userRepository.save(currentUser);
 
-    return generateResolver(true, "修改成功");
+    return generateResolver(true, MESSAGE_WORD.UPDATE_SUCCESS);
   });
 };
 
@@ -343,14 +370,14 @@ export const verifyMessage = async (
   const { phone } = verifyMessageInput;
 
   if (!verifyPhone(phone)) {
-    return generateResolver(false, "手机号不合规");
+    return generateResolver(false, MESSAGE_WORD.PHONE_NO_RULE);
   }
 
   return await queryDB(async connection => {
     const messagesRepository = connection.getRepository(Messages);
-    const message = await messagesRepository.findOne({ phone });
+    const messageExist = await messagesRepository.findOne({ phone });
     const verifyCode = generateVerifyCode();
-    if (!message) {
+    if (!messageExist) {
       const message = new Messages();
       message.phone = phone;
       message.context = verifyCode;
@@ -362,9 +389,7 @@ export const verifyMessage = async (
         `delete from messages where phone = '${phone}'`
       );
     }
-    return generateResolver(
-      true,
-      `短信验证码已发送:${message ? message.context : verifyCode}`
-    );
+    generateLog(messageExist ? messageExist.context : verifyCode);
+    return generateResolver(true, MESSAGE_WORD.VERIFY_CODE_SENDED);
   });
 };

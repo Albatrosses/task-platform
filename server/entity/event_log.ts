@@ -16,7 +16,7 @@ import {
 import { Users } from "./users";
 
 @Entity("event_log", { schema: "task_platform" })
-@Index("userId", ["userId"])
+@Index("userId", ["user"])
 export class EventLog extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: "int",
@@ -31,7 +31,7 @@ export class EventLog extends BaseEntity {
     { onDelete: "SET NULL", onUpdate: "CASCADE" }
   )
   @JoinColumn({ name: "userId" })
-  public userId: Users | null;
+  public user: Users | null;
 
   @Column("text", {
     nullable: true,

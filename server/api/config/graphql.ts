@@ -26,6 +26,7 @@ import { user, userListing } from "../user/query";
 import {
   acceptUserTask,
   quitUserTask,
+  reviewUserTask,
   submitUserTask
 } from "../user_task/mutation";
 import { userTask, userTaskListing } from "../user_task/query";
@@ -72,5 +73,6 @@ export const mutationCollect = {
   // userTask
   acceptUserTask,
   submitUserTask,
-  quitUserTask
+  quitUserTask,
+  reviewUserTask
 };

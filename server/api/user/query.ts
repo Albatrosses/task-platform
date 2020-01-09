@@ -1,5 +1,6 @@
 import { queryDB } from "../../entity";
 import { Users } from "../../entity/users";
+import { generateResolver } from "../../helper/log";
 import {
   generateAndWhereQuery,
   generateBalanceQuery,
@@ -13,19 +14,48 @@ import {
   generateRoleQuery,
   generateStatusQuery
 } from "../../helper/sql";
+import { generateAuth, verifyAuth } from "../../helper/verify";
+import { roleConfig } from "../config/common";
+import { MESSAGE_WORD } from "../enum";
 
 const PAGE_TOTAL = 20;
 
-export const user = async (_, { queryUserInput }) => {
+export const user = async (_, { queryUserInput }, context) => {
   const { id } = queryUserInput;
 
   return await queryDB(async connection => {
     const userRepository = connection.getRepository(Users);
-    return await userRepository.findOne({ id });
+    const result = await userRepository.findOne({ id });
+    const currentUser = await generateAuth(context, connection);
+    if (!currentUser) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
+    }
+    if (!verifyAuth(currentUser, "customer")) {
+      if (currentUser.id.toString() !== id) {
+        return generateResolver(false, MESSAGE_WORD.UNAUTH);
+      }
+      const data = {
+        name: result.name,
+        phone: result.phone,
+        avatar: result.avatar,
+        balance: result.balance,
+        payWays: result.payWays,
+        inviteCode: result.inviteCode,
+        inviteId: result.inviteId,
+        roleLevel: result.roleLevel
+      };
+      return generateResolver(true, MESSAGE_WORD.QUERY_SUCCESS, data);
+    } else {
+      return generateResolver(true, MESSAGE_WORD.QUERY_SUCCESS, result);
+    }
   });
 };
 
-export const userListing = async (_, { queryUserListingInput = {} }) => {
+export const userListing = async (
+  _,
+  { queryUserListingInput = {} },
+  context
+) => {
   const {
     page,
     name,
@@ -39,9 +69,12 @@ export const userListing = async (_, { queryUserListingInput = {} }) => {
     order
   } = queryUserListingInput as any;
 
-  const result = await queryDB(async connection => {
+  return await queryDB(async connection => {
+    const currentUser = await generateAuth(context, connection);
+    if (!verifyAuth(currentUser, "customer")) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
+    }
     const userRepository = connection.getRepository(Users);
-
     const nameQuery = generateNameQuery(name);
     const phoneQuery = generatePhoneQuery(phone);
     const payWayQuery = generatePayWayQuery(payWayCodes);
@@ -50,7 +83,6 @@ export const userListing = async (_, { queryUserListingInput = {} }) => {
     const roleQuery = generateRoleQuery(role);
     const balanceQuery = generateBalanceQuery(balance);
     const dateQuery = generateDateQuery(date);
-
     const query = `select * from users${generateAndWhereQuery([
       nameQuery,
       phoneQuery,
@@ -64,6 +96,4 @@ export const userListing = async (_, { queryUserListingInput = {} }) => {
 
     return await userRepository.query(query);
   });
-
-  return result;
 };
