@@ -38,3 +38,9 @@ input PayWayInput {
   code: Int
   account: String
 }
+
+interface Message {
+  code: Int
+  message: String
+  success: Boolean
+}

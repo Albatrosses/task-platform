@@ -14,14 +14,23 @@ export const generateErrorLog = (error: Error): void => {
   console.log(timeTemp, `error: ${error}`);
 };
 
-export const generateMessage = (
+export const generateResolver = (
   success: boolean,
-  message: string
-): TMessage => {
-  const code = success ? HTTP_CODE.SUCCESS : HTTP_CODE.FAIL;
-  return {
-    code,
-    message,
+  words: string,
+  data?: any
+) => {
+  const message: TMessage = {
+    code: success ? HTTP_CODE.SUCCESS : HTTP_CODE.FAIL,
+    message: words,
     success
+  };
+
+  if (!data) {
+    return message;
+  }
+
+  return {
+    ...message,
+    data
   };
 };

@@ -3,7 +3,7 @@ import {
   removeHeroImage,
   updateHeroImage
 } from "../heroImage/mutation";
-import { heroImages } from "../heroImage/query";
+import { heroImageListing } from "../heroImage/query";
 import { addTask, removeTask, updateTask } from "../task/mutation";
 import { task, taskListing } from "../task/query";
 import {
@@ -32,7 +32,7 @@ import { userTask, userTaskListing } from "../user_task/query";
 
 export const queryCollect = {
   // heroImage
-  heroImages,
+  heroImageListing,
   // task
   task,
   taskListing,

@@ -2,15 +2,27 @@ input AddUserInput {
   password: String!
   phone: String!
   role: Int!
-  reviewer: String!
+  reviewer: ID!
+}
+
+type AddUserOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input RemoveUserInput {
-  id: String!
+  id: ID!
+}
+
+type RemoveUserOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input UpdateUserInput {
-  id: String!
+  id: ID!
   name: String
   password: String
   phone: String
@@ -18,11 +30,17 @@ input UpdateUserInput {
   balance: Float
   payWays: [PayWayInput]
   inviteCode: String
-  inviteId: String
+  inviteid: ID
   status: Int
   role: Int
   roleLevel: Int
-  reviewer: String!
+  reviewer: ID!
+}
+
+type UpdateUserOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input SignInUserInput {
@@ -32,18 +50,36 @@ input SignInUserInput {
   inviteCode: String
 }
 
+type SignInUserOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
 input LoginUserInput {
   phone: String!
   password: String
   verifyCode: String
 }
 
+type LoginUserOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
 input LogoutUserInput {
-  id: String!
+  id: ID!
+}
+
+type LogoutUserOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input UpdateUserSelfInput {
-  id: String!
+  id: ID!
   name: String
   password: String
   oldPassword: String
@@ -52,19 +88,38 @@ input UpdateUserSelfInput {
   payWays: [PayWayInput]
 }
 
+type UpdateUserSelfOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
 input VerifyMessageInput {
   phone: String!
 }
 
+type VerifyMessageOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
 input QueryUserInput {
-  id: String!
+  id: ID!
+}
+
+type UserOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: User
 }
 
 input QueryUserListingInput {
   name: String
   phone: String
   payWayCodes: [Int]
-  inviteId: String
+  inviteid: ID
   status: Int
   role: Int
   balance: AmountInput
@@ -72,8 +127,15 @@ input QueryUserListingInput {
   order: OrderInput
 }
 
+type UserListingOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: [User]
+}
+
 type User {
-  id: String
+  id: ID
   name: String
   password: String
   phone: String
@@ -81,12 +143,12 @@ type User {
   balance: Float
   payWays: [PayWay]
   inviteCode: String
-  inviteId: String
+  inviteid: ID
   status: Int
   role: Int
   roleLevel: Int
   signInDate: String
   loginDate: String
   logoutDate: String
-  reviewer: String
+  reviewer: ID
 }

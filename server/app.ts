@@ -10,13 +10,14 @@ import { generateErrorLog, generateLog } from "./helper/log";
 import route from "./route";
 
 const app = express();
-app.set("build", path.join(__dirname, "../client/build/"));
 app.engine(".html", ejs.__express);
+app.set("views", path.join(__dirname, "../client/build/"));
 app.set("view engine", "html");
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(express.static(path.join(__dirname, "../client/build/")));
+app.use(express.static(path.join(__dirname, "../client/build/")));
+app.use("/media", express.static(path.join(__dirname, "media/")));
 app.use(cookieParser());
 graphqlServer(app);
 app.use("/", route);

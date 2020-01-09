@@ -62,7 +62,7 @@ export const writeFile = ({ path, data, options }: any) => {
   });
 };
 
-export const unlink = path => {
+export const unlink = (path: string) => {
   return new Promise(resolve => {
     fs.unlink(path, error => {
       if (error) {
@@ -99,7 +99,7 @@ export const storeImage = async (image: string, path: string, name: string) => {
   };
 };
 
-export const deleteImage = async (path: string) => {
+export const deleteImage = async (path: string, clearFold: boolean = true) => {
   const currentPath = path
     .split("/")
     .slice(0, -1)
@@ -109,9 +109,11 @@ export const deleteImage = async (path: string) => {
     return true;
   }
   await unlink(`${process.cwd()}${path}`);
-  const isLstat = await lstat(`${process.cwd()}${currentPath}`);
-  if (isLstat) {
-    await rmdir(`${process.cwd()}${currentPath}`);
+  if (clearFold) {
+    const isLstat = await lstat(`${process.cwd()}${currentPath}`);
+    if (isLstat) {
+      await rmdir(`${process.cwd()}${currentPath}`);
+    }
   }
   return true;
 };

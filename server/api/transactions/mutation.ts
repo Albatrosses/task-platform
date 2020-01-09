@@ -1,4 +1,4 @@
-import { generateMessage } from "../../helper/log";
+import { generateResolver } from "../../helper/log";
 
 export const addTransaction = async (
   _,
@@ -6,7 +6,7 @@ export const addTransaction = async (
 ): Promise<any> => {
   const { taskId, userId, type, amount } = addTransactionInput[0];
 
-  return generateMessage(true, "添加交易记录成功");
+  return generateResolver(true, "添加交易记录成功");
 };
 
 export const removeTransaction = async (
@@ -15,7 +15,7 @@ export const removeTransaction = async (
 ): Promise<any> => {
   const { id } = removeTransactionInput[0];
 
-  return generateMessage(true, "删除交易记录成功");
+  return generateResolver(true, "删除交易记录成功");
 };
 
 export const updateTransaction = async (
@@ -41,5 +41,5 @@ export const updateTransaction = async (
     resultDatem
   } = updateTransactionInput[0];
 
-  return generateMessage(true, "删除添加任务");
+  return generateResolver(true, "删除添加任务");
 };

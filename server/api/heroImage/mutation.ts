@@ -1,23 +1,37 @@
 import { queryDB } from "../../entity";
 import { HeroImage } from "../../entity/hero_image";
 import { Tasks } from "../../entity/tasks";
-import { deleteImage, unlink, writeFile } from "../../helper/file";
-import { storeImage } from "../../helper/file";
-import { generateMessage } from "../../helper/log";
+import { deleteImage, storeImage } from "../../helper/file";
+import { generateResolver } from "../../helper/log";
+import { verifyAuth, verifyBase64Image } from "../../helper/verify";
+import { roleConfig } from "../config/common";
+import { MESSAGE_WORD } from "../enum";
 
 const IMAGE_PATH = "heroImage/";
 const IMAGE_NAME = "heroImage";
 
-export const addHeroImage = async (_, { addHeroImageInput }): Promise<any> => {
+export const addHeroImage = async (
+  _,
+  { addHeroImageInput },
+  context
+): Promise<any> => {
   const { taskId, image } = addHeroImageInput;
 
+  if (!verifyBase64Image(image)) {
+    return generateResolver(false, MESSAGE_WORD.IMAGE_FORMAT_ERROR);
+  }
+
   return await queryDB(async connection => {
+    const isAuth = await verifyAuth(context, connection, roleConfig.customer);
+    if (!isAuth) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
+    }
     if (taskId) {
       const taskRepository = connection.getRepository(Tasks);
       const task = await taskRepository.findOne({ id: taskId });
 
       if (!task) {
-        return generateMessage(false, "所选任务不存在");
+        return generateResolver(false, MESSAGE_WORD.TASK_NOT_FOUND);
       }
     }
 
@@ -34,42 +48,58 @@ export const addHeroImage = async (_, { addHeroImageInput }): Promise<any> => {
 
     await heroImagesRepository.save(heroImage);
 
-    return generateMessage(true, "添加成功");
+    return generateResolver(true, MESSAGE_WORD.ADD_SUCCESS);
   });
 };
 
 export const removeHeroImage = async (
   _,
-  { removeHeroImageInput }
+  { removeHeroImageInput },
+  context
 ): Promise<any> => {
   const { id } = removeHeroImageInput;
 
   return await queryDB(async connection => {
+    const isAuth = await verifyAuth(context, connection, roleConfig.customer);
+    if (!isAuth) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
+    }
+
     const heroImagesRepository = connection.getRepository(HeroImage);
 
     const heroImage = await heroImagesRepository.findOne({ id });
     if (heroImage) {
-      await deleteImage(`${process.cwd()}${heroImage.imageSrc}`);
+      await deleteImage(heroImage.imageSrc);
       await heroImagesRepository.remove(heroImage);
-      return generateMessage(true, "删除成功");
+      return generateResolver(true, MESSAGE_WORD.DELETE_SUCCESS);
     } else {
-      return generateMessage(false, "删除失败，该图片不存在");
+      return generateResolver(false, MESSAGE_WORD.DELETE_ERROR_IMAGE_NOT_FOUND);
     }
   });
 };
 
 export const updateHeroImage = async (
   _,
-  { updateHeroImageInput }
+  { updateHeroImageInput },
+  context
 ): Promise<any> => {
   const { id, taskId, image } = updateHeroImageInput;
 
+  if (!verifyBase64Image(image)) {
+    return generateResolver(false, MESSAGE_WORD.IMAGE_FORMAT_ERROR);
+  }
+
   return await queryDB(async connection => {
+    const isAuth = await verifyAuth(context, connection, roleConfig.customer);
+    if (!isAuth) {
+      return generateResolver(false, MESSAGE_WORD.UNAUTH);
+    }
+
     const heroImagesRepository = connection.getRepository(HeroImage);
 
     const heroImage = await heroImagesRepository.findOne({ id });
     if (heroImage) {
-      await unlink(`${heroImage.imageSrc}`);
+      await deleteImage(heroImage.imageSrc, false);
 
       const { imageFilePath, imageFileName } = await storeImage(
         image,
@@ -80,9 +110,9 @@ export const updateHeroImage = async (
       heroImage.imageSrc = imageFilePath + imageFileName;
 
       await heroImagesRepository.save(heroImage);
-      return generateMessage(true, "更新成功");
+      return generateResolver(true, MESSAGE_WORD.UPDATE_SUCCESS);
     } else {
-      return generateMessage(false, "更新失败，该图片不存在");
+      return generateResolver(false, MESSAGE_WORD.UPDATE_ERROR_IMAGE_NOT_FOUND);
     }
   });
 };

@@ -1,22 +1,48 @@
 input AcceptUserTaskInput {
-  taskId: String!
-  userId: String!
+  taskId: ID!
+  userId: ID!
+}
+
+type AcceptUserTaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input SubmitUserTaskInput {
-  id: String!
+  id: ID!
   credentials: [String]!
 }
 
+type SubmitUserTaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
 input QuitUserTaskInput {
-  id: String!
+  id: ID!
+}
+
+type QuitUserTaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input QueryUserTaskInput {
-  id: String!
+  id: ID!
+}
+
+type UserTaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: UserTask
 }
 
 input QueryUserTaskListingInput {
+  userId: ID
   page: Int
   status: Int
   platformCodes: [Int]
@@ -25,12 +51,29 @@ input QueryUserTaskListingInput {
   order: OrderInput
 }
 
+type UserTaskListingOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: [UserTask]
+}
+
 type UserTask {
-  id: String
-  credentials: [String]
+  id: ID
+  name: String
+  simple: String
+  description: String
+  criteria: [String]
+  platform: Platform
+  steps: [String]
+  total: Int
+  amount: Float
   status: Int
+  credentials: [String]
+  startDate: String
+  endDate: String
   assignDate: String
   uploadDate: String
   reviewDate: String
-  reviewer: String
+  reviewer: ID
 }

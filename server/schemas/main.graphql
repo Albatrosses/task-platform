@@ -1,5 +1,4 @@
 # import common from './common.graphql';
-# import message from './message.graphql';
 # import heroImage from './heroImage.graphql';
 # import task from './task.graphql';
 # import transactions from './transactions.graphql';
@@ -8,47 +7,47 @@
 
 type Query {
   # heroImage
-  heroImages: [HeroImage]
+  heroImageListing: HeroImageListingOutput
   # task
-  task(queryTaskInput: QueryTaskInput!): Task
-  taskListing(queryTaskListingInput: QueryTaskListingInput): [Task]
+  task(queryTaskInput: QueryTaskInput!): TaskOutput
+  taskListing(queryTaskListingInput: QueryTaskListingInput): TaskListingOutput
   # transaction
-  transaction(queryTransactionInput: QueryTransactionInput!): Transaction
-  transactionListing(queryTransactionListingInput: QueryTransactionListingInput): [Transaction]
+  transaction(queryTransactionInput: QueryTransactionInput!): TransactionOutput
+  transactionListing(queryTransactionListingInput: QueryTransactionListingInput): TransactionListingOutput
   # user
-  user(queryUserInput: QueryUserInput!): User
-  userListing(queryUserListingInput: QueryUserListingInput): [User]
+  user(queryUserInput: QueryUserInput!): UserOutput
+  userListing(queryUserListingInput: QueryUserListingInput): UserListingOutput
   # userTask
-  userTask(queryUserTaskInput: QueryUserTaskInput!): UserTask
-  userTaskListing(queryUserTaskListingInput: QueryUserTaskListingInput): [UserTask]
+  userTask(queryUserTaskInput: QueryUserTaskInput!): UserTaskOutput
+  userTaskListing(queryUserTaskListingInput: QueryUserTaskListingInput): UserTaskListingOutput
 }
 
 type Mutation {
   # heroImage
-  addHeroImage(addHeroImageInput: AddHeroImageInput!): Message
-  removeHeroImage(removeHeroImageInput: RemoveHeroImageInput!): Message
-  updateHeroImage(updateHeroImageInput: UpdateHeroImageInput!): Message
+  addHeroImage(addHeroImageInput: AddHeroImageInput!): AddHeroImageOutput
+  removeHeroImage(removeHeroImageInput: RemoveHeroImageInput!): RemoveHeroImageOutput
+  updateHeroImage(updateHeroImageInput: UpdateHeroImageInput!): UpdateHeroImageOutput
   # task
-  addTask(addTaskInput: AddTaskInput!): Message
-  removeTask(removeTaskInput: RemoveTaskInput!): Message
-  updateTask(updateTaskInput: UpdateTaskInput!): Message
+  addTask(addTaskInput: AddTaskInput!): AddTaskOutput
+  removeTask(removeTaskInput: RemoveTaskInput!): RemoveTaskOutput
+  updateTask(updateTaskInput: UpdateTaskInput!): UpdateTaskOutput
   # transaction
-  addTransaction(addTransactionInput: AddTransactionInput!): Message
-  removeTransaction(removeTransactionInput: RemoveTransactionInput!): Message
-  updateTransaction(updateTransactionInput: UpdateTransactionInput!): Message
+  addTransaction(addTransactionInput: AddTransactionInput!): AddTransactionOutput
+  removeTransaction(removeTransactionInput: RemoveTransactionInput!): RemoveTransactionOutput
+  updateTransaction(updateTransactionInput: UpdateTransactionInput!): UpdateTransactionOutput
   # user
-  addUser(addUserInput: AddUserInput!): Message
-  removeUser(removeUserInput: RemoveUserInput!): Message
-  updateUser(updateUserInput: UpdateUserInput!): Message
-  signInUser(signInUserInput: SignInUserInput!): Message
-  loginUser(loginUserInput: LoginUserInput!): Message
-  logoutUser(logoutUserInput: LogoutUserInput!): Message
-  updateUserSelf(updateUserSelfInput: UpdateUserSelfInput!): Message
-  verifyMessage(verifyMessageInput: VerifyMessageInput!): Message
+  addUser(addUserInput: AddUserInput!): AddUserOutput
+  removeUser(removeUserInput: RemoveUserInput!): RemoveUserOutput
+  updateUser(updateUserInput: UpdateUserInput!): UpdateUserOutput
+  signInUser(signInUserInput: SignInUserInput!): SignInUserOutput
+  loginUser(loginUserInput: LoginUserInput!): LoginUserOutput
+  logoutUser(logoutUserInput: LogoutUserInput!): LogoutUserOutput
+  updateUserSelf(updateUserSelfInput: UpdateUserSelfInput!): UpdateUserSelfOutput
+  verifyMessage(verifyMessageInput: VerifyMessageInput!): VerifyMessageOutput
   # userTask
-  acceptUserTask(acceptUserTaskInput: AcceptUserTaskInput!): Message
-  submitUserTask(submitUserTaskInput: SubmitUserTaskInput!): Message
-  quitUserTask(quitUserTaskInput: QuitUserTaskInput!): Message
+  acceptUserTask(acceptUserTaskInput: AcceptUserTaskInput!): AcceptUserTaskOutput
+  submitUserTask(submitUserTaskInput: SubmitUserTaskInput!): SubmitUserTaskOutput
+  quitUserTask(quitUserTaskInput: QuitUserTaskInput!): QuitUserTaskOutput
 }
 
 schema {

@@ -2,7 +2,7 @@ import { TASK_STATUS_CODE } from "../../../types/task/task";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import { getNowString, getNow } from "../../helper";
-import { generateMessage } from "../../helper/log";
+import { generateResolver } from "../../helper/log";
 
 export const addTask = async (_, { addTaskInput }): Promise<any> => {
   const {
@@ -40,7 +40,7 @@ export const addTask = async (_, { addTaskInput }): Promise<any> => {
     return await tasksRepository.save(task);
   });
 
-  return generateMessage(true, "添加成功");
+  return generateResolver(true, "添加成功");
 };
 
 export const removeTask = async (_, { removeTaskInput }): Promise<any> => {
@@ -52,9 +52,9 @@ export const removeTask = async (_, { removeTaskInput }): Promise<any> => {
 
     if (task) {
       await tasksRepository.remove(task);
-      return generateMessage(true, "删除成功");
+      return generateResolver(true, "删除成功");
     } else {
-      return generateMessage(false, "删除失败，任务不存在");
+      return generateResolver(false, "删除失败，任务不存在");
     }
   });
 };
@@ -95,9 +95,9 @@ export const updateTask = async (_, { updateTaskInput }): Promise<any> => {
       task.updateDate = getNow();
       task.reviewer = reviewer;
       await tasksRepository.save(task);
-      return generateMessage(true, "更新成功");
+      return generateResolver(true, "更新成功");
     } else {
-      return generateMessage(false, "更新失败，任务不存在");
+      return generateResolver(false, "更新失败，任务不存在");
     }
   });
 };

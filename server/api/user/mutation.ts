@@ -11,16 +11,26 @@ import { Tokens } from "../../entity/tokens";
 import { Users } from "../../entity/users";
 import { generateHashCode, getNow, getNowString } from "../../helper";
 import { compareImgByteSize, deleteImage, storeImage } from "../../helper/file";
-import { generateMessage } from "../../helper/log";
+import { generateResolver } from "../../helper/log";
 import { delayDo } from "../../helper/sql";
-import { generateVerifyCode, verifyPhone } from "../../helper/verify";
+import { verifyPhone } from "../../helper/verify";
 import { expiresConfig, networkConfig } from "../config/common";
+
+const generateVerifyCode = () => {
+  // tslint:disable-next-line: radix
+  return `${parseInt((Math.random() * 10).toString())}${parseInt(
+    (Math.random() * 10).toString()
+    // tslint:disable-next-line: radix
+  )}${parseInt((Math.random() * 10).toString())}${parseInt(
+    (Math.random() * 10).toString()
+  )}`;
+};
 
 export const addUser = async (_, { addUserInput }): Promise<any> => {
   const { reviewer, password, phone, role } = addUserInput;
 
   if (!verifyPhone(phone)) {
-    return generateMessage(false, "手机号不合规");
+    return generateResolver(false, "手机号不合规");
   }
 
   return await queryDB(async connection => {
@@ -29,7 +39,7 @@ export const addUser = async (_, { addUserInput }): Promise<any> => {
     const existUser = await userRepository.findOne({ phone });
 
     if (existUser) {
-      return generateMessage(false, "该手机号已存在");
+      return generateResolver(false, "该手机号已存在");
     }
 
     const user = new Users();
@@ -47,7 +57,7 @@ export const addUser = async (_, { addUserInput }): Promise<any> => {
 
     await userRepository.save(user);
 
-    return generateMessage(true, "添加用户成功");
+    return generateResolver(true, "添加用户成功");
   });
 };
 
@@ -60,7 +70,7 @@ export const removeUser = async (_, { removeUserInput }): Promise<any> => {
     const user = await userRepository.findOne({ id });
 
     if (!user) {
-      return generateMessage(false, "用户不存在");
+      return generateResolver(false, "用户不存在");
     }
 
     if (user.avatar) {
@@ -68,7 +78,7 @@ export const removeUser = async (_, { removeUserInput }): Promise<any> => {
     }
 
     await userRepository.remove(user);
-    return generateMessage(true, "删除用户成功");
+    return generateResolver(true, "删除用户成功");
   });
 };
 
@@ -90,7 +100,7 @@ export const updateUser = async (_, { updateUserInput }): Promise<any> => {
   } = updateUserInput;
 
   if (phone && !verifyPhone(phone)) {
-    return generateMessage(false, "手机号不合规");
+    return generateResolver(false, "手机号不合规");
   }
 
   return await queryDB(async connection => {
@@ -98,9 +108,9 @@ export const updateUser = async (_, { updateUserInput }): Promise<any> => {
     const user = await userRepository.findOne({ id });
 
     if (!user) {
-      return generateMessage(false, "用户不存在");
+      return generateResolver(false, "用户不存在");
     } else if (user.phone === phone) {
-      return generateMessage(false, "该手机号已存在");
+      return generateResolver(false, "该手机号已存在");
     }
 
     user.name = name;
@@ -132,7 +142,7 @@ export const updateUser = async (_, { updateUserInput }): Promise<any> => {
 
     await userRepository.save(user);
 
-    return generateMessage(true, "修改成功");
+    return generateResolver(true, "修改成功");
   });
 };
 
@@ -140,20 +150,20 @@ export const signInUser = async (_, { signInUserInput }): Promise<any> => {
   const { phone, password, verifyCode, inviteCode } = signInUserInput;
 
   if (!verifyPhone(phone)) {
-    return generateMessage(false, "手机号不合规");
+    return generateResolver(false, "手机号不合规");
   }
 
   return await queryDB(async connection => {
     const userRepository = connection.getRepository(Users);
     const existUser = await userRepository.findOne({ phone });
     if (existUser) {
-      return generateMessage(false, "该手机号已存在");
+      return generateResolver(false, "该手机号已存在");
     }
 
     const messagesRepository = connection.getRepository(Messages);
     const message = await messagesRepository.findOne({ phone });
     if (!verifyCode || !message || message.context !== verifyCode) {
-      return generateMessage(false, "验证码有误");
+      return generateResolver(false, "验证码有误");
     }
 
     const user = new Users();
@@ -170,7 +180,7 @@ export const signInUser = async (_, { signInUserInput }): Promise<any> => {
 
     await userRepository.save(user);
 
-    return generateMessage(true, "注册成功");
+    return generateResolver(true, "注册成功");
   });
 };
 
@@ -182,26 +192,26 @@ export const loginUser = async (
   const { phone, password, verifyCode } = loginUserInput;
 
   if (!verifyPhone(phone)) {
-    return generateMessage(false, "手机号不合规");
+    return generateResolver(false, "手机号不合规");
   }
 
   return await queryDB(async connection => {
     const userRepository = connection.getRepository(Users);
     const user = await userRepository.findOne({ phone });
     if (!user) {
-      return generateMessage(false, "用户不存在");
+      return generateResolver(false, "用户不存在");
     } else if (user.status === USER_STATUS_CODE.ACTIVE) {
-      return generateMessage(false, "用户已登录");
+      return generateResolver(false, "用户已登录");
     }
 
     if (verifyCode) {
       const messagesRepository = connection.getRepository(Messages);
       const message = await messagesRepository.findOne({ phone });
       if (!verifyCode || !message || message.context !== verifyCode) {
-        return generateMessage(false, "验证码有误");
+        return generateResolver(false, "验证码有误");
       }
     } else if (!password || user.password !== md5(password)) {
-      return generateMessage(false, "密码错误");
+      return generateResolver(false, "密码错误");
     }
 
     const sessionsRepository = connection.getRepository(Sessions);
@@ -238,7 +248,7 @@ export const loginUser = async (
     user.status = USER_STATUS_CODE.ACTIVE;
     user.loginDate = getNow();
     await userRepository.save(user);
-    return generateMessage(true, "登录成功");
+    return generateResolver(true, "登录成功");
   });
 };
 
@@ -249,7 +259,7 @@ export const logoutUser = async (_, { logoutUserInput }): Promise<any> => {
     const userRepository = connection.getRepository(Users);
     const user = await userRepository.findOne({ id });
     if (!user) {
-      return generateMessage(false, "用户不存在");
+      return generateResolver(false, "用户不存在");
     }
 
     const sessionsRepository = connection.getRepository(Sessions);
@@ -263,7 +273,7 @@ export const logoutUser = async (_, { logoutUserInput }): Promise<any> => {
 
     await userRepository.save(user);
 
-    return generateMessage(true, "登出成功");
+    return generateResolver(true, "登出成功");
   });
 };
 
@@ -285,26 +295,26 @@ export const updateUserSelf = async (
     const userRepository = connection.getRepository(Users);
     const user = await userRepository.findOne({ id });
     if (!user) {
-      return generateMessage(false, "用户不存在");
+      return generateResolver(false, "用户不存在");
     } else if (user.status !== USER_STATUS_CODE.ACTIVE) {
-      return generateMessage(false, "用户未登录");
+      return generateResolver(false, "用户未登录");
     }
 
     user.name = name;
     if (password) {
       if (md5(oldPassword) !== user.password) {
-        return generateMessage(false, "原密码不正确");
+        return generateResolver(false, "原密码不正确");
       }
       user.password = password;
     }
     if (phone && !verifyPhone(phone)) {
-      return generateMessage(false, "手机号不合规");
+      return generateResolver(false, "手机号不合规");
     }
     user.phone = phone;
     if (avatar) {
       const isExceed = compareImgByteSize(avatar);
       if (isExceed) {
-        return generateMessage(false, "头像大小不能超过200KB");
+        return generateResolver(false, "头像大小不能超过200KB");
       }
       if (user.avatar) {
         await deleteImage(user.avatar);
@@ -322,7 +332,7 @@ export const updateUserSelf = async (
 
     await userRepository.save(user);
 
-    return generateMessage(true, "修改成功");
+    return generateResolver(true, "修改成功");
   });
 };
 
@@ -333,7 +343,7 @@ export const verifyMessage = async (
   const { phone } = verifyMessageInput;
 
   if (!verifyPhone(phone)) {
-    return generateMessage(false, "手机号不合规");
+    return generateResolver(false, "手机号不合规");
   }
 
   return await queryDB(async connection => {
@@ -352,7 +362,7 @@ export const verifyMessage = async (
         `delete from messages where phone = '${phone}'`
       );
     }
-    return generateMessage(
+    return generateResolver(
       true,
       `短信验证码已发送:${message ? message.context : verifyCode}`
     );

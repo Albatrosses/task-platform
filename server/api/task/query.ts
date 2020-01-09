@@ -11,17 +11,15 @@ import {
   generateStatusQuery
 } from "../../helper/sql";
 
-const PAGE_TOTAL = 10;
+const PAGE_TOTAL = 20;
 
 export const task = async (_, { queryTaskInput }): Promise<any> => {
   const { id } = queryTaskInput;
 
-  const result = await queryDB(async connection => {
+  return await queryDB(async connection => {
     const tasksRepository = connection.getRepository(Tasks);
     return await tasksRepository.findOne({ id });
   });
-
-  return result;
 };
 
 export const taskListing = async (
@@ -37,7 +35,7 @@ export const taskListing = async (
     order
   } = queryTaskListingInput as any;
 
-  const result = await queryDB(async connection => {
+  return await queryDB(async connection => {
     const tasksRepository = connection.getRepository(Tasks);
 
     const statusQuery = generateStatusQuery(status);
@@ -54,6 +52,4 @@ export const taskListing = async (
 
     return await tasksRepository.query(query);
   });
-
-  return result;
 };

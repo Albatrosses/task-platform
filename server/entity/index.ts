@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { generateErrorLog, generateMessage } from "../helper/log";
+import { MESSAGE_WORD } from "../api/enum";
+import { generateErrorLog, generateResolver } from "../helper/log";
 
 export const queryDB = async queryCallback => {
   const connection = await createConnection();
@@ -11,6 +12,6 @@ export const queryDB = async queryCallback => {
   } catch (error) {
     await connection.close();
     generateErrorLog(error);
-    return generateMessage(false, "未知原因，请稍后再试");
+    return generateResolver(false, MESSAGE_WORD.UNKONW_ERROR);
   }
 };

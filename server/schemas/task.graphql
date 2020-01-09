@@ -9,15 +9,27 @@ input AddTaskInput {
   amount: Float
   startDate: String
   endDate: String
-  reviewer: String
+  reviewer: ID
+}
+
+type AddTaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input RemoveTaskInput {
-  id: String!
+  id: ID!
+}
+
+type RemoveTaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input UpdateTaskInput {
-  id: String!
+  id: ID!
   name: String
   simple: String
   description: String
@@ -29,11 +41,24 @@ input UpdateTaskInput {
   status: Int
   startDate: String
   endDate: String
-  reviewer: String
+  reviewer: ID
+}
+
+type UpdateTaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input QueryTaskInput {
-  id: String!
+  id: ID!
+}
+
+type TaskOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: Task
 }
 
 input QueryTaskListingInput {
@@ -45,8 +70,15 @@ input QueryTaskListingInput {
   order: OrderInput
 }
 
+type TaskListingOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: [Task]
+}
+
 type Task {
-  id: String
+  id: ID
   name: String
   simple: String
   description: String
@@ -59,5 +91,5 @@ type Task {
   startDate: String
   endDate: String
   updateDate: String
-  reviewer: String
+  reviewer: ID
 }

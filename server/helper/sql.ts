@@ -1,4 +1,5 @@
 import { compact, isEmpty } from "lodash";
+import { generateHashCode } from ".";
 import { TAmount } from "../../types/common/amount";
 import { TDate } from "../../types/common/date";
 import { TOrder } from "../../types/common/order";
@@ -10,7 +11,6 @@ import {
   orderStatusConfig,
   orderTypeConfig
 } from "../api/config/common";
-import { generateHashCode } from ".";
 
 export const generateStatusQuery = (status?: TASK_STATUS_CODE) => {
   if (!status) {
@@ -44,7 +44,7 @@ export const generateInviteQuery = (inviteId?: number) => {
   if (!inviteId && inviteId !== 0) {
     return "";
   }
-  return `inviteId = '%${inviteId}%'`;
+  return `inviteId = '${inviteId}'`;
 };
 
 export const generatePayWayQuery = (payWayCodes?: PLATFORM_CODE[]) => {

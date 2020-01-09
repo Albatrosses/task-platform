@@ -1,20 +1,45 @@
 input AddHeroImageInput {
-  taskId: String
+  taskId: ID
   image: String
+}
+
+type AddHeroImageOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input RemoveHeroImageInput {
-  id: String!
+  id: ID!
+}
+
+type RemoveHeroImageOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input UpdateHeroImageInput {
-  id: String!
-  taskId: String
+  id: ID!
+  taskId: ID
   image: String
 }
 
+type UpdateHeroImageOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
+type HeroImageListingOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: [HeroImage]
+}
+
 type HeroImage {
-  id: String
-  taskId: String
+  id: ID
+  taskId: ID
   imageSrc: String
 }

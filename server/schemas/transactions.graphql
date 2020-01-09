@@ -1,22 +1,34 @@
 input AddTransactionInput {
-  taskId: String
-  userId: String
+  taskId: ID
+  userId: ID
   type: Int
   amount: Float
 }
 
+type AddTransactionOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
 input RemoveTransactionInput {
-  id: String!
+  id: ID!
+}
+
+type RemoveTransactionOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
 }
 
 input UpdateTransactionInput {
-  id: String!
-  taskId: String
+  id: ID!
+  taskId: ID
   taskName: String
   taskSimple: String
   taskDescription: String
   taskPlatforms: [Int]
-  userId: String
+  userId: ID
   userName: String
   userPhone: String
   payWay: PayWayInput
@@ -28,27 +40,51 @@ input UpdateTransactionInput {
   resultDate: String
 }
 
+type UpdateTransactionOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+}
+
 input QueryTransactionInput {
-  id: String
+  id: ID
+}
+
+type TransactionOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: Transaction
 }
 
 input QueryTransactionListingInput {
   page: Int
   status: Int
-  taskId: String
-  userId: String
+  taskId: ID
+  userId: ID
   amount: AmountInput
   date: DateInput
   order: OrderInput
 }
 
+type TransactionListingOutput implements Message {
+  code: Int
+  message: String
+  success: Boolean
+  data: [Transaction]
+}
+
 type Transaction {
-  id: String
+  id: ID
+  taskId: ID
+  taskName: String
+  taskDescription: String
   payWay: PayWay
   balance: Float
   type: Int
   status: Int
+  reviewDate: String
   submitDate: String
   resultDate: String
-  reviewer: String
+  reviewer: ID
 }

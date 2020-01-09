@@ -12,7 +12,6 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -285,11 +284,8 @@ module.exports = {
     hints: false,
   },
   devServer: {
-    host: '0.0.0.0',
-    port: 18081,
-    disableHostCheck: true,
     proxy: {
-      '/graphql': 'http://192.168.0.103:4000/graphql'
+      '/graphql': 'http://localhost:18080/graphql'
     }
   }
 };

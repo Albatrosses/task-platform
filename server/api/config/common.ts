@@ -4,6 +4,7 @@ import {
   ORDER_TYPE_CODE
 } from "../../../types/common/order";
 import { DATE_TYPE_NAME, ORDER_STATUS_NAME, ORDER_TYPE_NAME } from "../enum";
+import { USER_ROLE_CODE, USER_ROLE_LEVEL_CODE } from "../../../types/user/user";
 
 export const orderTypeConfig = {
   [ORDER_TYPE_CODE.DEFAULT]: ORDER_TYPE_NAME.DEFAULT,
@@ -51,4 +52,39 @@ export const expiresConfig = {
 
 export const imageSizeConfig = {
   avatar: 1024 * 1024 * 0.2
+};
+
+export const roleConfig = {
+  consumer: [USER_ROLE_CODE.CONSUMER, USER_ROLE_CODE.CONSUMER_VIP],
+  consumerVip: [USER_ROLE_CODE.CONSUMER_VIP],
+  customer: [
+    USER_ROLE_CODE.CUSTOMER,
+    USER_ROLE_CODE.CUSTOMER_ADMIN,
+    USER_ROLE_CODE.SUPER_ADMIN
+  ],
+  customerAdmin: [USER_ROLE_CODE.CUSTOMER_ADMIN, USER_ROLE_CODE.SUPER_ADMIN],
+  superAdmin: [USER_ROLE_CODE.SUPER_ADMIN]
+};
+
+export const roleLevelConfig = {
+  vip1: [
+    USER_ROLE_LEVEL_CODE.VIP1,
+    USER_ROLE_LEVEL_CODE.VIP2,
+    USER_ROLE_LEVEL_CODE.VIP3,
+    USER_ROLE_LEVEL_CODE.VIP4,
+    USER_ROLE_LEVEL_CODE.VIP5
+  ],
+  vip2: [
+    USER_ROLE_LEVEL_CODE.VIP2,
+    USER_ROLE_LEVEL_CODE.VIP3,
+    USER_ROLE_LEVEL_CODE.VIP4,
+    USER_ROLE_LEVEL_CODE.VIP5
+  ],
+  vip3: [
+    USER_ROLE_LEVEL_CODE.VIP3,
+    USER_ROLE_LEVEL_CODE.VIP4,
+    USER_ROLE_LEVEL_CODE.VIP5
+  ],
+  vip4: [USER_ROLE_LEVEL_CODE.VIP4, USER_ROLE_LEVEL_CODE.VIP5],
+  vip5: [USER_ROLE_LEVEL_CODE.VIP5]
 };
