@@ -1,4 +1,5 @@
 import { includes, isNil } from "lodash";
+import { MESSAGE_WORD } from "../../../types/common/message";
 import {
   TRANSACTION_STATUS_CODE,
   TRANSACTION_TYPE_CODE
@@ -8,7 +9,6 @@ import { Transactions } from "../../entity/transactions";
 import { getNow } from "../../helper";
 import { generateResolver } from "../../helper/log";
 import { generateAuth, verifyAuth } from "../../helper/verify";
-import { MESSAGE_WORD } from "../enum";
 
 export const addTransaction = async (
   _,

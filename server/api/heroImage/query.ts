@@ -1,8 +1,8 @@
+import { MESSAGE_WORD } from "../../../types/common/message";
 import { queryDB } from "../../entity";
 import { HeroImage } from "../../entity/hero_image";
 import { generateResolver } from "../../helper/log";
 import { generateAuth } from "../../helper/verify";
-import { MESSAGE_WORD } from "../enum";
 
 export const heroImageListing = async (_, __, context): Promise<any> => {
   return await queryDB(async connection => {

@@ -20,3 +20,23 @@ var ORDER_STATUS_CODE;
     ORDER_STATUS_CODE[ORDER_STATUS_CODE["ASC"] = 0] = "ASC";
     ORDER_STATUS_CODE[ORDER_STATUS_CODE["DESC"] = 1] = "DESC";
 })(ORDER_STATUS_CODE = exports.ORDER_STATUS_CODE || (exports.ORDER_STATUS_CODE = {}));
+var ORDER_TYPE_NAME;
+(function (ORDER_TYPE_NAME) {
+    ORDER_TYPE_NAME["DEFAULT"] = "id";
+    ORDER_TYPE_NAME["AMOUNT"] = "amount";
+    ORDER_TYPE_NAME["START_DATE"] = "startDate";
+    ORDER_TYPE_NAME["END_DATE"] = "endDate";
+    ORDER_TYPE_NAME["SUBMIT_DATE"] = "submitDate";
+    ORDER_TYPE_NAME["RESULT_DATE"] = "resultDate";
+    ORDER_TYPE_NAME["SIGNIN_DATE"] = "signInDate";
+    ORDER_TYPE_NAME["LOGIN_DATE"] = "loginDate";
+    ORDER_TYPE_NAME["LOGOUT_DATE"] = "logoutDate";
+    ORDER_TYPE_NAME["ASSIGN_DATE"] = "assignDate";
+    ORDER_TYPE_NAME["UPLOAD_DATE"] = "uploadDate";
+    ORDER_TYPE_NAME["REVIEW_DATE"] = "reviewDate";
+})(ORDER_TYPE_NAME = exports.ORDER_TYPE_NAME || (exports.ORDER_TYPE_NAME = {}));
+var ORDER_STATUS_NAME;
+(function (ORDER_STATUS_NAME) {
+    ORDER_STATUS_NAME["ASC"] = "asc";
+    ORDER_STATUS_NAME["DESC"] = "desc";
+})(ORDER_STATUS_NAME = exports.ORDER_STATUS_NAME || (exports.ORDER_STATUS_NAME = {}));

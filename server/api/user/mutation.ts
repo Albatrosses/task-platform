@@ -1,5 +1,6 @@
 import { includes } from "lodash";
 import md5 from "md5";
+import { MESSAGE_WORD } from "../../../types/common/message";
 import { USER_ROLE_CODE, USER_STATUS_CODE } from "../../../types/user/user";
 import { queryDB } from "../../entity";
 import { Messages } from "../../entity/messages";
@@ -10,9 +11,8 @@ import { generateHashCode, getNow, getNowString, wait } from "../../helper";
 import { compareImgByteSize, deleteImage, storeImage } from "../../helper/file";
 import { generateLog, generateResolver } from "../../helper/log";
 import { delayDo } from "../../helper/sql";
-import { generateAuth, verifyPhone, verifyAuth } from "../../helper/verify";
-import { expiresConfig, networkConfig, roleConfig } from "../config/common";
-import { MESSAGE_WORD } from "../enum";
+import { generateAuth, verifyAuth, verifyPhone } from "../../helper/verify";
+import { expiresConfig, networkConfig } from "../config/common";
 
 const generateVerifyCode = () => {
   // tslint:disable-next-line: radix
@@ -74,7 +74,7 @@ export const removeUser = async (
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
     const userRepository = connection.getRepository(Users);
-    const user = await userRepository.findOne({ id });
+    const user = await userRepository.findOne(id);
 
     if (!user) {
       return generateResolver(false, MESSAGE_WORD.USER_NOT_FOUND);
@@ -123,12 +123,12 @@ export const updateUser = async (
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
     const userRepository = connection.getRepository(Users);
-    const user = await userRepository.findOne({ id });
+    const user = await userRepository.findOne(id);
 
     if (!user) {
-      return generateResolver(false, "用户不存在");
+      return generateResolver(false, MESSAGE_WORD.USER_NOT_FOUND);
     } else if (user.phone === phone) {
-      return generateResolver(false, "该手机号已存在");
+      return generateResolver(false, MESSAGE_WORD.PHONE_EXIST);
     }
 
     user.name = name;
@@ -161,7 +161,7 @@ export const updateUser = async (
 
     await userRepository.save(user);
 
-    return generateResolver(true, "修改成功");
+    return generateResolver(true, MESSAGE_WORD.UPDATE_SUCCESS);
   });
 };
 
@@ -239,18 +239,19 @@ export const loginUser = async (
     }
 
     const sessionsRepository = connection.getRepository(Sessions);
-    const sessionExist = await sessionsRepository.findOne({ userId: user.id });
-    if (user.status === USER_STATUS_CODE.ACTIVE && sessionExist) {
+    const sessionExist = await sessionsRepository.findOne({ user });
+    if (sessionExist) {
       await sessionsRepository.remove(sessionExist);
     }
+
     if (currentUser) {
       currentUser.status = USER_STATUS_CODE.LOGOUT;
       currentUser.logoutDate = getNow();
       await userRepository.save(currentUser);
-      const session = await sessionsRepository.findOne({
-        userId: currentUser.id
+      const sessionExist = await sessionsRepository.findOne({
+        user: currentUser
       });
-      await sessionsRepository.remove(session);
+      await sessionsRepository.remove(sessionExist);
     }
     const session = new Sessions();
     const sessionId = md5(user.id) + generateHashCode();

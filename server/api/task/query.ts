@@ -1,4 +1,5 @@
 import { map } from "lodash";
+import { MESSAGE_WORD } from "../../../types/common/message";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import { generateResolver } from "../../helper/log";
@@ -12,7 +13,6 @@ import {
   generateStatusQuery
 } from "../../helper/sql";
 import { generateAuth, verifyAuth } from "../../helper/verify";
-import { MESSAGE_WORD } from "../enum";
 
 const PAGE_TOTAL = 20;
 

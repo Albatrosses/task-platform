@@ -13,3 +13,16 @@ var DATE_TYPE_CODE;
     DATE_TYPE_CODE[DATE_TYPE_CODE["UPLOAD_DATE"] = 8] = "UPLOAD_DATE";
     DATE_TYPE_CODE[DATE_TYPE_CODE["REVIEW_DATE"] = 9] = "REVIEW_DATE";
 })(DATE_TYPE_CODE = exports.DATE_TYPE_CODE || (exports.DATE_TYPE_CODE = {}));
+var DATE_TYPE_NAME;
+(function (DATE_TYPE_NAME) {
+    DATE_TYPE_NAME["START_DATE"] = "startDate";
+    DATE_TYPE_NAME["END_DATE"] = "endDate";
+    DATE_TYPE_NAME["SUBMIT_DATE"] = "submitDate";
+    DATE_TYPE_NAME["RESULT_DATE"] = "resultDate";
+    DATE_TYPE_NAME["SIGNIN_DATE"] = "signInDate";
+    DATE_TYPE_NAME["LOGIN_DATE"] = "loginDate";
+    DATE_TYPE_NAME["LOGOUT_DATE"] = "logoutDate";
+    DATE_TYPE_NAME["ASSIGN_DATE"] = "assignDate";
+    DATE_TYPE_NAME["UPLOAD_DATE"] = "uploadDate";
+    DATE_TYPE_NAME["REVIEW_DATE"] = "reviewDate";
+})(DATE_TYPE_NAME = exports.DATE_TYPE_NAME || (exports.DATE_TYPE_NAME = {}));

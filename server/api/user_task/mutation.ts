@@ -1,6 +1,10 @@
 import { forEach, includes, map } from "lodash";
+import { MESSAGE_WORD } from "../../../types/common/message";
 import { TASK_STATUS_CODE } from "../../../types/task/task";
-import { TRANSACTION_TYPE_CODE, TRANSACTION_STATUS_CODE } from "../../../types/transaction/transaction"
+import {
+  TRANSACTION_STATUS_CODE,
+  TRANSACTION_TYPE_CODE
+} from "../../../types/transaction/transaction";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import { Transactions } from "../../entity/transactions";
@@ -10,7 +14,6 @@ import { getNow, wait } from "../../helper";
 import { deleteImage, storeImage } from "../../helper/file";
 import { generateResolver } from "../../helper/log";
 import { generateAuth, verifyAuth } from "../../helper/verify";
-import { MESSAGE_WORD } from "../enum";
 import { scaleConfig } from "../config/common";
 
 export const acceptUserTask = async (

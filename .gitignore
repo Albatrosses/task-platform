@@ -9,4 +9,4 @@ type/**/*.js
 client/src/**/*.js
 client/node_modules
 client/build
-media
+media/

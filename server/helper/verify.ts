@@ -1,8 +1,8 @@
 import { get, includes, isEmpty } from "lodash";
 import { USER_ROLE_CODE, USER_ROLE_LEVEL_CODE } from "../../types/user/user";
+import { roleConfig } from "../api/config/common";
 import { Sessions } from "../entity/sessions";
 import { Users } from "../entity/users";
-import { roleConfig } from "../api/config/common";
 
 export const verifyBase64Image = (image: string): boolean => {
   const reg = /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*?)\s*$/i;

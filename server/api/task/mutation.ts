@@ -1,10 +1,10 @@
+import { MESSAGE_WORD } from "../../../types/common/message";
 import { TASK_STATUS_CODE } from "../../../types/task/task";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
-import { getNowString, getNow } from "../../helper";
+import { getNow, getNowString } from "../../helper";
 import { generateResolver } from "../../helper/log";
 import { generateAuth, verifyAuth } from "../../helper/verify";
-import { MESSAGE_WORD } from "../enum";
 import { roleConfig } from "../config/common";
 
 export const addTask = async (_, { addTaskInput }, context): Promise<any> => {
@@ -33,7 +33,6 @@ export const addTask = async (_, { addTaskInput }, context): Promise<any> => {
     task.description = description;
     task.platform = platform;
     task.total = total;
-    task.status = TASK_STATUS_CODE.UNASSIGNED;
     task.amount = amount;
     task.steps = steps;
     task.criteria = criteria;
@@ -63,7 +62,7 @@ export const removeTask = async (
     }
 
     const tasksRepository = connection.getRepository(Tasks);
-    const task = await tasksRepository.findOne({ id });
+    const task = await tasksRepository.findOne(id);
 
     if (task) {
       await tasksRepository.remove(task);
@@ -101,7 +100,7 @@ export const updateTask = async (
     }
 
     const tasksRepository = connection.getRepository(Tasks);
-    const task = await tasksRepository.findOne({ id });
+    const task = await tasksRepository.findOne(id);
 
     if (task) {
       task.name = name;

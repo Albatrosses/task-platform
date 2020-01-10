@@ -1,3 +1,4 @@
+import { MESSAGE_WORD } from "../../../types/common/message";
 import { queryDB } from "../../entity";
 import { Users } from "../../entity/users";
 import { generateResolver } from "../../helper/log";
@@ -15,7 +16,6 @@ import {
   generateStatusQuery
 } from "../../helper/sql";
 import { generateAuth, verifyAuth } from "../../helper/verify";
-import { MESSAGE_WORD } from "../enum";
 
 const PAGE_TOTAL = 20;
 
@@ -27,7 +27,7 @@ export const user = async (_, { queryUserInput }, context) => {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
     const userRepository = connection.getRepository(Users);
-    const result = await userRepository.findOne({ id });
+    const result = await userRepository.findOne(id);
     if (!verifyAuth(currentUser, "customer")) {
       if (currentUser.id.toString() !== id) {
         return generateResolver(false, MESSAGE_WORD.UNAUTH);

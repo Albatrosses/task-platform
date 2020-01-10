@@ -11,6 +11,19 @@ export enum DATE_TYPE_CODE {
   REVIEW_DATE
 }
 
+export enum DATE_TYPE_NAME {
+  START_DATE = "startDate",
+  END_DATE = "endDate",
+  SUBMIT_DATE = "submitDate",
+  RESULT_DATE = "resultDate",
+  SIGNIN_DATE = "signInDate",
+  LOGIN_DATE = "loginDate",
+  LOGOUT_DATE = "logoutDate",
+  ASSIGN_DATE = "assignDate",
+  UPLOAD_DATE = "uploadDate",
+  REVIEW_DATE = "reviewDate"
+}
+
 export type TDate = {
   min: string;
   max: string;

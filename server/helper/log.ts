@@ -1,7 +1,7 @@
-import { getNowString, formatData } from ".";
+import { compact, map } from "lodash";
+import { formatData, getNowString } from ".";
 import { TMessage } from "../../types/common/message";
 import { HTTP_CODE } from "../../types/common/message";
-import { map, compact } from "lodash";
 
 export const generateLog = (message: string): void => {
   const timeTemp = getNowString();

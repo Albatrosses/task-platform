@@ -1,3 +1,4 @@
+import { MESSAGE_WORD } from "../../../types/common/message";
 import { queryDB } from "../../entity";
 import { HeroImage } from "../../entity/hero_image";
 import { Tasks } from "../../entity/tasks";
@@ -9,7 +10,6 @@ import {
   verifyAuth,
   verifyBase64Image
 } from "../../helper/verify";
-import { MESSAGE_WORD } from "../enum";
 
 const IMAGE_PATH = "heroImage/";
 const IMAGE_NAME = "heroImage";
