@@ -5,6 +5,7 @@ build/
 tmp/
 temp/
 server/**/*.js
+type/**/*.js
 client/src/**/*.js
 client/node_modules
 client/build
