@@ -4,8 +4,11 @@ import { Tasks } from "../../entity/tasks";
 import { wait } from "../../helper";
 import { deleteImage, storeImage } from "../../helper/file";
 import { generateResolver } from "../../helper/log";
-import { generateAuth, verifyBase64Image, verifyAuth } from "../../helper/verify";
-import { roleConfig } from "../config/common";
+import {
+  generateAuth,
+  verifyAuth,
+  verifyBase64Image
+} from "../../helper/verify";
 import { MESSAGE_WORD } from "../enum";
 
 const IMAGE_PATH = "heroImage/";
@@ -17,30 +20,25 @@ export const addHeroImage = async (
   context
 ): Promise<any> => {
   const { taskId, image } = addHeroImageInput;
-
   if (!verifyBase64Image(image)) {
     return generateResolver(false, MESSAGE_WORD.IMAGE_FORMAT_ERROR);
   }
-
   return await queryDB(async connection => {
     const currentUser = await generateAuth(context, connection);
     if (!verifyAuth(currentUser, "customer")) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
-
     const taskRepository = connection.getRepository(Tasks);
-    const task = await taskRepository.findOne({ id: taskId });
+    const task = await taskRepository.findOne(taskId);
     if (taskId && !task) {
       return generateResolver(false, MESSAGE_WORD.TASK_NOT_FOUND);
     }
-
     const heroImagesRepository = connection.getRepository(HeroImage);
     const { imageFilePath, imageFileName } = await storeImage(
       image,
       IMAGE_PATH,
       IMAGE_NAME
     );
-
     const heroImage = new HeroImage();
     heroImage.task = task;
     heroImage.imageSrc = imageFilePath + imageFileName;
@@ -57,16 +55,13 @@ export const removeHeroImage = async (
   context
 ): Promise<any> => {
   const { id } = removeHeroImageInput;
-
   return await queryDB(async connection => {
     const currentUser = await generateAuth(context, connection);
     if (!verifyAuth(currentUser, "customer")) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
-
     const heroImagesRepository = connection.getRepository(HeroImage);
-
-    const heroImage = await heroImagesRepository.findOne({ id });
+    const heroImage = await heroImagesRepository.findOne(id);
     if (heroImage) {
       await deleteImage(heroImage.imageSrc);
       await heroImagesRepository.remove(heroImage);
@@ -83,23 +78,19 @@ export const updateHeroImage = async (
   context
 ): Promise<any> => {
   const { id, taskId, image } = updateHeroImageInput;
-
   if (!verifyBase64Image(image)) {
     return generateResolver(false, MESSAGE_WORD.IMAGE_FORMAT_ERROR);
   }
-
   return await queryDB(async connection => {
     const currentUser = await generateAuth(context, connection);
     if (!verifyAuth(currentUser, "customer")) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
-
     const heroImagesRepository = connection.getRepository(HeroImage);
-
-    const heroImage = await heroImagesRepository.findOne({ id });
+    const heroImage = await heroImagesRepository.findOne(id);
     if (heroImage) {
       const taskRepository = connection.getRepository(Tasks);
-      const task = await taskRepository.findOne({ id: taskId });
+      const task = await taskRepository.findOne(taskId);
       if (taskId && !task) {
         return generateResolver(false, MESSAGE_WORD.TASK_NOT_FOUND);
       }
@@ -112,7 +103,6 @@ export const updateHeroImage = async (
         IMAGE_NAME
       );
       heroImage.imageSrc = imageFilePath + imageFileName;
-
       await heroImagesRepository.save(heroImage);
       return generateResolver(true, MESSAGE_WORD.UPDATE_SUCCESS);
     } else {

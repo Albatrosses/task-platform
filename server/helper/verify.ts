@@ -39,7 +39,7 @@ export const generateAuth = async (
   context: any,
   connection: any
 ): Promise<Users> => {
-  if (!context || !context) {
+  if (!context) {
     return null;
   }
   const auth = get(context, "req.cookies.auth", "");
@@ -48,17 +48,16 @@ export const generateAuth = async (
   }
 
   const sessionsRepository = connection.getRepository(Sessions);
-  const session = await sessionsRepository.findOne({ session_id: auth });
+  const session = await sessionsRepository.findOne(
+    { sessionId: auth },
+    {
+      relations: ["user"]
+    }
+  );
   if (!session) {
     return null;
   }
-
-  const usersRepository = connection.getRepository(Users);
-  const user = await usersRepository.findOne({ id: session.userId });
-  if (!user) {
-    return null;
-  }
-  return user;
+  return session.user;
 };
 
 export const verifyAuth = (user: Users, roleGroup?: string) => {

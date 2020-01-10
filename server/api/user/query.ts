@@ -15,21 +15,19 @@ import {
   generateStatusQuery
 } from "../../helper/sql";
 import { generateAuth, verifyAuth } from "../../helper/verify";
-import { roleConfig } from "../config/common";
 import { MESSAGE_WORD } from "../enum";
 
 const PAGE_TOTAL = 20;
 
 export const user = async (_, { queryUserInput }, context) => {
   const { id } = queryUserInput;
-
   return await queryDB(async connection => {
-    const userRepository = connection.getRepository(Users);
-    const result = await userRepository.findOne({ id });
     const currentUser = await generateAuth(context, connection);
     if (!currentUser) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);
     }
+    const userRepository = connection.getRepository(Users);
+    const result = await userRepository.findOne({ id });
     if (!verifyAuth(currentUser, "customer")) {
       if (currentUser.id.toString() !== id) {
         return generateResolver(false, MESSAGE_WORD.UNAUTH);

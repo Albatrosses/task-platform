@@ -11,6 +11,7 @@ import { deleteImage, storeImage } from "../../helper/file";
 import { generateResolver } from "../../helper/log";
 import { generateAuth, verifyAuth } from "../../helper/verify";
 import { MESSAGE_WORD } from "../enum";
+import { scaleConfig } from "../config/common";
 
 export const acceptUserTask = async (
   _,
@@ -158,7 +159,7 @@ export const reviewUserTask = async (_, { reviewUserTaskInput }, context) => {
     }
     userTask.status = TASK_STATUS_CODE.COMPLETED;
     userTask.reviewDate = getNow();
-    userTask.reviewer = currentUser.id;
+    userTask.reviewer = currentUser;
     await userTasksRepository.save(userTask);
     const transactionsRepository = connection.getRepository(Transactions);
     const transaction = new Transactions();
@@ -175,7 +176,7 @@ export const reviewUserTask = async (_, { reviewUserTaskInput }, context) => {
     if (user.inviteId) {
       const transactionInvite = new Transactions();
       transaction.task = task;
-      transaction.balance = task.amount * 0.05;
+      transaction.balance = task.amount * scaleConfig.amount;
       transaction.user = user;
       transaction.type = TRANSACTION_TYPE_CODE.DIVIDEND;
       transaction.status = TRANSACTION_STATUS_CODE.SUCCESS;

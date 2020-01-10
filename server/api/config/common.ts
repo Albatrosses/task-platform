@@ -54,6 +54,10 @@ export const imageSizeConfig = {
   avatar: 1024 * 1024 * 0.2
 };
 
+export const scaleConfig = {
+  amount: 0.05
+};
+
 export const roleConfig = {
   consumer: [USER_ROLE_CODE.CONSUMER, USER_ROLE_CODE.CONSUMER_VIP],
   consumerVip: [USER_ROLE_CODE.CONSUMER_VIP],

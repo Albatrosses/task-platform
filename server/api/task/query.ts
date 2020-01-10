@@ -12,7 +12,6 @@ import {
   generateStatusQuery
 } from "../../helper/sql";
 import { generateAuth, verifyAuth } from "../../helper/verify";
-import { roleConfig } from "../config/common";
 import { MESSAGE_WORD } from "../enum";
 
 const PAGE_TOTAL = 20;
@@ -22,7 +21,7 @@ export const task = async (_, { queryTaskInput }, context): Promise<any> => {
 
   return await queryDB(async connection => {
     const tasksRepository = connection.getRepository(Tasks);
-    const result = await tasksRepository.findOne({ id });
+    const result = await tasksRepository.findOne(id);
     const currentUser = await generateAuth(context, connection);
     if (!currentUser) {
       return generateResolver(false, MESSAGE_WORD.UNAUTH);

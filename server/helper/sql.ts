@@ -12,14 +12,21 @@ import {
   orderTypeConfig
 } from "../api/config/common";
 
-export const generateStatusQuery = (status?: TASK_STATUS_CODE) => {
+export const generateStatusQuery = (status?: number) => {
   if (!status) {
     return "";
   }
   return `status = ${status}`;
 };
 
-export const generateRoleQuery = (role?: USER_ROLE_CODE) => {
+export const generateTypeQuery = (type?: number) => {
+  if (!type) {
+    return "";
+  }
+  return `type = ${type}`;
+};
+
+export const generateRoleQuery = (role?: number) => {
   if (!role) {
     return "";
   }
@@ -47,7 +54,7 @@ export const generateInviteQuery = (inviteId?: number) => {
   return `inviteId = '${inviteId}'`;
 };
 
-export const generatePayWayQuery = (payWayCodes?: PLATFORM_CODE[]) => {
+export const generatePayWayQuery = (payWayCodes?: number[]) => {
   if (!payWayCodes || isEmpty(compact(payWayCodes))) {
     return "";
   }
@@ -56,7 +63,7 @@ export const generatePayWayQuery = (payWayCodes?: PLATFORM_CODE[]) => {
   )})`;
 };
 
-export const generatePlatformQuery = (platformCodes?: PLATFORM_CODE[]) => {
+export const generatePlatformQuery = (platformCodes?: number[]) => {
   if (!platformCodes || isEmpty(compact(platformCodes))) {
     return "";
   }

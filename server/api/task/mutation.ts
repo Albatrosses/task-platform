@@ -18,8 +18,7 @@ export const addTask = async (_, { addTaskInput }, context): Promise<any> => {
     total,
     amount,
     startDate,
-    endDate,
-    reviewer
+    endDate
   } = addTaskInput;
 
   return await queryDB(async connection => {
@@ -41,7 +40,7 @@ export const addTask = async (_, { addTaskInput }, context): Promise<any> => {
     task.startDate = startDate;
     task.endDate = endDate;
     task.updateDate = getNow();
-    task.reviewer = reviewer;
+    task.reviewer = currentUser;
 
     const tasksRepository = connection.getRepository(Tasks);
 
@@ -92,8 +91,7 @@ export const updateTask = async (
     status,
     amount,
     startDate,
-    endDate,
-    reviewer
+    endDate
   } = updateTaskInput;
 
   return await queryDB(async connection => {
@@ -118,7 +116,7 @@ export const updateTask = async (
       task.startDate = startDate;
       task.endDate = endDate;
       task.updateDate = getNow();
-      task.reviewer = reviewer;
+      task.reviewer = currentUser;
       await tasksRepository.save(task);
       return generateResolver(true, MESSAGE_WORD.UPDATE_SUCCESS);
     } else {

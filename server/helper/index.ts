@@ -1,3 +1,5 @@
+import { isEmpty } from "lodash";
+
 export const getNowString = () => {
   const date = new Date();
   const year = date
@@ -55,7 +57,7 @@ export const parseDateTimeToString = (dateTime: Date) => {
   return `${year}-${month}-${days} ${hours}:${minutes}:${seconds}`;
 };
 
-export const parseStringToDateTime = (dateTime: string) => {
+export const parseStringToDateTime = (dateTime: string | number) => {
   return new Date(dateTime);
 };
 
@@ -147,4 +149,20 @@ export const wait = (seconds: number) => {
       resolve();
     }, seconds);
   });
+};
+
+export const formatData = (data?: any) => {
+  if (!data || isEmpty(data)) {
+    return null;
+  }
+  const result = {} as any;
+  // tslint:disable-next-line: forin
+  for (const key in data) {
+    if (data[key] instanceof Date) {
+      result[key] = parseDateTimeToString(data[key]);
+      continue;
+    }
+    result[key] = data[key];
+  }
+  return result;
 };

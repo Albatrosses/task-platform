@@ -33,6 +33,7 @@ export enum DATE_TYPE_NAME {
 
 export enum MESSAGE_WORD {
   UNAUTH = "权限不足",
+  BALANCE_ERROR = "余额不足",
   UNKONW_ERROR = "查询不合法或服务器发生错误",
   IMAGE_FORMAT_ERROR = "图片格式不正确",
   SIGN_IN_SUCCESS = "注册成功",
@@ -62,5 +63,10 @@ export enum MESSAGE_WORD {
   VERIFY_CODE_SENDED = "验证码已发送",
   PASSWORD_ERROR = "密码错误",
   PASSWORD_OLD_ERROR = "原密码错误",
-  AVATAR_SIZE_EXCEED = "头像大小不能超过200KB"
+  AVATAR_SIZE_EXCEED = "头像大小不能超过200KB",
+  TRANSACTION_NOT_FOUND = "交易不存在",
+  QUERY_RECHARGE = "充值请求已发送",
+  QUERY_WITHDRAW = "提现请求已发送",
+  INPUT_INVAILD = "输入值不正确",
+  PAYWAY_ERROR = "支付账户不正确"
 }

@@ -25,7 +25,7 @@ const generateVerifyCode = () => {
 };
 
 export const addUser = async (_, { addUserInput }, context): Promise<any> => {
-  const { reviewer, password, phone, role, roleLevel, balance } = addUserInput;
+  const { password, phone, role, roleLevel, balance } = addUserInput;
 
   if (!verifyPhone(phone)) {
     return generateResolver(false, MESSAGE_WORD.PHONE_NO_RULE);
@@ -53,7 +53,7 @@ export const addUser = async (_, { addUserInput }, context): Promise<any> => {
     }
     user.signInDate = getNow();
     user.inviteCode = generateHashCode();
-    user.reviewer = reviewer;
+    user.reviewer = currentUser;
 
     await userRepository.save(user);
 
@@ -110,8 +110,7 @@ export const updateUser = async (
     inviteId,
     status,
     role,
-    roleLevel,
-    reviewer
+    roleLevel
   } = updateUserInput;
 
   if (phone && !verifyPhone(phone)) {
@@ -158,7 +157,7 @@ export const updateUser = async (
     user.status = status;
     user.role = role;
     user.roleLevel = roleLevel;
-    user.reviewer = reviewer;
+    user.reviewer = currentUser;
 
     await userRepository.save(user);
 
@@ -221,6 +220,7 @@ export const loginUser = async (
 
   return await queryDB(async connection => {
     const userRepository = connection.getRepository(Users);
+    const currentUser = await generateAuth(context, connection);
     const user = await userRepository.findOne({ phone });
     if (!user) {
       return generateResolver(false, MESSAGE_WORD.USER_NOT_FOUND);
@@ -243,10 +243,19 @@ export const loginUser = async (
     if (user.status === USER_STATUS_CODE.ACTIVE && sessionExist) {
       await sessionsRepository.remove(sessionExist);
     }
+    if (currentUser) {
+      currentUser.status = USER_STATUS_CODE.LOGOUT;
+      currentUser.logoutDate = getNow();
+      await userRepository.save(currentUser);
+      const session = await sessionsRepository.findOne({
+        userId: currentUser.id
+      });
+      await sessionsRepository.remove(session);
+    }
     const session = new Sessions();
     const sessionId = md5(user.id) + generateHashCode();
     session.sessionId = sessionId;
-    session.userId = user.id;
+    session.user = user;
     const tokensRepository = connection.getRepository(Tokens);
     const token = await tokensRepository.findOne({ role: user.role });
     session.data = token.authToken;

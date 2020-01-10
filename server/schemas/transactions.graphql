@@ -1,8 +1,7 @@
 input AddTransactionInput {
-  taskId: ID
-  userId: ID
-  type: Int
-  amount: Float
+  type: Int!
+  amount: Float!
+  payWay: PayWayInput!
 }
 
 type AddTransactionOutput implements Message {
@@ -24,20 +23,11 @@ type RemoveTransactionOutput implements Message {
 input UpdateTransactionInput {
   id: ID!
   taskId: ID
-  taskName: String
-  taskSimple: String
-  taskDescription: String
-  taskPlatforms: [Int]
   userId: ID
-  userName: String
-  userPhone: String
+  balance: Float
   payWay: PayWayInput
-  role: Int
-  amount: Float
   type: Int
   status: Int
-  submitDate: String
-  resultDate: String
 }
 
 type UpdateTransactionOutput implements Message {
@@ -76,9 +66,8 @@ type TransactionListingOutput implements Message {
 
 type Transaction {
   id: ID
-  taskId: ID
-  taskName: String
-  taskDescription: String
+  task: Task
+  user: User
   payWay: PayWay
   balance: Float
   type: Int

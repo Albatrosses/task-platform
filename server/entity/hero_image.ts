@@ -1,41 +1,29 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  RelationId
-} from "typeorm";
-import { Tasks } from "./tasks";
+import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
+import {Tasks} from "./tasks";
 
-@Entity("hero_image", { schema: "task_platform" })
-@Index("taskId", ["task"])
+
+@Entity("hero_image" ,{schema:"task_platform" } )
+@Index("taskId",["task",])
 export class HeroImage extends BaseEntity {
-  @PrimaryGeneratedColumn({
-    type: "int",
-    name: "id"
-  })
-  public id: number;
 
-  @ManyToOne(
-    () => Tasks,
-    (tasks: Tasks) => tasks.heroImages,
-    { onDelete: "SET NULL", onUpdate: "CASCADE" }
-  )
-  @JoinColumn({ name: "taskId" })
-  public task: Tasks | null;
+    @PrimaryGeneratedColumn({
+        type:"int", 
+        name:"id"
+        })
+    id:number;
+        
 
-  @Column("varchar", {
-    nullable: true,
-    length: 1000,
-    name: "imageSrc"
-  })
-  public imageSrc: string | null;
+   
+    @ManyToOne(()=>Tasks, (tasks: Tasks)=>tasks.heroImages,{ onDelete: 'SET NULL',onUpdate: 'CASCADE' })
+    @JoinColumn({ name:'taskId'})
+    task:Tasks | null;
+
+
+    @Column("varchar",{ 
+        nullable:true,
+        length:1000,
+        name:"imageSrc"
+        })
+    imageSrc:string | null;
+        
 }

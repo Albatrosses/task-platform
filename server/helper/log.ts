@@ -1,6 +1,7 @@
-import { getNowString } from ".";
+import { getNowString, formatData } from ".";
 import { TMessage } from "../../types/common/message";
 import { HTTP_CODE } from "../../types/common/message";
+import { map, compact } from "lodash";
 
 export const generateLog = (message: string): void => {
   const timeTemp = getNowString();
@@ -28,9 +29,15 @@ export const generateResolver = (
   if (!data) {
     return message;
   }
+  if (data instanceof Array) {
+    return {
+      ...message,
+      data: compact(map(data, item => formatData(item)))
+    };
+  }
 
   return {
     ...message,
-    data
+    data: formatData(data)
   };
 };
