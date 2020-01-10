@@ -6,6 +6,7 @@ import { Route, Router, Switch } from "react-router";
 import { routesConfig } from "src/config/route";
 import { client } from "src/helper/graphql";
 import { AppWrapper } from "./App.style";
+import Footer from "./common/footer/Footer";
 
 const history = createBrowserHistory();
 
@@ -15,15 +16,16 @@ const App = () => {
       <AppWrapper className="app-wrapper">
         <Router history={history}>
           <Switch>
-            {map(routesConfig, ({ exact, path, component }) => (
+            {map(routesConfig, ({ exact, name, path, component }) => (
               <Route
-                key={path}
+                key={name}
                 exact={exact}
                 path={path}
                 component={component}
               />
             ))}
           </Switch>
+          <Footer />
         </Router>
       </AppWrapper>
     </ApolloProvider>

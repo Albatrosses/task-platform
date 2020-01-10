@@ -190,6 +190,7 @@ export const signInUser = async (_, { signInUserInput }): Promise<any> => {
     }
 
     const user = new Users();
+    user.name = phone;
     user.phone = phone;
     if (password) {
       user.password = md5(password);

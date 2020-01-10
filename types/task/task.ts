@@ -5,6 +5,7 @@ export enum TASK_STATUS_CODE {
   UNASSIGNED,
   ASSIGNED,
   REVIEWING,
+  FAIL,
   COMPLETED
 }
 

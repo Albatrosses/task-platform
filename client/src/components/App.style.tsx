@@ -7,8 +7,6 @@ export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
   background-color: ${COLOR.MAIN_BACKGROUND};
   color: ${COLOR.FONT_COLOR};
 `;
