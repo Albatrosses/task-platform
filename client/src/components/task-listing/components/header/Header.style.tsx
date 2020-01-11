@@ -2,7 +2,7 @@ import { COLOR } from "src/enum/style";
 import styled from "styled-components";
 
 export const HeaderWrapper = styled.div`
-  height: 80px;
+  height: 60px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,6 @@ export const HeaderWrapper = styled.div`
   .header {
     background-color: ${COLOR.MAIN_BACKGROUND};
     .header-right {
-      width: 60px;
       display: flex;
       justify-content: space-between;
     }
@@ -21,10 +20,22 @@ export const HeaderWrapper = styled.div`
       & > label {
         margin-bottom: 16px;
         display: block;
+        color: ${COLOR.FONT_COLOR};
       }
-      .platform-content > * {
-        margin-bottom: 10px;
-        border: 1px solid #1890ff;
+      .platform-content {
+        .ant-tag {
+          margin-bottom: 10px;
+          &.ant-tag-checkable {
+            border: 1px solid ${COLOR.FONT_COLOR};
+            background-color: ${COLOR.ITEM_BACKGROUND};
+            color: ${COLOR.FONT_CONTEXT_COLOR};
+          }
+          &.ant-tag-checkable-checked {
+            border: 1px solid ${COLOR.FONT_COLOR};
+            background-color: ${COLOR.FONT_COLOR};
+            color: ${COLOR.FONT_ACTIVE_COLOR};
+          }
+        }
       }
       .amount-content,
       .date-content {

@@ -151,6 +151,21 @@ export const wait = (seconds: number) => {
   });
 };
 
+export const isJSON = str => {
+  if (typeof str === "string") {
+    try {
+      const obj = JSON.parse(str);
+      if (typeof obj === "object" && obj) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+};
+
 export const formatData = (data?: any) => {
   if (!data || isEmpty(data)) {
     return null;
@@ -162,7 +177,7 @@ export const formatData = (data?: any) => {
       result[key] = parseDateTimeToString(data[key]);
       continue;
     }
-    result[key] = data[key];
+    result[key] = isJSON(data[key]) ? JSON.parse(data[key]) : data[key];
   }
   return result;
 };

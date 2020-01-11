@@ -2,15 +2,15 @@ import classnames from "classnames";
 import { map } from "lodash";
 import * as React from "react";
 import { statusConfig } from "src/config/common";
-import { TASK_STATUS_CODE } from "../../../../../../../../server/types/task/task";
+import { TASK_STATUS_CODE } from "src/types/task/task";
 import { FilterWrapper } from "./Filter.style";
 
 type TFilterProps = {
   status: TASK_STATUS_CODE;
-  setFilters: (status: TASK_STATUS_CODE) => void;
+  setStatus: (status: TASK_STATUS_CODE) => void;
 };
 
-export const Filter: React.FC<TFilterProps> = ({ status, setFilters }) => {
+export const Filter: React.FC<TFilterProps> = ({ status, setStatus }) => {
   const renderStatusFilter = () => {
     return (
       <div className="status-filter">
@@ -21,7 +21,7 @@ export const Filter: React.FC<TFilterProps> = ({ status, setFilters }) => {
               className={classnames("status-filter-item", {
                 active: Number(statusCode) === status
               })}
-              onClick={() => setFilters(Number(statusCode))}
+              onClick={() => setStatus(Number(statusCode))}
             >
               {name}
             </div>

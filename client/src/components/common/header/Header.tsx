@@ -1,4 +1,3 @@
-import { Avatar } from "antd";
 import { NavBar } from "antd-mobile";
 import * as React from "react";
 import { HeaderWrapper } from "./Header.style";
@@ -26,7 +25,7 @@ export const Header: React.FC<THeaderProps> = ({
         icon={icon}
         leftContent={leftContent}
         onLeftClick={onLeftClick}
-        rightContent={rightContent || <Avatar size="large" icon="user" />}
+        rightContent={rightContent}
       >
         有赞吧
       </NavBar>

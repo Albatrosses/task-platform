@@ -6,6 +6,7 @@ export const FilterWrapper = styled.div`
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
+  margin-top: 20px;
   .status-filter {
     height: 100%;
     width: 100%;

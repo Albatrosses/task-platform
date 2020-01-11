@@ -1,3 +1,4 @@
+import { Avatar } from "antd";
 import { NoticeBar } from "antd-mobile";
 import * as React from "react";
 import { withRouter } from "react-router";
@@ -20,7 +21,11 @@ export const Entry: React.FC<any> = () => {
     };
 
     return (
-      <Header className="entry-header" leftContent={renderLeftContent()} />
+      <Header
+        className="entry-header"
+        leftContent={renderLeftContent()}
+        rightContent={<Avatar size="large" icon="user" />}
+      />
     );
   };
 
@@ -34,12 +39,6 @@ export const Entry: React.FC<any> = () => {
       );
     };
 
-    // const renderTotal = () => {
-    //   return (
-    //     <div className="entry-total">lalalal</div>
-    //   );
-    // };
-
     const renderNoticeBar = () => {
       return (
         <NoticeBar marqueeProps={{ loop: true, style: { padding: "0 7.5px" } }}>
@@ -51,7 +50,6 @@ export const Entry: React.FC<any> = () => {
     return (
       <div className="entry-bodyer">
         {renderGreeting()}
-        {/* {renderTotal()} */}
         <HeroImages />
         {renderNoticeBar()}
         <Grids />

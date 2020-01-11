@@ -31,7 +31,7 @@ export const getNow = () => {
   return new Date();
 };
 
-export const parseDateTimeToString = (dateTime: Date) => {
+export const parseDateTimeToString = (dateTime: Date, time: boolean = true) => {
   const year = dateTime
     .getFullYear()
     .toString()
@@ -54,7 +54,9 @@ export const parseDateTimeToString = (dateTime: Date) => {
     .toString()
     .padStart(2, "0");
 
-  return `${year}-${month}-${days} ${hours}:${minutes}:${seconds}`;
+  return `${year}-${month}-${days}${
+    time ? ` ${hours}:${minutes}:${seconds}` : ""
+  }`;
 };
 
 export const parseStringToDateTime = (dateTime: string | number) => {

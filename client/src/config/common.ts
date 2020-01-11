@@ -1,4 +1,4 @@
-import { ORDER_TYPE_CODE } from "src/types/common/order";
+import { ORDER_STATUS_CODE, ORDER_TYPE_CODE } from "src/types/common/order";
 import { PLATFORM_CODE, PLATFORM_NAME } from "src/types/common/platform";
 import { TASK_STATUS_CODE, TASK_STATUS_NAME } from "src/types/task/task";
 
@@ -46,9 +46,6 @@ export const platformsConfig = {
 };
 
 export const statusConfig = {
-  [TASK_STATUS_CODE.ALL]: {
-    name: TASK_STATUS_NAME.ALL
-  },
   [TASK_STATUS_CODE.UNASSIGNED]: {
     name: TASK_STATUS_NAME.UNASSIGNED
   },
@@ -93,7 +90,7 @@ export const amountRangeConfig = [
   }
 ];
 
-export const sortTypeConfig = {
+export const orderTypeConfig = {
   [ORDER_TYPE_CODE.DEFAULT]: {
     label: "默认排序",
     icon: "ordered-list"
@@ -142,4 +139,9 @@ export const sortTypeConfig = {
     label: "按审核日期排序",
     icon: "calendar"
   }
+};
+
+export const orderStatusConfig = {
+  [ORDER_STATUS_CODE.ASC]: "正序",
+  [ORDER_STATUS_CODE.DESC]: "倒序"
 };

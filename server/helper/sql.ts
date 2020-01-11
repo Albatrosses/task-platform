@@ -55,21 +55,17 @@ export const generateInviteQuery = (inviteId?: number) => {
 };
 
 export const generatePayWayQuery = (payWayCodes?: number[]) => {
-  if (!payWayCodes || isEmpty(compact(payWayCodes))) {
+  if (!payWayCodes || isEmpty(payWayCodes)) {
     return "";
   }
-  return `json_extract(payWays, '$.code') in (${compact(payWayCodes).join(
-    ","
-  )})`;
+  return `json_extract(payWays, '$.code') in (${payWayCodes.join(",")})`;
 };
 
 export const generatePlatformQuery = (platformCodes?: number[]) => {
-  if (!platformCodes || isEmpty(compact(platformCodes))) {
+  if (!platformCodes || isEmpty(platformCodes)) {
     return "";
   }
-  return `json_extract(platform, '$.code') in (${compact(platformCodes).join(
-    ","
-  )})`;
+  return `json_extract(platform, '$.code') in (${platformCodes.join(",")})`;
 };
 
 export const generateAmountQuery = (amount?: TAmount) => {
@@ -135,7 +131,7 @@ export const generatePageQuery = (page?: number, limit?: number) => {
   if (!page) {
     return "";
   }
-  return ` limit ${limit} offset ${page}`;
+  return ` limit ${limit} offset ${page - 1}`;
 };
 
 export const generateAndWhereQuery = (whereQuery?: string[]) => {

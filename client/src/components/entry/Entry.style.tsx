@@ -11,8 +11,9 @@ export const EntryWrapper = styled.div`
   .entry-header {
     flex: 0 0 60px;
     height: 60px;
+    background-color: ${COLOR.FONT_COLOR};
     .entry-position {
-      color: ${COLOR.FONT_COLOR};
+      color: ${COLOR.ITEM_BACKGROUND};
       display: flex;
       align-items: center;
       & > div,
@@ -34,6 +35,7 @@ export const EntryWrapper = styled.div`
     .entry-greeting {
       width: 100%;
       height: 40px;
+      padding: 0 20px;
     }
     .entry-total {
       width: 100%;

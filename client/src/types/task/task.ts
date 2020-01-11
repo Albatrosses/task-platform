@@ -1,8 +1,7 @@
 import { TPlatform } from "../common/platform";
 
 export enum TASK_STATUS_CODE {
-  ALL = 0,
-  UNASSIGNED,
+  UNASSIGNED = 0,
   ASSIGNED,
   REVIEWING,
   FAIL,
@@ -10,7 +9,6 @@ export enum TASK_STATUS_CODE {
 }
 
 export enum TASK_STATUS_NAME {
-  ALL = "全部",
   UNASSIGNED = "未接受",
   ASSIGNED = "已接受",
   REVIEWING = "审核中",

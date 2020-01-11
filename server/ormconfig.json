@@ -5,9 +5,8 @@
    "username": "root",
    "password": "Dollar00_pjh",
    "database": "task_platform",
-   "synchronize": true,
+   "synchronize": false,
    "logging": false,
-   "keepConnectionAlive": true,
    "entities": [
       "entity/**/*.js"
    ],

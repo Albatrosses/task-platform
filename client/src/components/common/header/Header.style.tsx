@@ -10,10 +10,5 @@ export const HeaderWrapper = styled.div`
   .header {
     height: 100%;
     background-color: ${COLOR.MAIN_BACKGROUND};
-    .header-right {
-      width: 60px;
-      display: flex;
-      justify-content: space-between;
-    }
   }
 `;
