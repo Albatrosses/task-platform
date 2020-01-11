@@ -1,6 +1,7 @@
 import { Entry } from "src/components/entry/Entry";
 import PageNotFound from "src/components/page-not-found/PageNotFound";
-import { TaskListing } from "src/components/task-listing/TaskListing";
+import TaskListing from "src/components/task-listing/TaskListing";
+import Task from "src/components/task/Task";
 import { ROUTE_NAME, ROUTE_PATH } from "src/enum/route";
 
 export const consumerRoutes = [
@@ -35,7 +36,7 @@ export const consumerRoutes = [
   {
     name: ROUTE_NAME.TASK,
     path: ROUTE_PATH.TASK,
-    component: PageNotFound,
+    component: Task,
     exact: true,
     showFooter: false
   },

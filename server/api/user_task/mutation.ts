@@ -135,10 +135,7 @@ export const quitUserTask = async (
     if (!userTask) {
       return generateResolver(false, MESSAGE_WORD.TASK_NOT_FOUND);
     } else if (userTask.status === TASK_STATUS_CODE.REVIEWING) {
-      await forEach(userTask.credentials, async image => {
-        await deleteImage(image);
-        await wait(1000);
-      });
+      return generateResolver(false, MESSAGE_WORD.TASK_REVIEWING);
     }
 
     await userTasksRepository.remove(userTask);
@@ -156,7 +153,7 @@ export const reviewUserTask = async (_, { reviewUserTaskInput }, context) => {
     }
 
     const userTasksRepository = connection.getRepository(UserTasks);
-    const userTask = await userTasksRepository.findOne({ id });
+    const userTask = await userTasksRepository.findOne(id);
     if (!userTask) {
       return generateResolver(false, MESSAGE_WORD.TASK_NOT_FOUND);
     }

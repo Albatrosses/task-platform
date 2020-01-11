@@ -18,7 +18,7 @@ export const ListingWrapper = styled.div`
       padding: 10px 6px;
       box-sizing: border-box;
       background-color: ${COLOR.ITEM_BACKGROUND};
-      border-radius: 30px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       box-shadow: 1px 1px ${COLOR.ITEM_SHADOW};

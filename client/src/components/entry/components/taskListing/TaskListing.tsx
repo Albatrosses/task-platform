@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import { get, map } from "lodash";
 import * as React from "react";
+import { useEffect } from "react";
 import { withRouter } from "react-router";
 import { Loading } from "src/components/common/loading/Loading";
 import { platformsConfig } from "src/config/common";
@@ -12,8 +13,8 @@ import { PLATFORM_CODE } from "src/types/common/platform";
 import { TASK_LISTING } from "./gql";
 import { TaskListingWrapper } from "./TaskListing.style";
 
-export const TaskListing: React.FC<any> = ({ history }) => {
-  const { data, loading } = useQuery(TASK_LISTING, {
+export const TaskListing: React.FC<any> = ({ history, location }) => {
+  const { data, loading, refetch } = useQuery(TASK_LISTING, {
     variables: {
       queryTaskListingInput: {
         date: {
@@ -28,6 +29,11 @@ export const TaskListing: React.FC<any> = ({ history }) => {
       }
     }
   });
+
+  useEffect(() => {
+    refetch();
+  }, [location]);
+
   const taskListing = get(data, "taskListing.data", []).slice(0, 5);
 
   const renderHeader = () => {

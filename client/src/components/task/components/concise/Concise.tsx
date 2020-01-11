@@ -3,22 +3,21 @@ import { get } from "lodash";
 import * as React from "react";
 import { platformsConfig, statusConfig } from "src/config/common";
 import { parseCurrency } from "src/helper/common";
-import { PLATFORM_CODE } from "../../../../../../../../server/types/common/platform";
-import { TASK_STATUS_CODE } from "../../../../../../../../server/types/task/task";
+import { PLATFORM_CODE } from "src/types/common/platform";
+import { TASK_STATUS_CODE } from "src/types/task/task";
 import { ConciseWrapper } from "./Concise.style";
 
 type TConciseProps = {
-  taskDetail: any;
+  task: any;
 };
 
-export const Concise: React.FC<TConciseProps> = ({ taskDetail }) => {
-  const { name, status, platforms, description, amount, steps } = taskDetail;
-  let image;
-  if (platforms.length === 1) {
-    image = get(platformsConfig, `${platforms[0].code}.image`, "");
-  } else {
-    image = get(platformsConfig, `${PLATFORM_CODE.DEFAULT}.image`, "");
-  }
+export const Concise: React.FC<TConciseProps> = ({ task }) => {
+  const { name, status, platform, description, amount, steps } = task;
+  const image = get(
+    platformsConfig,
+    `${get(platform, "code", PLATFORM_CODE.DEFAULT)}.image`,
+    ""
+  );
   const statusText = get(statusConfig, `${status}.name`, "");
 
   const renderStatus = () => {

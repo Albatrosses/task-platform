@@ -1,4 +1,4 @@
-import { map } from "lodash";
+import { map, get } from "lodash";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import { generateResolver } from "../../helper/log";
@@ -21,12 +21,11 @@ export const task = async (_, { queryTaskInput }, context): Promise<any> => {
 
   return await queryDB(async connection => {
     const tasksRepository = connection.getRepository(Tasks);
-    const result = await tasksRepository.findOne(id);
+    const result = await tasksRepository.findOne(id, {
+      relations: ["userTaskss"]
+    });
     const currentUser = await generateAuth(context, connection);
-    if (!currentUser) {
-      return generateResolver(false, MESSAGE_WORD.UNAUTH);
-    }
-    if (!verifyAuth(currentUser, "customer")) {
+    if (!currentUser || !verifyAuth(currentUser, "customer")) {
       const data = {
         name: result.name,
         simple: result.simple,
@@ -37,7 +36,11 @@ export const task = async (_, { queryTaskInput }, context): Promise<any> => {
         total: result.total,
         amount: result.amount,
         startDate: result.startDate,
-        endDate: result.endDate
+        endDate: result.endDate,
+        status: get(result, "userTaskss[0].status", null),
+        assignDate: get(result, "userTaskss[0].assignDate", null),
+        uploadDate: get(result, "userTaskss[0].uploadDate", null),
+        reviewDate: get(result, "userTaskss[0].reviewDate", null)
       };
       return generateResolver(true, MESSAGE_WORD.QUERY_SUCCESS, data);
     } else {
@@ -66,15 +69,12 @@ export const taskListing = async (
     const platformQuery = generatePlatformQuery(platformCodes);
     const amountQuery = generateAmountQuery(amount);
     const dateQuery = generateDateQuery(date);
-    const query = `select * from tasks${generateAndWhereQuery([
-      statusQuery,
-      platformQuery,
-      amountQuery,
-      dateQuery
-    ])}${generateOrderByQuery(order)}${generatePageQuery(page, PAGE_TOTAL)}`;
-    const result = await tasksRepository.query(query);
     const currentUser = await generateAuth(context, connection);
     if (!currentUser || !verifyAuth(currentUser, "customer")) {
+      const query = `select tasks.id id, tasks.name name, tasks.simple simple, tasks.description description, tasks.steps steps, tasks.criteria criteria, tasks.platform platform, tasks.total total, tasks.amount amount, tasks.startDate startDate, tasks.endDate endDate, user_tasks.credentials credentials, user_tasks.status status, user_tasks.assignDate assignDate, user_tasks.uploadDate uploadDate, user_tasks.reviewDate reviewDate from tasks left join user_tasks on tasks.id = user_tasks.taskId${generateAndWhereQuery(
+        [statusQuery, platformQuery, amountQuery, dateQuery]
+      )}${generateOrderByQuery(order)}${generatePageQuery(page, PAGE_TOTAL)}`;
+      const result = await tasksRepository.query(query);
       const data = map(result, item => {
         return {
           id: item.id,
@@ -92,6 +92,13 @@ export const taskListing = async (
       });
       return generateResolver(true, MESSAGE_WORD.QUERY_SUCCESS, data);
     } else {
+      const query = `select * from tasks${generateAndWhereQuery([
+        statusQuery,
+        platformQuery,
+        amountQuery,
+        dateQuery
+      ])}${generateOrderByQuery(order)}${generatePageQuery(page, PAGE_TOTAL)}`;
+      const result = await tasksRepository.query(query);
       return generateResolver(true, MESSAGE_WORD.QUERY_SUCCESS, result);
     }
   });
