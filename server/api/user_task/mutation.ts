@@ -1,10 +1,10 @@
 import { forEach, includes, map } from "lodash";
-import { MESSAGE_WORD } from "../../../types/common/message";
-import { TASK_STATUS_CODE } from "../../../types/task/task";
+import { MESSAGE_WORD } from "../../types/common/message";
+import { TASK_STATUS_CODE } from "../../types/task/task";
 import {
   TRANSACTION_STATUS_CODE,
   TRANSACTION_TYPE_CODE
-} from "../../../types/transaction/transaction";
+} from "../../types/transaction/transaction";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import { Transactions } from "../../entity/transactions";

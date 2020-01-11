@@ -1,4 +1,4 @@
-import { MESSAGE_WORD } from "../../../types/common/message";
+import { MESSAGE_WORD } from "../../types/common/message";
 import { queryDB } from "../../entity";
 import { UserTasks } from "../../entity/user_tasks";
 import { generateResolver } from "../../helper/log";

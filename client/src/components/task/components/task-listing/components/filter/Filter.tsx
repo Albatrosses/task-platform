@@ -1,8 +1,8 @@
 import classnames from "classnames";
 import { map } from "lodash";
 import * as React from "react";
-import { statusConfig } from "src/components/task/config";
-import { TASK_STATUS_CODE } from "src/components/task/enum";
+import { statusConfig } from "src/config/common";
+import { TASK_STATUS_CODE } from "../../../../../../../../server/types/task/task";
 import { FilterWrapper } from "./Filter.style";
 
 type TFilterProps = {

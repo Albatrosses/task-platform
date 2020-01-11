@@ -8,6 +8,7 @@ export const HeaderWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   .header {
+    height: 100%;
     background-color: ${COLOR.MAIN_BACKGROUND};
     .header-right {
       width: 60px;

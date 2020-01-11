@@ -1,5 +1,5 @@
-import { MESSAGE_WORD } from "../../../types/common/message";
-import { TASK_STATUS_CODE } from "../../../types/task/task";
+import { MESSAGE_WORD } from "../../types/common/message";
+import { TASK_STATUS_CODE } from "../../types/task/task";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import { getNow, getNowString } from "../../helper";

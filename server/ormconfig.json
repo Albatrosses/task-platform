@@ -7,6 +7,7 @@
    "database": "task_platform",
    "synchronize": true,
    "logging": false,
+   "keepConnectionAlive": true,
    "entities": [
       "entity/**/*.js"
    ],

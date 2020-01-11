@@ -1,10 +1,6 @@
-import {
-  PLATFORM_CODE,
-  PLATFORM_NAME,
-  SORT_TYPE,
-  TASK_STATUS_CODE,
-  TASK_STATUS_NAME
-} from "./enum";
+import { ORDER_TYPE_CODE } from "src/types/common/order";
+import { PLATFORM_CODE, PLATFORM_NAME } from "src/types/common/platform";
+import { TASK_STATUS_CODE, TASK_STATUS_NAME } from "src/types/task/task";
 
 export const platformsConfig = {
   [PLATFORM_CODE.DEFAULT]: {
@@ -62,6 +58,9 @@ export const statusConfig = {
   [TASK_STATUS_CODE.REVIEWING]: {
     name: TASK_STATUS_NAME.REVIEWING
   },
+  [TASK_STATUS_CODE.FAIL]: {
+    name: TASK_STATUS_NAME.FAIL
+  },
   [TASK_STATUS_CODE.COMPLETED]: {
     name: TASK_STATUS_NAME.COMPLETED
   }
@@ -95,16 +94,52 @@ export const amountRangeConfig = [
 ];
 
 export const sortTypeConfig = {
-  [SORT_TYPE.DEFAULT]: {
+  [ORDER_TYPE_CODE.DEFAULT]: {
     label: "默认排序",
     icon: "ordered-list"
   },
-  [SORT_TYPE.AMOUNT]: {
+  [ORDER_TYPE_CODE.AMOUNT]: {
     label: "按报酬排序",
     icon: "money-collect"
   },
-  [SORT_TYPE.DATE]: {
-    label: "按日期排序",
+  [ORDER_TYPE_CODE.START_DATE]: {
+    label: "按起始日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.END_DATE]: {
+    label: "按截止日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.SUBMIT_DATE]: {
+    label: "按提交日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.RESULT_DATE]: {
+    label: "按审核日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.SIGNIN_DATE]: {
+    label: "按注册日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.LOGIN_DATE]: {
+    label: "按登录日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.LOGOUT_DATE]: {
+    label: "按登出日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.ASSIGN_DATE]: {
+    label: "按接受日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.UPLOAD_DATE]: {
+    label: "按上传日期排序",
+    icon: "calendar"
+  },
+  [ORDER_TYPE_CODE.REVIEW_DATE]: {
+    label: "按审核日期排序",
     icon: "calendar"
   }
 };

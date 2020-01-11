@@ -1,11 +1,11 @@
 import { compact, isEmpty } from "lodash";
 import { generateHashCode } from ".";
-import { TAmount } from "../../types/common/amount";
-import { TDate } from "../../types/common/date";
-import { TOrder } from "../../types/common/order";
-import { PLATFORM_CODE } from "../../types/common/platform";
-import { TASK_STATUS_CODE } from "../../types/task/task";
-import { USER_ROLE_CODE } from "../../types/user/user";
+import { TAmount } from "../types/common/amount";
+import { TDate } from "../types/common/date";
+import { TOrder } from "../types/common/order";
+import { PLATFORM_CODE } from "../types/common/platform";
+import { TASK_STATUS_CODE } from "../types/task/task";
+import { USER_ROLE_CODE } from "../types/user/user";
 import {
   dateTypeConfig,
   orderStatusConfig,

@@ -1,7 +1,7 @@
 import { includes } from "lodash";
 import md5 from "md5";
-import { MESSAGE_WORD } from "../../../types/common/message";
-import { USER_ROLE_CODE, USER_STATUS_CODE } from "../../../types/user/user";
+import { MESSAGE_WORD } from "../../types/common/message";
+import { USER_ROLE_CODE, USER_STATUS_CODE } from "../../types/user/user";
 import { queryDB } from "../../entity";
 import { Messages } from "../../entity/messages";
 import { Sessions } from "../../entity/sessions";

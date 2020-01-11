@@ -1,5 +1,5 @@
 import { get, includes, isEmpty } from "lodash";
-import { USER_ROLE_CODE, USER_ROLE_LEVEL_CODE } from "../../types/user/user";
+import { USER_ROLE_CODE, USER_ROLE_LEVEL_CODE } from "../types/user/user";
 import { roleConfig } from "../api/config/common";
 import { Sessions } from "../entity/sessions";
 import { Users } from "../entity/users";

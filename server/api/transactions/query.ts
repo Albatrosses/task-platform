@@ -1,5 +1,5 @@
 import { map } from "lodash";
-import { MESSAGE_WORD } from "../../../types/common/message";
+import { MESSAGE_WORD } from "../../types/common/message";
 import { queryDB } from "../../entity";
 import { Transactions } from "../../entity/transactions";
 import { generateResolver } from "../../helper/log";

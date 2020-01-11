@@ -1,14 +1,14 @@
 import { Badge } from "antd-mobile";
 import { get } from "lodash";
 import * as React from "react";
-import { platformsConfig, statusConfig } from "src/components/task/config";
-import { PLATFORM_CODE, TASK_STATUS_CODE } from "src/components/task/enum";
-import { TTask } from "src/components/task/type";
+import { platformsConfig, statusConfig } from "src/config/common";
 import { parseCurrency } from "src/helper/common";
+import { PLATFORM_CODE } from "../../../../../../../../server/types/common/platform";
+import { TASK_STATUS_CODE } from "../../../../../../../../server/types/task/task";
 import { ConciseWrapper } from "./Concise.style";
 
 type TConciseProps = {
-  taskDetail: TTask;
+  taskDetail: any;
 };
 
 export const Concise: React.FC<TConciseProps> = ({ taskDetail }) => {

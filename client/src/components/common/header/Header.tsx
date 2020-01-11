@@ -1,11 +1,10 @@
 import { Avatar } from "antd";
 import { NavBar } from "antd-mobile";
 import * as React from "react";
-import { withRouter } from "react-router-dom";
-import { Icon } from "../icon/Icon";
 import { HeaderWrapper } from "./Header.style";
 
 type THeaderProps = {
+  className?: string;
   icon?: any;
   leftContent?: any;
   rightContent?: any;
@@ -13,22 +12,18 @@ type THeaderProps = {
 } & any;
 
 export const Header: React.FC<THeaderProps> = ({
-  history,
+  className,
   icon,
   leftContent,
   rightContent,
   onLeftClick
 }) => {
   return (
-    <HeaderWrapper>
+    <HeaderWrapper className={className}>
       <NavBar
         className="header"
         mode="light"
-        icon={
-          icon || (
-            <Icon key="left" type="left" onClick={() => history.goBack()} />
-          )
-        }
+        icon={icon}
         leftContent={leftContent}
         onLeftClick={onLeftClick}
         rightContent={rightContent || <Avatar size="large" icon="user" />}
@@ -38,5 +33,3 @@ export const Header: React.FC<THeaderProps> = ({
     </HeaderWrapper>
   );
 };
-
-export default withRouter(Header);

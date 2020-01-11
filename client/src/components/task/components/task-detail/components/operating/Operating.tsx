@@ -2,12 +2,11 @@ import { Icon, message, Upload } from "antd";
 import { Button, Toast } from "antd-mobile";
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
-import { TASK_STATUS_CODE } from "src/components/task/enum";
-import { TTask } from "src/components/task/type";
+import { TASK_STATUS_CODE } from "../../../../../../../../server/types/task/task";
 import { OperatingWrapper } from "./Operating.style";
 
 type TConciseProps = {
-  taskDetail: TTask;
+  taskDetail: any;
   changeTaskDetail: any;
 };
 

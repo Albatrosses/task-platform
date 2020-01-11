@@ -4,8 +4,8 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { withRouter } from "react-router";
 import { Loading } from "src/components/common/loading/Loading";
-import { platformsConfig } from "../../config";
-import { SORT_ORDER, SORT_TYPE, TASK_STATUS_CODE } from "../../enum";
+import { platformsConfig } from "src/config/common";
+import { TASK_STATUS_CODE } from "../../../../../../server/types/task/task";
 import { Filter } from "./components/filter/Filter";
 import Header from "./components/header/Header";
 import Hero from "./components/hero/Hero";
@@ -21,8 +21,8 @@ export const TaskListing: React.FC<any> = ({ location }) => {
     amount: [0, 0],
     date: ["", ""]
   });
-  const [sortType, setSortType] = useState(SORT_TYPE.DEFAULT);
-  const [sortOrder, setSortOrder] = useState(SORT_ORDER.DESC);
+  const [sortType, setSortType] = useState(0);
+  const [sortOrder, setSortOrder] = useState(0);
 
   const { status, page, platform, amount, date } = filters;
   const { data, loading, refetch } = useQuery(TASK_LISTING, {

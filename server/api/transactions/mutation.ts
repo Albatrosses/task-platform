@@ -1,9 +1,9 @@
 import { includes, isNil } from "lodash";
-import { MESSAGE_WORD } from "../../../types/common/message";
+import { MESSAGE_WORD } from "../../types/common/message";
 import {
   TRANSACTION_STATUS_CODE,
   TRANSACTION_TYPE_CODE
-} from "../../../types/transaction/transaction";
+} from "../../types/transaction/transaction";
 import { queryDB } from "../../entity";
 import { Transactions } from "../../entity/transactions";
 import { getNow } from "../../helper";

@@ -1,4 +1,4 @@
-import { MESSAGE_WORD } from "../../../types/common/message";
+import { MESSAGE_WORD } from "../../types/common/message";
 import { queryDB } from "../../entity";
 import { HeroImage } from "../../entity/hero_image";
 import { Tasks } from "../../entity/tasks";

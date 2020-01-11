@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { MESSAGE_WORD } from "../../types/common/message";
+import { MESSAGE_WORD } from "../types/common/message";
 import { generateErrorLog, generateResolver } from "../helper/log";
 
 export const queryDB = async queryCallback => {

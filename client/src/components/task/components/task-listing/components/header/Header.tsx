@@ -10,8 +10,8 @@ import {
   amountRangeConfig,
   platformsConfig,
   sortTypeConfig
-} from "src/components/task/config";
-import { PLATFORM_CODE, SORT_ORDER, SORT_TYPE } from "src/components/task/enum";
+} from "src/config/common";
+import { PLATFORM_CODE } from "../../../../../../../../server/types/common/platform";
 import { HeaderWrapper } from "./Header.style";
 
 const { CheckableTag } = Tag;
@@ -20,8 +20,8 @@ type THeaderProps = {
   platform: PLATFORM_CODE[];
   amount: number | null[];
   date: string | null[];
-  sortType: SORT_TYPE;
-  sortOrder: SORT_ORDER;
+  sortType: any;
+  sortOrder: any;
   setPlatform: (platform: any) => void;
   setAmount: (amount: any) => void;
   setDate: (date: any) => void;

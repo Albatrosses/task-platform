@@ -9,6 +9,15 @@ export enum TASK_STATUS_CODE {
   COMPLETED
 }
 
+export enum TASK_STATUS_NAME {
+  ALL = "全部",
+  UNASSIGNED = "未接受",
+  ASSIGNED = "已接受",
+  REVIEWING = "审核中",
+  FAIL = "未通过",
+  COMPLETED = "已完成"
+}
+
 export type TTask = {
   id: number;
   name: string;

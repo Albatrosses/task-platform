@@ -1,11 +1,11 @@
-import { DATE_TYPE_CODE, DATE_TYPE_NAME } from "../../../types/common/date";
+import { DATE_TYPE_CODE, DATE_TYPE_NAME } from "../../types/common/date";
 import {
   ORDER_STATUS_CODE,
   ORDER_STATUS_NAME,
   ORDER_TYPE_CODE,
   ORDER_TYPE_NAME
-} from "../../../types/common/order";
-import { USER_ROLE_CODE, USER_ROLE_LEVEL_CODE } from "../../../types/user/user";
+} from "../../types/common/order";
+import { USER_ROLE_CODE, USER_ROLE_LEVEL_CODE } from "../../types/user/user";
 
 export const orderTypeConfig = {
   [ORDER_TYPE_CODE.DEFAULT]: ORDER_TYPE_NAME.DEFAULT,

@@ -1,5 +1,4 @@
 import { map } from "lodash";
-import { MESSAGE_WORD } from "../../../types/common/message";
 import { queryDB } from "../../entity";
 import { Tasks } from "../../entity/tasks";
 import { generateResolver } from "../../helper/log";
@@ -13,6 +12,7 @@ import {
   generateStatusQuery
 } from "../../helper/sql";
 import { generateAuth, verifyAuth } from "../../helper/verify";
+import { MESSAGE_WORD } from "../../types/common/message";
 
 const PAGE_TOTAL = 20;
 
@@ -61,10 +61,6 @@ export const taskListing = async (
   } = queryTaskListingInput as any;
 
   return await queryDB(async connection => {
-    const currentUser = await generateAuth(context, connection);
-    if (!currentUser) {
-      return generateResolver(false, MESSAGE_WORD.UNAUTH);
-    }
     const tasksRepository = connection.getRepository(Tasks);
     const statusQuery = generateStatusQuery(status);
     const platformQuery = generatePlatformQuery(platformCodes);
@@ -77,7 +73,8 @@ export const taskListing = async (
       dateQuery
     ])}${generateOrderByQuery(order)}${generatePageQuery(page, PAGE_TOTAL)}`;
     const result = await tasksRepository.query(query);
-    if (!verifyAuth(currentUser, "customer")) {
+    const currentUser = await generateAuth(context, connection);
+    if (!currentUser || !verifyAuth(currentUser, "customer")) {
       const data = map(result, item => {
         return {
           id: item.id,
