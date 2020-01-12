@@ -27,6 +27,7 @@ export const task = async (_, { queryTaskInput }, context): Promise<any> => {
     const currentUser = await generateAuth(context, connection);
     if (!currentUser || !verifyAuth(currentUser, "customer")) {
       const data = {
+        id: result.id,
         name: result.name,
         simple: result.simple,
         description: result.description,

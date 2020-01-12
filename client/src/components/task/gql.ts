@@ -3,25 +3,30 @@ import { gql } from "apollo-boost";
 export const TASK_DETAIL = gql`
   query task($queryTaskInput: QueryTaskInput!) {
     task(queryTaskInput: $queryTaskInput) {
-      id
-      name
-      simple
-      platform {
-        code
-        link
+      code
+      message
+      success
+      data {
+        id
+        name
+        simple
+        platform {
+          code
+          link
+        }
+        total
+        amount
+        status
+        criteria
+        credentials
+        description
+        steps
+        startDate
+        endDate
+        assignDate
+        uploadDate
+        reviewDate
       }
-      total
-      amount
-      status
-      criteria
-      credentials
-      description
-      steps
-      startDate
-      endDate
-      assignDate
-      uploadDate
-      reviewDate
     }
   }
 `;

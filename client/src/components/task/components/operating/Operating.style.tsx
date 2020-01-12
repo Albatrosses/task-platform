@@ -6,15 +6,6 @@ export const OperatingWrapper = styled.div`
   padding: 10px 20px;
   min-height: 50px;
   box-sizing: border-box;
-  position: relative;
-  .fixed-button-wrapper {
-    width: 100%;
-    position: fixed;
-    bottom: 0px;
-    left: 0;
-    padding: 0 10px;
-    box-sizing: border-box;
-  }
   .credentials-wrapper {
     width: 100%;
     height: 100vw;
@@ -35,8 +26,7 @@ export const OperatingWrapper = styled.div`
       }
     }
   }
-  .fixed-button-wrapper,
-  .static-button-wrapper {
+  .credentials-button-wrapper {
     display: flex;
     justify-content: space-around;
     background-color: ${COLOR.MAIN_BACKGROUND};

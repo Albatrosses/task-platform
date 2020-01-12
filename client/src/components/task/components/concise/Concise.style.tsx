@@ -1,4 +1,5 @@
 import { COLOR } from "src/enum/style";
+import { TASK_STATUS_CODE } from "src/types/task/task";
 import styled from "styled-components";
 
 export const ConciseWrapper = styled.div`
@@ -14,38 +15,56 @@ export const ConciseWrapper = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 10px 10px;
+    padding: 10px;
     box-sizing: border-box;
-    & > div {
-      margin: 10px 0;
-    }
-    .concise-image-wrapper {
-      height: 80px;
-      width: 80px;
-      .concise-image {
+    .concise-simple-info {
+      flex: 0 0 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      width: 100%;
+      .concise-image-wrapper {
+        height: 60px;
+        width: 60px;
+        .concise-image {
+          height: 100%;
+          width: 100%;
+          border-radius: 50px;
+        }
+      }
+      .concise-name-status {
+        flex: auto;
         height: 100%;
-        width: 100%;
-        border-radius: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0 10px;
+        .concise-name-wrapper {
+          font-size: 16px;
+        }
+        .concise-amount-wrapper {
+          font-size: 16px;
+        }
+      }
+      .concise-status-wrapper {
+        flex: 0 0 50px;
+        .task-status-${TASK_STATUS_CODE.ASSIGNED} > .am-badge-text {
+          background-color: ${COLOR.ASSIGNED};
+        }
+        .task-status-${TASK_STATUS_CODE.REVIEWING} > .am-badge-text {
+          background-color: ${COLOR.REVIEWING};
+        }
+        .task-status-${TASK_STATUS_CODE.FAIL} > .am-badge-text {
+          background-color: ${COLOR.FAIL};
+        }
+        .task-status-${TASK_STATUS_CODE.COMPLETED} > .am-badge-text {
+          background-color: ${COLOR.COMPLETED};
+        }
       }
     }
-    .concise-status-wrapper {
-      .task-status-2 > .am-badge-text {
-        background-color: ${COLOR.ASSIGNED};
-      }
-      .task-status-3 > .am-badge-text {
-        background-color: ${COLOR.REVIEWING};
-      }
-      .task-status-4 > .am-badge-text {
-        background-color: ${COLOR.COMPLETED};
-      }
-    }
-    .concise-name-wrapper {
-      font-size: 24px;
-      font-weight: 700;
-    }
-    .concise-amount-wrapper {
-      font-size: 30px;
-      font-weight: 700;
+    .concise-description-wrapper {
+      margin-top: 20px;
     }
   }
 `;

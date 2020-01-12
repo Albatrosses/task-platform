@@ -41,3 +41,8 @@ export enum USER_STATUS_NAME {
   LOGOUT = "登出",
   ACTIVE = "在线"
 }
+
+export enum LOGIN_TYPE_CODE {
+  VERIFY = 1,
+  PASSWORD
+}

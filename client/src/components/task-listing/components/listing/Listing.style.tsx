@@ -2,9 +2,11 @@ import { COLOR } from "src/enum/style";
 import styled from "styled-components";
 
 export const ListingWrapper = styled.div`
+  flex: auto;
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
+  overflow-y: auto;
   .task-listing {
     height: 100%;
     width: 100%;

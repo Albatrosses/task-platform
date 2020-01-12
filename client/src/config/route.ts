@@ -1,5 +1,8 @@
+import PageNotFound from "src/components/common/page-not-found/PageNotFound";
 import { Entry } from "src/components/entry/Entry";
-import PageNotFound from "src/components/page-not-found/PageNotFound";
+import Login from "src/components/login/Login";
+import Profile from "src/components/profile/Profile";
+import Signin from "src/components/signin/Signin";
 import TaskListing from "src/components/task-listing/TaskListing";
 import Task from "src/components/task/Task";
 import { ROUTE_NAME, ROUTE_PATH } from "src/enum/route";
@@ -15,21 +18,21 @@ export const consumerRoutes = [
   {
     name: ROUTE_NAME.SIGNIN,
     path: ROUTE_PATH.SIGNIN,
-    component: PageNotFound,
+    component: Signin,
     exact: true,
     showFooter: false
   },
   {
     name: ROUTE_NAME.LOGIN,
     path: ROUTE_PATH.LOGIN,
-    component: PageNotFound,
+    component: Login,
     exact: true,
     showFooter: false
   },
   {
     name: ROUTE_NAME.HEPLER,
     path: ROUTE_PATH.HEPLER,
-    component: PageNotFound,
+    component: Signin,
     exact: true,
     showFooter: false
   },
@@ -50,7 +53,7 @@ export const consumerRoutes = [
   {
     name: ROUTE_NAME.PROFILE,
     path: ROUTE_PATH.PROFILE,
-    component: PageNotFound,
+    component: Profile,
     exact: true,
     showFooter: true
   },

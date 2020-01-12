@@ -2,6 +2,7 @@ import { COLOR } from "src/enum/style";
 import styled from "styled-components";
 
 export const FilterWrapper = styled.div`
+  flex: 0 0 30px;
   height: 30px;
   width: 100%;
   padding: 0 20px;

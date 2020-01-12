@@ -385,6 +385,11 @@ export const verifyMessage = async (
   }
 
   return await queryDB(async connection => {
+    const userRepository = connection.getRepository(Users);
+    const existUser = await userRepository.findOne({ phone });
+    if (existUser) {
+      return generateResolver(false, MESSAGE_WORD.PHONE_EXIST);
+    }
     const messagesRepository = connection.getRepository(Messages);
     const messageExist = await messagesRepository.findOne({ phone });
     const verifyCode = generateVerifyCode();

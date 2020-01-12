@@ -23,7 +23,7 @@ export const Operating: React.FC<TConciseProps> = ({
 
   const renderButtons = () => {
     switch (status) {
-      case TASK_STATUS_CODE.UNASSIGNED:
+      case TASK_STATUS_CODE.UNASSIGNED || TASK_STATUS_CODE.FAIL:
         return (
           <Button
             type="primary"
@@ -79,14 +79,27 @@ export const Operating: React.FC<TConciseProps> = ({
           </Button>
         );
       default:
-        return null;
+        return (
+          <Button
+            type="primary"
+            onClick={() =>
+              acceptUserTask({
+                variables: {
+                  acceptUserTaskInput: { taskId: id }
+                }
+              })
+            }
+          >
+            接受任务
+          </Button>
+        );
     }
   };
 
   const renderCredentials = () => {
     const [loading, setLoading] = useState(false);
 
-    if (status === TASK_STATUS_CODE.UNASSIGNED) {
+    if (!status || status === TASK_STATUS_CODE.UNASSIGNED) {
       return null;
     }
 
@@ -152,7 +165,7 @@ export const Operating: React.FC<TConciseProps> = ({
   return (
     <OperatingWrapper>
       {renderCredentials()}
-      {renderButtons()}
+      <div className="credentials-button-wrapper">{renderButtons()}</div>
     </OperatingWrapper>
   );
 };

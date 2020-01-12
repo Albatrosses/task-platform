@@ -3,6 +3,7 @@ import * as React from "react";
 import { HeaderWrapper } from "./Header.style";
 
 type THeaderProps = {
+  title?: string;
   className?: string;
   icon?: any;
   leftContent?: any;
@@ -11,6 +12,7 @@ type THeaderProps = {
 } & any;
 
 export const Header: React.FC<THeaderProps> = ({
+  title = "有赞吧",
   className,
   icon,
   leftContent,
@@ -27,7 +29,7 @@ export const Header: React.FC<THeaderProps> = ({
         onLeftClick={onLeftClick}
         rightContent={rightContent}
       >
-        有赞吧
+        {title}
       </NavBar>
     </HeaderWrapper>
   );

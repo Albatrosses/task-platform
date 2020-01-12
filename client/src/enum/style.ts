@@ -7,5 +7,6 @@ export enum COLOR {
   FONT_ACTIVE_COLOR = "#FFFFFF",
   ASSIGNED = "#14B3E2",
   REVIEWING = "#ECB414",
+  FAIL = "#8D959E",
   COMPLETED = "#27Af2B"
 }
